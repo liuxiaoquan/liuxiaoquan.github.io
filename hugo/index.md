@@ -178,6 +178,8 @@ ls -l public/
 
 ```shell
 hugo server -D --bind 192.168.63.130 --baseURL http://192.168.63.130/
+
+hugo server --disableFastRender  -e production -D --bind 192.168.75.128 --baseURL http://192.168.75.128/
 ```
 
 # hugo不错模板
@@ -197,6 +199,8 @@ https://themes.gohugo.io/github-style/
 ```shell
 hugo --theme=m10c --baseUrl="https://liuxiaoquan.github.io/" --buildDrafts #执行其中一条命令
 hugo --theme=m10c --baseUrl="https://freerun.xyz/" --buildDrafts #执行其中一条命令
+
+hugo --theme=LoveIt --baseUrl="https://freerun.xyz/" --buildDrafts
 ```
 
 ## 接下来把public文件推送到github上：
