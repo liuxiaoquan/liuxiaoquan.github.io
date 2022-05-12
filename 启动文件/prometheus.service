@@ -1,0 +1,15 @@
+[Unit]
+Description=prometheus Service
+After=network.target
+After=network-online.target
+Wants=network-online.target
+[Service]
+Type=simple
+WorkingDirectory=/data/monitor/prometheus
+ExecStart=/data/monitor/prometheus/prometheus --config.file=prometheus.yml --web.enable-lifecycle --web.external-url=/prometheus
+ExecStop=/usr/bin/curl -X POST http://localhost:9090/prometheus/-/quit
+Restart=on-failure
+RestartSec=5
+LimitNOFILE=65536
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Centos中挂载NTFS与exFAT的U盘 - 在阅读中遇见自己</title><meta name="Description" content="这是我的全新 博客 网站"><meta property="og:title" content="Centos中挂载NTFS与exFAT的U盘" />
+<meta property="og:description" content="1、认识挂载： （1）Linux的宗旨是一切皆文件，从以上我们也看到。我们存储的所有文件都在sda3下存放着，sda3也就是我们的根。那我们要" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://freerun.xyz/centos%E4%B8%AD%E6%8C%82%E8%BD%BDntfs%E4%B8%8Eexfat%E7%9A%84u%E7%9B%98/" /><meta property="og:image" content="https://freerun.xyz/favicon.jpg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-06-03T16:47:07&#43;08:00" />
+<meta property="article:modified_time" content="2021-06-03T16:47:07&#43;08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://freerun.xyz/favicon.jpg"/>
+
+<meta name="twitter:title" content="Centos中挂载NTFS与exFAT的U盘"/>
+<meta name="twitter:description" content="1、认识挂载： （1）Linux的宗旨是一切皆文件，从以上我们也看到。我们存储的所有文件都在sda3下存放着，sda3也就是我们的根。那我们要"/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/favicon.jpg"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://freerun.xyz/centos%E4%B8%AD%E6%8C%82%E8%BD%BDntfs%E4%B8%8Eexfat%E7%9A%84u%E7%9B%98/" /><link rel="prev" href="https://freerun.xyz/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" /><link rel="next" href="https://freerun.xyz/top%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Centos中挂载NTFS与exFAT的U盘",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/freerun.xyz\/centos%E4%B8%AD%E6%8C%82%E8%BD%BDntfs%E4%B8%8Eexfat%E7%9A%84u%E7%9B%98\/"
+        },"image": ["https:\/\/freerun.xyz\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "centos挂载U盘","wordcount":  1228 ,
+        "url": "https:\/\/freerun.xyz\/centos%E4%B8%AD%E6%8C%82%E8%BD%BDntfs%E4%B8%8Eexfat%E7%9A%84u%E7%9B%98\/","datePublished": "2021-06-03T16:47:07+08:00","dateModified": "2021-06-03T16:47:07+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "刘小全"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="normal"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="在阅读中遇见自己"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>早起的年轻人&amp;首页</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/abouts/"> 关于 </a><a class="menu-item" href="https://github.com/liuxiaoquan" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i> Github </a><a class="menu-item" href="https://hugoloveit.com/zh-cn/posts/" rel="noopener noreffer" target="_blank"><i class='fas fa-user-friends'></i> 友链 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="在阅读中遇见自己"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>早起的年轻人&amp;首页</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/abouts/" title="">关于</a><a class="menu-item" href="https://github.com/liuxiaoquan" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>Github</a><a class="menu-item" href="https://hugoloveit.com/zh-cn/posts/" title="" rel="noopener noreffer" target="_blank"><i class='fas fa-user-friends'></i>友链</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Centos中挂载NTFS与exFAT的U盘</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/liuxiaoquan/free-programming-books-zh_CN" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>刘小全</a>
+</span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%BF%90%E7%BB%B4/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>运维</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-06-03">2021-06-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1228 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1认识挂载">1、认识挂载：</a></li>
+    <li><a href="#2磁盘的挂载">2、磁盘的挂载：</a></li>
+    <li><a href="#挂载ntfs过程"><strong>挂载NTFS过程</strong></a>
+      <ul>
+        <li><a href="#报错原因">报错原因</a></li>
+        <li><a href="#介绍">介绍</a></li>
+        <li><a href="#open-source-ntfs-3g">Open Source: NTFS-3G</a></li>
+        <li><a href="#卸载u盘请使用命令">卸载U盘，请使用命令：</a></li>
+      </ul>
+    </li>
+    <li><a href="#挂载exfat过程"><strong>挂载exFAT过程</strong></a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="1认识挂载">1、认识挂载：</h1>
+<p>（1）Linux的宗旨是一切皆文件，从以上我们也看到。我们存储的所有文件都在sda3下存放着，sda3也就是我们的根。那我们要在sda5中写入文件时，首先要sda5要与sda3先建立一个联系，这个联系就是一个目录。建立联系的过程我们叫做<strong>挂载</strong>。 （2）当我们访问sda3底下的这个目录的时候，实际上我们访问的才是sda5这个设备文件。这个目录相当于一个访问sda5的入口，可以理解为一个接口，有了这个接口才可以访问这个磁盘。</p>
+<h1 id="2磁盘的挂载">2、磁盘的挂载：</h1>
+<p>（1）挂载点目录:我们将磁盘切到根目录， <strong>media</strong> 和 <strong>mnt</strong> 这两个目录被叫做挂载点目录。除此之外，我们也可以自己创建一个目录作为一个挂载点目录，</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/mount/v2-2f85d8317145c1adbefdb4be4f98c7e1_r.jpg"
+        data-srcset="/mount/v2-2f85d8317145c1adbefdb4be4f98c7e1_r.jpg, /mount/v2-2f85d8317145c1adbefdb4be4f98c7e1_r.jpg 1.5x, /mount/v2-2f85d8317145c1adbefdb4be4f98c7e1_r.jpg 2x"
+        data-sizes="auto"
+        alt="/mount/v2-2f85d8317145c1adbefdb4be4f98c7e1_r.jpg"
+        title="/mount/v2-2f85d8317145c1adbefdb4be4f98c7e1_r.jpg" /></p>
+<p>（2）<strong>临时挂载</strong>：将指定的一个目录作为挂载点目录时，如果挂载点的目录有文件，那么文件会被隐藏。因此当我们需要挂载目录时，最好新建一个空文件夹来作为挂在点目录。（<strong>重启后失效</strong>）</p>
+<h1 id="挂载ntfs过程"><strong>挂载NTFS过程</strong></h1>
+<p>1.因为是虚拟机，所以先到系统的服务目录下寻找【VMware USB Arbitration Service】服务，并确保此服务已经启动。</p>
+<p>2.进入Centos 7环境，在mnt目录下创建一个子目录：udisk（用来将U盘挂载到此目录），所需命令为：<strong>mkdir -p /mnt/udisk</strong>。注意，此目录名称可以随意命名，按个人爱好创建。</p>
+<p>3.插入U盘</p>
+<p>4.运行命令：fdisk -l查看U盘是否已经加载到Centos中，方法为：通过检查没有插入U盘与插入U盘情况下，系统的输出是否一致，如果一致，说明系统没有加载到U盘，否则说明系统加载到U盘。系统加载到U盘后的输出如下图所示：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/mount/1017421-20181009110827235-215258733.png"
+        data-srcset="/mount/1017421-20181009110827235-215258733.png, /mount/1017421-20181009110827235-215258733.png 1.5x, /mount/1017421-20181009110827235-215258733.png 2x"
+        data-sizes="auto"
+        alt="/mount/1017421-20181009110827235-215258733.png"
+        title="/mount/1017421-20181009110827235-215258733.png" /></p>
+<p>5.运行命令：其中sdb1就是上个步骤查询出的U盘名称。运行此命令时，一般会报错：<code>mount:unknown filesystem type ntfs-3g</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">mount -t ntfs-3g /dev/sdb1 /mnt/udisk
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="报错原因">报错原因</h2>
+<p>Linux 和 Mac OS X 本身不支持读写 NTFS 文件系统（windows系统），大多数人平时也不需要与 NTFS 做数据文件的交互，只是有时候 Windows 用户应急状态下需要使用大容量移动硬盘拷贝数据，必须实现 Linux 下挂载 NTFS，而 Tuxera 恰好为 Linux 和 Mac 用户提供了灰常简单的实现方法</p>
+<h2 id="介绍">介绍</h2>
+<ul>
+<li>我偷个大懒直接引用官方的原话</li>
+</ul>
+<p>NTFS-3G is a stable, full-featured, read-write NTFS driver for Linux, Android, Mac OS X, FreeBSD, NetBSD, OpenSolaris, QNX, Haiku, and other  operating systems. It provides safe handling of the Windows XP, Windows  Server 2003, Windows 2000, Windows Vista, Windows Server 2008, Windows  7, Windows 8 and Windows 10 NTFS file systems. A  <a href="http://www.tuxera.com/products/tuxera-ntfs-embedded/performance/" target="_blank" rel="noopener noreffer">high-performance</a>
+  alternative, called Tuxera NTFS is available for  <a href="http://www.tuxera.com/products/tuxera-ntfs-embedded/" target="_blank" rel="noopener noreffer">embedded devices</a>
+  and  <a href="http://www.tuxera.com/products/tuxera-ntfs-for-mac/" target="_blank" rel="noopener noreffer">Mac OS X</a>
+.</p>
+<p>The release notes and the software changes can be found on the  <a href="http://www.tuxera.com/community/release-history/" target="_blank" rel="noopener noreffer">Release History</a>
+  page. Subscribe  <a href="http://lists.sourceforge.net/mailman/listinfo/ntfs-3g-news" target="_blank" rel="noopener noreffer">here</a>
+  for new release notifications.</p>
+<h2 id="open-source-ntfs-3g">Open Source: NTFS-3G</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#Installation</span>
+tar zxvf /tmp/ntfs-3g_ntfsprogs-2016.2.22.tgz
+<span class="nb">cd</span> ntfs*
+<span class="c1">#yum -y install gcc gcc-c++ make</span>
+./configure
+make
+make install <span class="c1"># or &#39;sudo make install&#39; if you aren&#39;t root</span>
+
+<span class="c1">#Usage</span>
+fdisk -l
+mkdir -p /mnt/windows
+mount -t ntfs-3g /dev/sda1 /mnt/windows
+<span class="c1">#You can also make NTFS to be mounted during boot by adding the following line to the end of the /etc/fstab file:</span>
+vi /etc/fstab
+/dev/sda1 /mnt/windows ntfs-3g defaults <span class="m">0</span> <span class="m">0</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="卸载u盘请使用命令">卸载U盘，请使用命令：</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">umount /mnt/udisk
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="挂载exfat过程"><strong>挂载exFAT过程</strong></h1>
+<p>下载fuse-exfat模块：https://github.com/relan/exfat/archive/refs/heads/master.zip</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#编译前，请先检查系统，如果系统中没有scons和gcc，请通过yum安装 ，这个软件是fuse模块，编译需要fuse-devel包支持</span>
+yum install -y scons gcc autoconf automake pkg-config fuse-devel make
+
+unzip master.zip
+
+<span class="nb">cd</span> exfat-master
+
+autoreconf --install
+
+./configure
+
+make <span class="o">&amp;&amp;</span> make install 
+
+<span class="c1">##使用方法</span>
+mount.exfat /dev/spec /mnt/exfat
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-06-03</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/centos%E4%B8%AD%E6%8C%82%E8%BD%BDntfs%E4%B8%8Eexfat%E7%9A%84u%E7%9B%98/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://freerun.xyz/centos%E4%B8%AD%E6%8C%82%E8%BD%BDntfs%E4%B8%8Eexfat%E7%9A%84u%E7%9B%98/" data-title="Centos中挂载NTFS与exFAT的U盘" data-hashtags="centos挂载U盘"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://freerun.xyz/centos%E4%B8%AD%E6%8C%82%E8%BD%BDntfs%E4%B8%8Eexfat%E7%9A%84u%E7%9B%98/" data-title="Centos中挂载NTFS与exFAT的U盘"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://freerun.xyz/centos%E4%B8%AD%E6%8C%82%E8%BD%BDntfs%E4%B8%8Eexfat%E7%9A%84u%E7%9B%98/" data-title="Centos中挂载NTFS与exFAT的U盘"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@6.20.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://freerun.xyz/centos%E4%B8%AD%E6%8C%82%E8%BD%BDntfs%E4%B8%8Eexfat%E7%9A%84u%E7%9B%98/" data-title="Centos中挂载NTFS与exFAT的U盘"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/centos%E6%8C%82%E8%BD%BDu%E7%9B%98/">centos挂载U盘</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" class="prev" rel="prev" title="Chrome浏览器中F12功能的简单介绍"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Chrome浏览器中F12功能的简单介绍</a>
+            <a href="/top%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" class="next" rel="next" title="Top命令详解">Top命令详解<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.82.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuxiaoquan/free-programming-books-zh_CN" target="_blank">小全</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{"gitalk":{"admin":["liuxiaoquan"],"clientID":"35b0c446d76208f0a3ef","clientSecret":"dbacff73027bd1493cda8c679266c2809a876834","id":"2021-06-03T16:47:07+08:00","owner":"liuxiaoquan","repo":"iuxiaoquan.github.io","title":"Centos中挂载NTFS与exFAT的U盘"}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

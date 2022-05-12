@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>监控 - 标签 - 在阅读中遇见自己</title>
+        <link>https://freerun.xyz/tags/%E7%9B%91%E6%8E%A7/</link>
+        <description>监控 - 标签 - 在阅读中遇见自己</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (小全)</managingEditor>
+            <webMaster>823715972@qq.com (小全)</webMaster><lastBuildDate>Wed, 20 Oct 2021 11:40:40 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/tags/%E7%9B%91%E6%8E%A7/" rel="self" type="application/rss+xml" /><item>
+    <title>普罗米修斯Prometheus</title>
+    <link>https://freerun.xyz/prometheus-%E7%9B%91%E6%8E%A7%E9%83%A8%E7%BD%B2-last/</link>
+    <pubDate>Wed, 20 Oct 2021 11:40:40 &#43;0800</pubDate>
+    <author>刘小全</author>
+    <guid>https://freerun.xyz/prometheus-%E7%9B%91%E6%8E%A7%E9%83%A8%E7%BD%B2-last/</guid>
+    <description><![CDATA[1、prometheus 主服务的下载与部署 1.1创建安装目录和下载部署包并解压 下载x86安装包 1 2 3 4 5 6 mkdir -p /data/monitor/prometheus #下载prometheus包]]></description>
+</item>
+</channel>
+</rss>

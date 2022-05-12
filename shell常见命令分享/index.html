@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Shell常见命令分享 - 在阅读中遇见自己</title><meta name="Description" content="这是我的全新 博客 网站"><meta property="og:title" content="Shell常见命令分享" />
+<meta property="og:description" content="centos基础 1 ifconfig/ip addr # 查看ip 1 netstat -tunlp | grep 8080 #查询8080端口是否存在 1 2 ping 10.0.0.1 -s 65507 #包大小为65507 ping 10.0.0.1 -l 65500 #window 1 ifconfig eth0 192.168.60.128 #修改ip 1 free -m #查" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://freerun.xyz/shell%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4%E5%88%86%E4%BA%AB/" /><meta property="og:image" content="https://freerun.xyz/favicon.jpg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-04-26T15:40:13&#43;08:00" />
+<meta property="article:modified_time" content="2021-04-26T15:40:13&#43;08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://freerun.xyz/favicon.jpg"/>
+
+<meta name="twitter:title" content="Shell常见命令分享"/>
+<meta name="twitter:description" content="centos基础 1 ifconfig/ip addr # 查看ip 1 netstat -tunlp | grep 8080 #查询8080端口是否存在 1 2 ping 10.0.0.1 -s 65507 #包大小为65507 ping 10.0.0.1 -l 65500 #window 1 ifconfig eth0 192.168.60.128 #修改ip 1 free -m #查"/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/favicon.jpg"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://freerun.xyz/shell%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4%E5%88%86%E4%BA%AB/" /><link rel="prev" href="https://freerun.xyz/hugo/" /><link rel="next" href="https://freerun.xyz/%E6%89%8B%E5%8A%A8%E5%8D%87%E7%BA%A7ssh/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Shell常见命令分享",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/freerun.xyz\/shell%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4%E5%88%86%E4%BA%AB\/"
+        },"image": ["https:\/\/freerun.xyz\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "常见命令, shell","wordcount":  1309 ,
+        "url": "https:\/\/freerun.xyz\/shell%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4%E5%88%86%E4%BA%AB\/","datePublished": "2021-04-26T15:40:13+08:00","dateModified": "2021-04-26T15:40:13+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "刘小全"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="normal"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="在阅读中遇见自己"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>早起的年轻人&amp;首页</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/abouts/"> 关于 </a><a class="menu-item" href="https://github.com/liuxiaoquan" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i> Github </a><a class="menu-item" href="https://hugoloveit.com/zh-cn/posts/" rel="noopener noreffer" target="_blank"><i class='fas fa-user-friends'></i> 友链 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="在阅读中遇见自己"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>早起的年轻人&amp;首页</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/abouts/" title="">关于</a><a class="menu-item" href="https://github.com/liuxiaoquan" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>Github</a><a class="menu-item" href="https://hugoloveit.com/zh-cn/posts/" title="" rel="noopener noreffer" target="_blank"><i class='fas fa-user-friends'></i>友链</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Shell常见命令分享</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/liuxiaoquan/free-programming-books-zh_CN" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>刘小全</a>
+</span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%BF%90%E7%BB%B4/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>运维</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-04-26">2021-04-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1309 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#centos基础">centos基础</a>
+      <ul>
+        <li><a href="#linux之间互传文件">Linux之间互传文件：</a>
+          <ul>
+            <li><a href="#本机-远程服务器">本机-&gt;远程服务器</a></li>
+            <li><a href="#远程服务器-本机">远程服务器-&gt;本机</a></li>
+            <li><a href="#文件夹复制">文件夹复制</a></li>
+          </ul>
+        </li>
+        <li><a href="#dump抓包">dump抓包</a></li>
+        <li><a href="#定时任务">定时任务</a>
+          <ul>
+            <li><a href="#运行crontab-e-编写一条定时任务">运行crontab –e 编写一条定时任务</a></li>
+            <li><a href="#写入">写入</a></li>
+            <li><a href="#赋权">赋权</a></li>
+            <li><a href="#修改拥有者和群组">修改拥有者和群组</a></li>
+            <li><a href="#查看最近的crontab执行情况">查看最近的crontab执行情况</a></li>
+            <li><a href="#查询当前用户定时任务">查询当前用户定时任务</a></li>
+            <li><a href="#删除当前用户定时任务">删除当前用户定时任务</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#日志拉取与截取">日志拉取与截取</a>
+      <ul>
+        <li><a href="#拉取指定时间的日志">拉取指定时间的日志</a></li>
+      </ul>
+    </li>
+    <li><a href="#mysql全量and库备份与数据还原">mysql全量and库备份与数据还原</a>
+      <ul>
+        <li><a href="#全量备份">全量备份</a></li>
+        <li><a href="#库备份">库备份</a></li>
+        <li><a href="#使用source-命令恢复数据库">使用source 命令恢复数据库</a></li>
+      </ul>
+    </li>
+    <li><a href="#nohup启动">nohup启动</a></li>
+    <li><a href="#主机名">主机名**</a>
+      <ul>
+        <li><a href="#临时修改主机名">临时修改主机名</a></li>
+        <li><a href="#永久修改主机名">永久修改主机名</a></li>
+        <li><a href="#域名的md5值">域名的md5值</a></li>
+        <li><a href="#释放内存">释放内存</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="centos基础">centos基础</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">ifconfig/ip addr <span class="c1"># 查看ip</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">netstat -tunlp <span class="p">|</span> grep <span class="m">8080</span> <span class="c1">#查询8080端口是否存在</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">ping 10.0.0.1 -s <span class="m">65507</span> <span class="c1">#包大小为65507</span>
+ping 10.0.0.1 -l <span class="m">65500</span> <span class="c1">#window</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">ifconfig eth0 192.168.60.128 <span class="c1">#修改ip</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">free -m <span class="c1">#查看内存</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/img/1.png"
+        data-srcset="/img/1.png, /img/1.png 1.5x, /img/1.png 2x"
+        data-sizes="auto"
+        alt="/img/1.png"
+        title="img" /></p>
+<p><code>主要看第一行Mem 总共 15710 M , 使用了 823 M , 剩余空闲 7895 M 。这个shared 223M 也不知道用在哪里。</code></p>
+<h2 id="linux之间互传文件">Linux之间互传文件：</h2>
+<h3 id="本机-远程服务器">本机-&gt;远程服务器</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">scp /home/shaoxiaohu/test1.txt shaoxiaohu@172.16.18.1:/home/test2.txt
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="远程服务器-本机">远程服务器-&gt;本机</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">scp shaoxiaohu@172.16.18.2:/home/test2.txt /home/shaoxiaohu/test1.txt
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="文件夹复制">文件夹复制</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">scp -r shaoxiaohu@172.16.18.2:/home/ /home/
+</code></pre></td></tr></table>
+</div>
+</div><p><code>如果端口号有更改，需在scp 后输入：-P 端口号 （注意是大写，ssh的命令中 -p是小写）</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">tail -100f access.log <span class="c1">#查看100条日志</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">echo</span> <span class="m">0</span> &gt; access.log  <span class="c1">#清除日志</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="dump抓包">dump抓包</h2>
+<p><code>抓包检查，使用tcpdump抓包，tcpdump -vv -i 网卡名称 tcp port 监听端口 -w 文件名.pcap，在服务端和客户端上都抓一下，保存下来分析。（使用wireshark来分析）</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">tcpdump -i eth0 host 10.50.13.121 -vv  -w 001.pcap
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="定时任务">定时任务</h2>
+<p><code>查询crontab服务是否开启 systemctl status crond.service</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">vim /data/monitor.sh
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="cp">#!/bin/sh
+</span><span class="cp"></span>Monitor<span class="o">()</span>
+<span class="o">{</span>
+<span class="k">for</span> i in <span class="m">1</span>
+<span class="k">do</span>
+  curl http://127.0.0.1:8888/hello
+<span class="k">done</span>
+<span class="o">}</span>
+Monitor&gt;&gt;/tmp/tcpbridgeMonitor.log
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="运行crontab-e-编写一条定时任务">运行crontab –e 编写一条定时任务</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">crontab -e
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="写入">写入</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">* * * * * /data/monitor.sh   
+
+* * * * * sleep 20<span class="p">;</span> /data/monitor.sh
+
+* * * * * sleep 40<span class="p">;</span> /data/monitor.sh  <span class="c1">##每隔20秒执行一次监控脚本</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="赋权">赋权</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">chmod -R <span class="m">777</span> /data/monitor.sh
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="修改拥有者和群组">修改拥有者和群组</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">chown -R mysql:mysql /data/test <span class="c1">#-R处理指定目录以及其子目录下的所有文件</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="查看最近的crontab执行情况">查看最近的crontab执行情况</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">tail -f /var/spool/mail/root
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="查询当前用户定时任务">查询当前用户定时任务</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">crontab -l
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="删除当前用户定时任务">删除当前用户定时任务</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">crontab -r
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="日志拉取与截取">日志拉取与截取</h1>
+<h2 id="拉取指定时间的日志">拉取指定时间的日志</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sed -n ‘/2010-11-17 09:<span class="o">[</span>0-9<span class="o">][</span>0-9<span class="o">]</span>:<span class="o">[</span>0-9<span class="o">][</span>0-9<span class="o">]</span>/,/2010-11-17 16:<span class="o">[</span>0-9<span class="o">][</span>0-9<span class="o">]</span>:<span class="o">[</span>0-9<span class="o">][</span>0-9<span class="o">]</span>/p’  /hime/log.csv &gt; /data/serverlog/log.csv
+</code></pre></td></tr></table>
+</div>
+</div><p><code>注意：如果需要截取的日志太大，达到几个G的话，不能去vi打开文件: 根据之前的日志格式，[使用正则表达式](https://www.baidu.com/s?wd=使用正则表达式&amp;tn=44039180_cpr&amp;fenlei=mv6quAkxTZn0IZRqIHckPjm4nH00T1YkP1c1uHTLn1ndnH9-PH0z0ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6KdThsqpZwYTjCEQLGCpyw9Uz4Bmy-bIi4WUvYETgN-TLwGUv3EnHRLrHT3nHDd): 截图中日志的格式为：2019-06-13 10:15:27.878 所以正则表达式为：2019-06-13 09:[0-9][0-9]:[0-9][0-9].[0-9][0-9][0-9]</code></p>
+<h1 id="mysql全量and库备份与数据还原">mysql全量and库备份与数据还原</h1>
+<h2 id="全量备份">全量备份</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">/usr/local/mysql/bin/mysqldump -u用户名 -p密码 --all-databases &gt; /保存路径/文件名.sql
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/img/quanliang.png"
+        data-srcset="/img/quanliang.png, /img/quanliang.png 1.5x, /img/quanliang.png 2x"
+        data-sizes="auto"
+        alt="/img/quanliang.png"
+        title="img" /></p>
+<h2 id="库备份">库备份</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">/usr/local/mysql/bin/mysqldump -u用户名 -p密码 库名1 库名2 &gt; /保存路径/文件名.sql
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/img/kubeif.png"
+        data-srcset="/img/kubeif.png, /img/kubeif.png 1.5x, /img/kubeif.png 2x"
+        data-sizes="auto"
+        alt="/img/kubeif.png"
+        title="img" /></p>
+<h2 id="使用source-命令恢复数据库">使用source 命令恢复数据库</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/img/huifu.png"
+        data-srcset="/img/huifu.png, /img/huifu.png 1.5x, /img/huifu.png 2x"
+        data-sizes="auto"
+        alt="/img/huifu.png"
+        title="img" /></p>
+<h1 id="nohup启动">nohup启动</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">nohup ./yzweworkplatform-backend &gt;log.txt <span class="p">&amp;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>（注释：加了&amp;参数为后台启动，没有加按ctrl会退出）</code></p>
+<h1 id="主机名">主机名**</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@fangjian ~<span class="o">]</span><span class="c1"># hostnamectl #查看主机名</span>
+   Static hostname: brace
+   Pretty hostname: Brace
+         Icon name: computer-vm
+           Chassis: vm
+        Machine ID: <span class="m">20191225111607875619293640639763</span>
+           Boot ID: 25ac5021d229471382a26bea3d351de3
+    Virtualization: kvm
+  Operating System: CentOS Linux <span class="m">7</span> <span class="o">(</span>Core<span class="o">)</span>
+       CPE OS Name: cpe:/o:centos:centos:7
+            Kernel: Linux 3.10.0-1062.9.1.el7.x86_64
+      Architecture: x86-64
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="临时修改主机名">临时修改主机名</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@fangjian ~<span class="o">]</span><span class="c1"># hostname yin    #临时修改主机名，关机后失效</span>
+<span class="o">[</span>root@fangjian ~<span class="o">]</span><span class="c1"># hostname</span>
+yin
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="永久修改主机名">永久修改主机名</h2>
+<p>1、方法一：使用hostnamectl命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@fangjian ~<span class="o">]</span><span class="c1"># hostnamectl set-hostname Brace  #永久设置用户名，关机后不失效</span>
+<span class="o">[</span>root@fangjian ~<span class="o">]</span><span class="c1"># hostname</span>
+brace
+</code></pre></td></tr></table>
+</div>
+</div><p>2、方法二：修改配置文件 /etc/hostname 保存退出</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@fangjian ~<span class="o">]</span><span class="c1"># vi /etc/hostname   # 进入vi，删除旧主机名，输入新主机名，Esc后冒号 wq退出保存</span>
+brace　　　　　　　　　　　　　　　　　 <span class="c1"># reboot重启生效</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="域名的md5值">域名的md5值</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">echo</span> -n <span class="s2">&#34;demo.com&#34;</span> <span class="p">|</span> md5sum 
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="释放内存">释放内存</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">free -h <span class="c1">#查询内存</span>
+sync   <span class="c1">#落盘</span>
+<span class="nb">echo</span> <span class="m">3</span> &gt;/proc/sys/vm/drop_caches <span class="c1">#释放缓存</span>
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-04-26</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/shell%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4%E5%88%86%E4%BA%AB/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://freerun.xyz/shell%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4%E5%88%86%E4%BA%AB/" data-title="Shell常见命令分享" data-hashtags="常见命令,shell"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://freerun.xyz/shell%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4%E5%88%86%E4%BA%AB/" data-title="Shell常见命令分享"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://freerun.xyz/shell%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4%E5%88%86%E4%BA%AB/" data-title="Shell常见命令分享"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@6.20.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://freerun.xyz/shell%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4%E5%88%86%E4%BA%AB/" data-title="Shell常见命令分享"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/">常见命令</a>,&nbsp;<a href="/tags/shell/">shell</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/hugo/" class="prev" rel="prev" title="hugo搭建"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>hugo搭建</a>
+            <a href="/%E6%89%8B%E5%8A%A8%E5%8D%87%E7%BA%A7ssh/" class="next" rel="next" title="手动升级ssh">手动升级ssh<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.82.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuxiaoquan/free-programming-books-zh_CN" target="_blank">小全</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{"gitalk":{"admin":["liuxiaoquan"],"clientID":"35b0c446d76208f0a3ef","clientSecret":"dbacff73027bd1493cda8c679266c2809a876834","id":"2021-04-26T15:40:13+08:00","owner":"liuxiaoquan","repo":"iuxiaoquan.github.io","title":"Shell常见命令分享"}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

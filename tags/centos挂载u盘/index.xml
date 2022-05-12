@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>centos挂载U盘 - 标签 - 在阅读中遇见自己</title>
+        <link>https://freerun.xyz/tags/centos%E6%8C%82%E8%BD%BDu%E7%9B%98/</link>
+        <description>centos挂载U盘 - 标签 - 在阅读中遇见自己</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (小全)</managingEditor>
+            <webMaster>823715972@qq.com (小全)</webMaster><lastBuildDate>Thu, 03 Jun 2021 16:47:07 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/tags/centos%E6%8C%82%E8%BD%BDu%E7%9B%98/" rel="self" type="application/rss+xml" /><item>
+    <title>Centos中挂载NTFS与exFAT的U盘</title>
+    <link>https://freerun.xyz/centos%E4%B8%AD%E6%8C%82%E8%BD%BDntfs%E4%B8%8Eexfat%E7%9A%84u%E7%9B%98/</link>
+    <pubDate>Thu, 03 Jun 2021 16:47:07 &#43;0800</pubDate>
+    <author>刘小全</author>
+    <guid>https://freerun.xyz/centos%E4%B8%AD%E6%8C%82%E8%BD%BDntfs%E4%B8%8Eexfat%E7%9A%84u%E7%9B%98/</guid>
+    <description><![CDATA[1、认识挂载： （1）Linux的宗旨是一切皆文件，从以上我们也看到。我们存储的所有文件都在sda3下存放着，sda3也就是我们的根。那我们要]]></description>
+</item>
+</channel>
+</rss>

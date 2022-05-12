@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Chrome浏览器中F12功能的简单介绍 - 在阅读中遇见自己</title><meta name="Description" content="这是我的全新 博客 网站"><meta property="og:title" content="Chrome浏览器中F12功能的简单介绍" />
+<meta property="og:description" content="由于F12是前端开发人员的利器，所以我自己也在不断摸索中，查看一些博客和资料后，自己总结了一下来帮助自己理解和记忆 首先介绍Chrome开发者" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://freerun.xyz/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" /><meta property="og:image" content="https://freerun.xyz/favicon.jpg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-05-27T14:24:40&#43;08:00" />
+<meta property="article:modified_time" content="2021-05-27T14:24:40&#43;08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://freerun.xyz/favicon.jpg"/>
+
+<meta name="twitter:title" content="Chrome浏览器中F12功能的简单介绍"/>
+<meta name="twitter:description" content="由于F12是前端开发人员的利器，所以我自己也在不断摸索中，查看一些博客和资料后，自己总结了一下来帮助自己理解和记忆 首先介绍Chrome开发者"/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/favicon.jpg"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://freerun.xyz/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" /><link rel="prev" href="https://freerun.xyz/centos%E5%8D%87%E7%BA%A7sudo%E7%89%88%E6%9C%AC-%E8%A7%A3%E5%86%B3sudo%E6%9D%83%E9%99%90%E7%BB%95%E8%BF%87%E6%BC%8F%E6%B4%9E-%E4%BF%AE%E5%A4%8D%E5%A0%86%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E/" /><link rel="next" href="https://freerun.xyz/centos%E4%B8%AD%E6%8C%82%E8%BD%BDntfs%E4%B8%8Eexfat%E7%9A%84u%E7%9B%98/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Chrome浏览器中F12功能的简单介绍",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/freerun.xyz\/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D\/"
+        },"image": ["https:\/\/freerun.xyz\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Chrome","wordcount":  1990 ,
+        "url": "https:\/\/freerun.xyz\/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D\/","datePublished": "2021-05-27T14:24:40+08:00","dateModified": "2021-05-27T14:24:40+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "刘小全"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="normal"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="在阅读中遇见自己"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>早起的年轻人&amp;首页</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/abouts/"> 关于 </a><a class="menu-item" href="https://github.com/liuxiaoquan" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i> Github </a><a class="menu-item" href="https://hugoloveit.com/zh-cn/posts/" rel="noopener noreffer" target="_blank"><i class='fas fa-user-friends'></i> 友链 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="在阅读中遇见自己"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>早起的年轻人&amp;首页</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/abouts/" title="">关于</a><a class="menu-item" href="https://github.com/liuxiaoquan" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>Github</a><a class="menu-item" href="https://hugoloveit.com/zh-cn/posts/" title="" rel="noopener noreffer" target="_blank"><i class='fas fa-user-friends'></i>友链</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Chrome浏览器中F12功能的简单介绍</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/liuxiaoquan/free-programming-books-zh_CN" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>刘小全</a>
+</span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%BF%90%E7%BB%B4/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>运维</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-05-27">2021-05-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1990 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1元素elements"><strong>1、元素（Elements）</strong></a></li>
+        <li><a href="#2控制台console"><strong>2、控制台（Console）</strong></a></li>
+        <li><a href="#源代码sources"><strong>源代码（Sources）</strong></a></li>
+        <li><a href="#4网络network"><strong>4、网络（Network）</strong></a></li>
+        <li><a href="#如何使用浏览器的f12调试页面"><strong>如何使用浏览器的F12调试页面？</strong></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>由于F12是前端开发人员的利器，所以我自己也在不断摸索中，查看一些博客和资料后，自己总结了一下来帮助自己理解和记忆</p>
+<p>首先介绍Chrome开发者工具中，调试时使用最多的三个功能页面是：元素（ELements）、控制台（Console）、源代码（Sources），此外还有网络（Network）等。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/chrome/20180410172402581.png"
+        data-srcset="/chrome/20180410172402581.png, /chrome/20180410172402581.png 1.5x, /chrome/20180410172402581.png 2x"
+        data-sizes="auto"
+        alt="/chrome/20180410172402581.png"
+        title="/chrome/20180410172402581.png" /></p>
+<ul>
+<li>元素（Elements）：用于查看或修改HTML元素的属性、CSS属性、监听事件、断点等。</li>
+<li>控制台（Console）：控制台一般用于执行一次性代码，查看JavaScript对象，查看调试日志信息或异常信息。</li>
+<li>源代码（Sources）：该页面用于查看页面的HTML文件源代码、JavaScript源代码、CSS源代码，此外最重要的是可以调试JavaScript源代码，可以给JS代码添加断点等。</li>
+<li>网络（Network）：网络页面主要用于查看header等与网络连接相关的信息。</li>
+</ul>
+<h2 id="1元素elements"><strong>1、元素（Elements）</strong></h2>
+<p>查看元素代码：点击如图箭头（或用者用快捷键Ctrl+Shift+C）进入选择元素模式，然后从页面中选择需要查看的元素，然后可以在开发者工具元素（Elements）一栏中定位到该元素源代码的具体位置 。<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/chrome/20180410173113988.png"
+        data-srcset="/chrome/20180410173113988.png, /chrome/20180410173113988.png 1.5x, /chrome/20180410173113988.png 2x"
+        data-sizes="auto"
+        alt="/chrome/20180410173113988.png"
+        title="/chrome/20180410173113988.png" /></p>
+<p>查看元素属性：可从被定位的源码中查看部分，如class、src，也可在右边的侧栏中查看全部的属性，如下图位置查看</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/chrome/20180410174131636.png"
+        data-srcset="/chrome/20180410174131636.png, /chrome/20180410174131636.png 1.5x, /chrome/20180410174131636.png 2x"
+        data-sizes="auto"
+        alt="/chrome/20180410174131636.png"
+        title="/chrome/20180410174131636.png" /></p>
+<p>修改元素的代码与属性：可直接双击想要修改的部分，然后就进行修改，或者选中要修改部分后点击右键进行修改，如下图</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/chrome/20180410175401686.png"
+        data-srcset="/chrome/20180410175401686.png, /chrome/20180410175401686.png 1.5x, /chrome/20180410175401686.png 2x"
+        data-sizes="auto"
+        alt="/chrome/20180410175401686.png"
+        title="/chrome/20180410175401686.png" /></p>
+<p><strong>注意：这个修改也仅对当前的页面渲染生效，不会修改服务器的源代码，故而这个功能也是作为调试页面效果而使用。</strong></p>
+<p>右边的侧栏个功能的介绍:如下图所示</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/chrome/20180410180342393.png"
+        data-srcset="/chrome/20180410180342393.png, /chrome/20180410180342393.png 1.5x, /chrome/20180410180342393.png 2x"
+        data-sizes="auto"
+        alt="/chrome/20180410180342393.png"
+        title="/chrome/20180410180342393.png" /></p>
+<h2 id="2控制台console"><strong>2、控制台（Console）</strong></h2>
+<ul>
+<li>查看JS对象的及其属性</li>
+<li>执行JS语句</li>
+<li>查看控制台日志：当网页的JS代码中使用了console.log()函数时，该函数输出的日志信息会在控制台中显示。日志信息一般在开发调试时启用，而当正式上线后，一般会将该函数去掉。</li>
+</ul>
+<h2 id="源代码sources"><strong>源代码（Sources）</strong></h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/chrome/2018041018293410.png"
+        data-srcset="/chrome/2018041018293410.png, /chrome/2018041018293410.png 1.5x, /chrome/2018041018293410.png 2x"
+        data-sizes="auto"
+        alt="/chrome/2018041018293410.png"
+        title="/chrome/2018041018293410.png" /></p>
+<h2 id="4网络network"><strong>4、网络（Network）</strong></h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/chrome/20180410184756216.png"
+        data-srcset="/chrome/20180410184756216.png, /chrome/20180410184756216.png 1.5x, /chrome/20180410184756216.png 2x"
+        data-sizes="auto"
+        alt="/chrome/20180410184756216.png"
+        title="/chrome/20180410184756216.png" /></p>
+<p><strong>请求文件具体说明</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/chrome/20180410185344632.png"
+        data-srcset="/chrome/20180410185344632.png, /chrome/20180410185344632.png 1.5x, /chrome/20180410185344632.png 2x"
+        data-sizes="auto"
+        alt="/chrome/20180410185344632.png"
+        title="/chrome/20180410185344632.png" /></p>
+<p><strong>一共分为四个模块：</strong></p>
+<ul>
+<li>Header：面板列出资源的请求url、HTTP方法、响应状态码、请求头和响应头及它们各自的值、请求参数等等</li>
+</ul>
+<ul>
+<li>
+<p>Preview：预览面板，用于资源的预览。</p>
+</li>
+<li>
+<p>Response：响应信息面板包含资源还未进行格式处理的内容</p>
+</li>
+<li>
+<p>Timing：资源请求的详细信息花费时间</p>
+<ul>
+<li>
+<p>打开浏览器,按f12,点击Network,可以查看相关网络请求信息,记得是打开f12之后再刷新页面才会开始记录的</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/chrome/1017421-20181009110827235-215258733.png"
+        data-srcset="/chrome/1017421-20181009110827235-215258733.png, /chrome/1017421-20181009110827235-215258733.png 1.5x, /chrome/1017421-20181009110827235-215258733.png 2x"
+        data-sizes="auto"
+        alt="/chrome/1017421-20181009110827235-215258733.png"
+        title="/chrome/1017421-20181009110827235-215258733.png" /></p>
+</li>
+<li>
+<p>查看Network基本信息,请求了哪些地址及每个URL的网络相关请求信息都可以看的到URL，响应状态码，响应数据类型，响应数据大小，响应时间</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/chrome/1017421-20181009110836301-1232344571.png"
+        data-srcset="/chrome/1017421-20181009110836301-1232344571.png, /chrome/1017421-20181009110836301-1232344571.png 1.5x, /chrome/1017421-20181009110836301-1232344571.png 2x"
+        data-sizes="auto"
+        alt="/chrome/1017421-20181009110836301-1232344571.png"
+        title="/chrome/1017421-20181009110836301-1232344571.png" /></p>
+</li>
+<li>
+<p>请求URL可进行筛选和分类选择不同分类,查看请求URL,方便查找</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/chrome/1017421-20181009110846349-1066479371.png"
+        data-srcset="/chrome/1017421-20181009110846349-1066479371.png, /chrome/1017421-20181009110846349-1066479371.png 1.5x, /chrome/1017421-20181009110846349-1066479371.png 2x"
+        data-sizes="auto"
+        alt="/chrome/1017421-20181009110846349-1066479371.png"
+        title="/chrome/1017421-20181009110846349-1066479371.png" /></p>
+</li>
+<li>
+<p>也可以直接Filter搜索查询相关URL可以输入关键字或者正则表达式进行查询</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/chrome/1017421-20181009110858415-1843040361.png"
+        data-srcset="/chrome/1017421-20181009110858415-1843040361.png, /chrome/1017421-20181009110858415-1843040361.png 1.5x, /chrome/1017421-20181009110858415-1843040361.png 2x"
+        data-sizes="auto"
+        alt="/chrome/1017421-20181009110858415-1843040361.png"
+        title="/chrome/1017421-20181009110858415-1843040361.png" /></p>
+</li>
+<li>
+<p>Waterfall能分割重要的请求耗时,查看具体请求耗时在哪个地方鼠标指到相关区域可以看到具体耗时</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/chrome/1017421-20181009110906562-374372873.png"
+        data-srcset="/chrome/1017421-20181009110906562-374372873.png, /chrome/1017421-20181009110906562-374372873.png 1.5x, /chrome/1017421-20181009110906562-374372873.png 2x"
+        data-sizes="auto"
+        alt="/chrome/1017421-20181009110906562-374372873.png"
+        title="/chrome/1017421-20181009110906562-374372873.png" /></p>
+</li>
+</ul>
+</li>
+<li>
+<p>我们具体分析下里面每个各代表什么意思,分别耗时多少,通过这个来分析服务器到底是哪个环节出了问题</p>
+<p>Queueing 是排队的意思</p>
+<p>Stalled 是阻塞  请求访问该URL的主机是有并发和连接数限制的,必须要等之前的执行才能执行之后的,这段时间的耗时</p>
+<p>DNS Lookup 是指域名解析所耗时间</p>
+<p>Initial connection 初始化连接时间,这里一般是TCP 3次连接握手时间</p>
+<p>SSL https特有,是一种协议</p>
+<p>Request sent 发送请求所消耗的时间</p>
+<p>Waiting 等待响应时间,这里一般是最耗时的</p>
+<p>Content Download 下载内容所需要消耗的时间</p>
+</li>
+</ul>
+<h2 id="如何使用浏览器的f12调试页面"><strong>如何使用浏览器的F12调试页面？</strong></h2>
+<p>一个程序员按照要求编写一个网页，不可能一次编写就完全达到目的，一般要对自己的的代码修改调试几次后才能到达要求，浏览器的F12开发人员工具就可以很方便的帮助程序员调试自己的代码。</p>
+<p>​        F12 开发人员工具是一套按需采用的工具，网站开发人员可以随时在任何网页上使用 F12 工具，从而快速调试 JavaScript、HTML 和级联样式表 (CSS)，还可以跟踪并查明网页或网络的性能问题。</p>
+<p>​       F12调试页面各个功能分别是什么？</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/chrome/1017421-20181009112153521-1698682115.png"
+        data-srcset="/chrome/1017421-20181009112153521-1698682115.png, /chrome/1017421-20181009112153521-1698682115.png 1.5x, /chrome/1017421-20181009112153521-1698682115.png 2x"
+        data-sizes="auto"
+        alt="/chrome/1017421-20181009112153521-1698682115.png"
+        title="/chrome/1017421-20181009112153521-1698682115.png" /></p>
+<p>Elements标签页</p>
+<p>Elements标签页的左侧就是对页面HTML结构的查看与编辑，你可以直接在某个元素上双击修改元素的属性。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/chrome/1017421-20181009112204863-862968394.png"
+        data-srcset="/chrome/1017421-20181009112204863-862968394.png, /chrome/1017421-20181009112204863-862968394.png 1.5x, /chrome/1017421-20181009112204863-862968394.png 2x"
+        data-sizes="auto"
+        alt="/chrome/1017421-20181009112204863-862968394.png"
+        title="/chrome/1017421-20181009112204863-862968394.png" /></p>
+<p>Elements标签页的右侧</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/chrome/1017421-20181009112215886-1353618376.png"
+        data-srcset="/chrome/1017421-20181009112215886-1353618376.png, /chrome/1017421-20181009112215886-1353618376.png 1.5x, /chrome/1017421-20181009112215886-1353618376.png 2x"
+        data-sizes="auto"
+        alt="/chrome/1017421-20181009112215886-1353618376.png"
+        title="/chrome/1017421-20181009112215886-1353618376.png" /></p>
+<p>Network标签页</p>
+<p>Network标签页对于分析网站请求的网络情况、查看某一请求的请求头和响应头还有响应内容很有用。注意是在你打开Chrome开发者工具后发起的请求，才会在这里显示</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/chrome/1017421-20181009112227978-1348717541.png"
+        data-srcset="/chrome/1017421-20181009112227978-1348717541.png, /chrome/1017421-20181009112227978-1348717541.png 1.5x, /chrome/1017421-20181009112227978-1348717541.png 2x"
+        data-sizes="auto"
+        alt="/chrome/1017421-20181009112227978-1348717541.png"
+        title="/chrome/1017421-20181009112227978-1348717541.png" /></p>
+<p>Sources标签页</p>
+<p>Sources标签页可以查看到请求的资源情况，包括CSS、JS、图片等的内容。也可以设置各种断点。对存储的内容进行编辑然后保存也会实时的反应到页面上.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/chrome/1017421-20181009112236552-1469961277.png"
+        data-srcset="/chrome/1017421-20181009112236552-1469961277.png, /chrome/1017421-20181009112236552-1469961277.png 1.5x, /chrome/1017421-20181009112236552-1469961277.png 2x"
+        data-sizes="auto"
+        alt="/chrome/1017421-20181009112236552-1469961277.png"
+        title="/chrome/1017421-20181009112236552-1469961277.png" /></p>
+<p>Audits标签页</p>
+<p>这个对于优化前端页面、加速网页加载速度很有用;点击run按钮，就可以开始分析页面，分析完了就可以看到分析结果了</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/chrome/1017421-20181009112245949-1069130619.png"
+        data-srcset="/chrome/1017421-20181009112245949-1069130619.png, /chrome/1017421-20181009112245949-1069130619.png 1.5x, /chrome/1017421-20181009112245949-1069130619.png 2x"
+        data-sizes="auto"
+        alt="/chrome/1017421-20181009112245949-1069130619.png"
+        title="/chrome/1017421-20181009112245949-1069130619.png" /></p>
+<p>Console标签页</p>
+<p>就是Javascript控制台了</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/chrome/1017421-20181009112254204-1403249234.png"
+        data-srcset="/chrome/1017421-20181009112254204-1403249234.png, /chrome/1017421-20181009112254204-1403249234.png 1.5x, /chrome/1017421-20181009112254204-1403249234.png 2x"
+        data-sizes="auto"
+        alt="/chrome/1017421-20181009112254204-1403249234.png"
+        title="/chrome/1017421-20181009112254204-1403249234.png" /></p>
+<p>在控制台中可以直接模拟手机、调整UA、修改网络连接状态。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/chrome/1017421-20181009112303609-14395621.png"
+        data-srcset="/chrome/1017421-20181009112303609-14395621.png, /chrome/1017421-20181009112303609-14395621.png 1.5x, /chrome/1017421-20181009112303609-14395621.png 2x"
+        data-sizes="auto"
+        alt="/chrome/1017421-20181009112303609-14395621.png"
+        title="/chrome/1017421-20181009112303609-14395621.png" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-05-27</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://freerun.xyz/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" data-title="Chrome浏览器中F12功能的简单介绍" data-hashtags="Chrome"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://freerun.xyz/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" data-title="Chrome浏览器中F12功能的简单介绍"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://freerun.xyz/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" data-title="Chrome浏览器中F12功能的简单介绍"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@6.20.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://freerun.xyz/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" data-title="Chrome浏览器中F12功能的简单介绍"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/chrome/">chrome</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/centos%E5%8D%87%E7%BA%A7sudo%E7%89%88%E6%9C%AC-%E8%A7%A3%E5%86%B3sudo%E6%9D%83%E9%99%90%E7%BB%95%E8%BF%87%E6%BC%8F%E6%B4%9E-%E4%BF%AE%E5%A4%8D%E5%A0%86%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E/" class="prev" rel="prev" title="CentOS升级sudo版本 解决Sudo权限绕过漏洞 修复堆缓冲区溢出漏洞(CVE-2021-3156)"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>CentOS升级sudo版本 解决Sudo权限绕过漏洞 修复堆缓冲区溢出漏洞(CVE-2021-3156)</a>
+            <a href="/centos%E4%B8%AD%E6%8C%82%E8%BD%BDntfs%E4%B8%8Eexfat%E7%9A%84u%E7%9B%98/" class="next" rel="next" title="Centos中挂载NTFS与exFAT的U盘">Centos中挂载NTFS与exFAT的U盘<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.82.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuxiaoquan/free-programming-books-zh_CN" target="_blank">小全</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{"gitalk":{"admin":["liuxiaoquan"],"clientID":"35b0c446d76208f0a3ef","clientSecret":"dbacff73027bd1493cda8c679266c2809a876834","id":"2021-05-27T14:24:40+08:00","owner":"liuxiaoquan","repo":"iuxiaoquan.github.io","title":"Chrome浏览器中F12功能的简单介绍"}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

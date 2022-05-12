@@ -1,0 +1,14 @@
+[Unit]
+Description=grafana Service
+After=network.target
+After=network-online.target
+Wants=network-online.target
+[Service]
+Type=simple
+WorkingDirectory=/data/monitor/grafana
+ExecStart=/data/monitor/grafana/bin/grafana-server web
+Restart=on-failure
+RestartSec=5
+LimitNOFILE=65536
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,14 @@
+[Unit]
+Description=node-exporter Service
+After=network.target
+After=network-online.target
+Wants=network-online.target
+[Service]
+Type=simple
+WorkingDirectory=/data/monitor/node_exporter
+ExecStart=/data/monitor/node_exporter/node_exporter --web.listen-address=0.0.0.0:9100
+Restart=on-failure
+RestartSec=5
+LimitNOFILE=65536
+[Install]
+WantedBy=multi-user.target
