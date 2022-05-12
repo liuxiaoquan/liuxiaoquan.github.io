@@ -4,7 +4,15 @@
         <link>https://freerun.xyz/posts/</link>
         <description>所有文章 | 在阅读中遇见自己</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (小全)</managingEditor>
-            <webMaster>823715972@qq.com (小全)</webMaster><lastBuildDate>Fri, 15 Apr 2022 12:44:39 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>823715972@qq.com (小全)</webMaster><lastBuildDate>Thu, 12 May 2022 21:48:15 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>LoveIt主题配置与使用</title>
+    <link>https://freerun.xyz/loveit%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/</link>
+    <pubDate>Thu, 12 May 2022 21:48:15 &#43;0800</pubDate>
+    <author>刘小全</author>
+    <guid>https://freerun.xyz/loveit%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/</guid>
+    <description><![CDATA[Hugo LoveIt主题配置与使用 1. 安装主题 把这个主题克隆到 themes 目录: 2. 配置主题 2.1. 站点配置文件的修改 将根目录\themes\LoveIt\examp]]></description>
+</item>
+<item>
     <title>Docker Compose的一些常用命令</title>
     <link>https://freerun.xyz/docker-compose%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</link>
     <pubDate>Fri, 15 Apr 2022 12:44:39 &#43;0800</pubDate>
@@ -75,14 +83,6 @@
     <author>刘小全</author>
     <guid>https://freerun.xyz/docker%E5%AE%B9%E5%99%A8%E6%97%A0%E6%B3%95stop%E6%88%96kill%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</guid>
     <description><![CDATA[1 2 # 查看网络 docker network ls bridge、none、host这 3 个网络包含在 Docker 实现中。运行一个容器时，可以使用 the –net标志指定您希望在哪个网络上运]]></description>
-</item>
-<item>
-    <title>Chrome截图</title>
-    <link>https://freerun.xyz/chrome%E6%88%AA%E5%9B%BE/</link>
-    <pubDate>Tue, 22 Jun 2021 15:19:09 &#43;0800</pubDate>
-    <author>刘小全</author>
-    <guid>https://freerun.xyz/chrome%E6%88%AA%E5%9B%BE/</guid>
-    <description><![CDATA[chrome实现整个网页的完整截图 Chrome 浏览器 外贸人大部分应该用的都是 Chrome 浏览器，如果你用的是 360，先检讨下！ 首先打开一个想要截取的页面，记得一]]></description>
 </item>
 </channel>
 </rss>
