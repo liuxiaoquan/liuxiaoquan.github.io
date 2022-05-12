@@ -223,6 +223,20 @@ hugo --theme=m10c --baseUrl="https://freerun.xyz/" --buildDrafts #执行其中�
   git push -u origin master #推送到githubu
   ```
 
+  ```shell
+  git push origin master -f #强制覆盖远程仓库的内容
+  ```
+  
+- ### 添加CNAME文件
+
+  ```shell
+  lxq@ubuntu:~/loveltblog/public$ ll CNAME 
+  -rw-rw-r-- 1 lxq lxq 12 May 12 21:33 CNAME
+  
+  lxq@ubuntu:~/loveltblog/public$ cat CNAME 
+  freerun.xyz
+  ```
+
   
 
 
