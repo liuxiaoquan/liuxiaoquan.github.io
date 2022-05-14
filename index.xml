@@ -4,9 +4,17 @@
         <link>https://freerun.xyz/</link>
         <description>这是我的全新 博客 网站</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (小全)</managingEditor>
-            <webMaster>823715972@qq.com (小全)</webMaster><lastBuildDate>Thu, 12 May 2022 21:48:15 &#43;0800</lastBuildDate>
+            <webMaster>823715972@qq.com (小全)</webMaster><lastBuildDate>Sat, 14 May 2022 15:13:40 &#43;0800</lastBuildDate>
             <atom:link href="https://freerun.xyz/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>JAVA线上故障排查全套路</title>
+    <link>https://freerun.xyz/java%E7%BA%BF%E4%B8%8A%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5%E5%85%A8%E5%A5%97%E8%B7%AF/</link>
+    <pubDate>Sat, 14 May 2022 15:13:40 &#43;0800</pubDate>
+    <author>刘小全</author>
+    <guid>https://freerun.xyz/java%E7%BA%BF%E4%B8%8A%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5%E5%85%A8%E5%A5%97%E8%B7%AF/</guid>
+    <description><![CDATA[JAVA线上故障排查全套路 线上故障主要会包括cpu、磁盘、内存以及网络问题，而大多数故障可能会包含不止一个层面的问题，所以进行排查时候尽量四]]></description>
+</item>
+<item>
     <title>LoveIt主题配置与使用</title>
     <link>https://freerun.xyz/loveit%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/</link>
     <pubDate>Thu, 12 May 2022 21:48:15 &#43;0800</pubDate>
@@ -77,14 +85,6 @@
     <author>刘小全</author>
     <guid>https://freerun.xyz/docker%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7/</guid>
     <description><![CDATA[升级背景 1 2 3 4 5 6 7 8 9 10 漏洞描述： Docker是一款开源的应用容器引擎。该产品支持在Linux系统上创建一个容器（轻量级虚拟机）并部署和]]></description>
-</item>
-<item>
-    <title>Docker容器无法stop或kill的解决方法</title>
-    <link>https://freerun.xyz/docker%E5%AE%B9%E5%99%A8%E6%97%A0%E6%B3%95stop%E6%88%96kill%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</link>
-    <pubDate>Wed, 14 Jul 2021 11:05:31 &#43;0800</pubDate>
-    <author>刘小全</author>
-    <guid>https://freerun.xyz/docker%E5%AE%B9%E5%99%A8%E6%97%A0%E6%B3%95stop%E6%88%96kill%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</guid>
-    <description><![CDATA[1 2 # 查看网络 docker network ls bridge、none、host这 3 个网络包含在 Docker 实现中。运行一个容器时，可以使用 the –net标志指定您希望在哪个网络上运]]></description>
 </item>
 </channel>
 </rss>
