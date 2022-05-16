@@ -2,11 +2,11 @@
 
 # brew
 
-https://brew.sh/
+[文档](https://brew.sh/)
 
 ## brew Linux安装文档
 
-https://docs.brew.sh/Homebrew-on-Linux
+[文档](https://docs.brew.sh/Homebrew-on-Linux)
 
 ## 前期准备
 
@@ -65,7 +65,7 @@ brew install hugo
 
 ## 可用包一览
 
-https://formulae.brew.sh/
+[可下载包](https://formulae.brew.sh/)
 
 
 
@@ -73,7 +73,7 @@ https://formulae.brew.sh/
 
 ## 官网
 
-https://gohugo.io
+[官网](https://gohugo.io)
 
 ## 安装
 
@@ -119,7 +119,9 @@ title = "小全技术站"
 hugo config
 ```
 
-### 2.加入一个主题(https://themes.gohugo.io/)
+### 2.加入一个主题
+
+[主题官网](https://themes.gohugo.io/)
 
 ```shell
 cd themes #如果没有主题文件夹mkdir themes
@@ -184,7 +186,7 @@ hugo server --disableFastRender  -e production -D --bind 192.168.75.128 --baseUR
 
 # hugo不错模板
 
-https://themes.gohugo.io/github-style/
+[模板推荐](https://themes.gohugo.io/github-style/)
 
 ![](/img/hugobucuo.png)
 

@@ -26,7 +26,7 @@
     <pubDate>Mon, 26 Apr 2021 00:27:10 &#43;0800</pubDate>
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/hugo/</guid>
-    <description><![CDATA[brew https://brew.sh/ brew Linux安装文档 https://docs.brew.sh/Homebrew-on-Linux 前期准备 debian或者Ubuntu 1 sudo apt-get install build-essential procps curl file git 开始安装 1 /bin/bash -c &#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&#34; 环境变量配置 1 2 3 4 test -d ~/.linuxbrew &amp;&amp; eval $(~/.linuxbrew/bin/brew shellenv) test -d /home/linuxbrew/.linuxbrew]]></description>
+    <description><![CDATA[brew 文档 brew Linux安装文档 文档 前期准备 debian或者Ubuntu 1 sudo apt-get install build-essential procps curl file git 开始安装 1 /bin/bash -c &#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&#34; 环境变量配置 1 2 3 4 test -d ~/.linuxbrew &amp;&amp; eval $(~/.linuxbrew/bin/brew shellenv) test]]></description>
 </item>
 </channel>
 </rss>
