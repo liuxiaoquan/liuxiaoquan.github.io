@@ -53,14 +53,6 @@
     <description><![CDATA[1 2 3 crontab -l crontab -r crontab -e 1 2 3 -e : 执行文字编辑器来设定时程表，内定的文字编辑器是 VI，如果你想用别的文字编辑器，则请先设定 VISUAL 环境变数来指定使用那个]]></description>
 </item>
 <item>
-    <title>Chrome截图</title>
-    <link>https://freerun.xyz/chrome%E6%88%AA%E5%9B%BE/</link>
-    <pubDate>Tue, 22 Jun 2021 15:19:09 &#43;0800</pubDate>
-    <author>Ylimhs</author>
-    <guid>https://freerun.xyz/chrome%E6%88%AA%E5%9B%BE/</guid>
-    <description><![CDATA[chrome实现整个网页的完整截图 Chrome 浏览器 外贸人大部分应该用的都是 Chrome 浏览器，如果你用的是 360，先检讨下！ 首先打开一个想要截取的页面，记得一]]></description>
-</item>
-<item>
     <title>Top命令详解</title>
     <link>https://freerun.xyz/top%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</link>
     <pubDate>Wed, 09 Jun 2021 11:17:50 &#43;0800</pubDate>
@@ -77,12 +69,20 @@
     <description><![CDATA[1、认识挂载： （1）Linux的宗旨是一切皆文件，从以上我们也看到。我们存储的所有文件都在sda3下存放着，sda3也就是我们的根。那我们要]]></description>
 </item>
 <item>
-    <title>Chrome浏览器中F12功能的简单介绍</title>
-    <link>https://freerun.xyz/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/</link>
-    <pubDate>Thu, 27 May 2021 14:24:40 &#43;0800</pubDate>
+    <title>CentOS升级sudo版本 解决Sudo权限绕过漏洞 修复堆缓冲区溢出漏洞(CVE-2021-3156)</title>
+    <link>https://freerun.xyz/centos%E5%8D%87%E7%BA%A7sudo%E7%89%88%E6%9C%AC-%E8%A7%A3%E5%86%B3sudo%E6%9D%83%E9%99%90%E7%BB%95%E8%BF%87%E6%BC%8F%E6%B4%9E-%E4%BF%AE%E5%A4%8D%E5%A0%86%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E/</link>
+    <pubDate>Tue, 25 May 2021 11:03:03 &#43;0800</pubDate>
     <author>Ylimhs</author>
-    <guid>https://freerun.xyz/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/</guid>
-    <description><![CDATA[由于F12是前端开发人员的利器，所以我自己也在不断摸索中，查看一些博客和资料后，自己总结了一下来帮助自己理解和记忆 首先介绍Chrome开发者]]></description>
+    <guid>https://freerun.xyz/centos%E5%8D%87%E7%BA%A7sudo%E7%89%88%E6%9C%AC-%E8%A7%A3%E5%86%B3sudo%E6%9D%83%E9%99%90%E7%BB%95%E8%BF%87%E6%BC%8F%E6%B4%9E-%E4%BF%AE%E5%A4%8D%E5%A0%86%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E/</guid>
+    <description><![CDATA[漏洞介绍 关于 Sudo 堆缓冲区溢出漏洞(CVE-2021- 3156)的预警通知 有关情报显示，sudo 存在缓冲区溢出漏洞。攻击者在取得服 务器基础权限的]]></description>
+</item>
+<item>
+    <title>Iptables规则列表</title>
+    <link>https://freerun.xyz/iptables%E8%A7%84%E5%88%99%E5%88%97%E8%A1%A8/</link>
+    <pubDate>Wed, 19 May 2021 15:21:33 &#43;0800</pubDate>
+    <author>Ylimhs</author>
+    <guid>https://freerun.xyz/iptables%E8%A7%84%E5%88%99%E5%88%97%E8%A1%A8/</guid>
+    <description><![CDATA[禁止访问9200端口 1 iptables -I INPUT -p tcp --dport 9200 -j DROP 允许ip为192.168.1.1的机器访问 1 2 3 iptables -I INPUT -p tcp -s 192.168.1.1 --dport 9200 -j ACCEPT #插入到第10行 iptables -I INPUT 10 -p tcp -s]]></description>
 </item>
 </channel>
 </rss>

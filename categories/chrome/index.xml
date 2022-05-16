@@ -1,0 +1,24 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>chrome - 分类 - 在阅读中遇见自己</title>
+        <link>https://freerun.xyz/categories/chrome/</link>
+        <description>chrome - 分类 - 在阅读中遇见自己</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Tue, 22 Jun 2021 15:19:09 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/categories/chrome/" rel="self" type="application/rss+xml" /><item>
+    <title>Chrome截图</title>
+    <link>https://freerun.xyz/chrome%E6%88%AA%E5%9B%BE/</link>
+    <pubDate>Tue, 22 Jun 2021 15:19:09 &#43;0800</pubDate>
+    <author>Ylimhs</author>
+    <guid>https://freerun.xyz/chrome%E6%88%AA%E5%9B%BE/</guid>
+    <description><![CDATA[chrome实现整个网页的完整截图 Chrome 浏览器 外贸人大部分应该用的都是 Chrome 浏览器，如果你用的是 360，先检讨下！ 首先打开一个想要截取的页面，记得一]]></description>
+</item>
+<item>
+    <title>Chrome浏览器中F12功能的简单介绍</title>
+    <link>https://freerun.xyz/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/</link>
+    <pubDate>Thu, 27 May 2021 14:24:40 &#43;0800</pubDate>
+    <author>Ylimhs</author>
+    <guid>https://freerun.xyz/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/</guid>
+    <description><![CDATA[由于F12是前端开发人员的利器，所以我自己也在不断摸索中，查看一些博客和资料后，自己总结了一下来帮助自己理解和记忆 首先介绍Chrome开发者]]></description>
+</item>
+</channel>
+</rss>
