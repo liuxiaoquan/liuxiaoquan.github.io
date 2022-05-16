@@ -4,9 +4,43 @@
         <link>https://freerun.xyz/</link>
         <description>这是我的全新 博客 网站</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
-            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Mon, 16 May 2022 14:29:09 &#43;0800</lastBuildDate>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Mon, 16 May 2022 15:03:29 &#43;0800</lastBuildDate>
             <atom:link href="https://freerun.xyz/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>LoveIt主题美化与博客功能增强 第一章</title>
+    <link>https://freerun.xyz/loveit%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96%E4%B8%8E%E5%8D%9A%E5%AE%A2%E5%8A%9F%E8%83%BD%E5%A2%9E%E5%BC%BA-%E7%AC%AC%E4%B8%80%E7%AB%A0/</link>
+    <pubDate>Mon, 16 May 2022 15:03:29 &#43;0800</pubDate>
+    <author>Ylimhs</author>
+    <guid>https://freerun.xyz/loveit%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96%E4%B8%8E%E5%8D%9A%E5%AE%A2%E5%8A%9F%E8%83%BD%E5%A2%9E%E5%BC%BA-%E7%AC%AC%E4%B8%80%E7%AB%A0/</guid>
+    <description><![CDATA[<h1 id="loveit主题美化与博客功能增强-第一章">LoveIt主题美化与博客功能增强 第一章</h1>
+<h2 id="前言">前言</h2>
+<p>本博客使用的是Hugo的LoveIt主题，本文也是基于该主题而写的，不过Hugo的美化步骤应该大同小异，版本如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">hugo: v0.74.2/extended windows/amd64 BuildDate: unknown
+
+LoveIt: v0.2.10
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>请注意，本文的所有功能都离不开两个新增加的文件：<code>_custom.scss</code>和<code>custom.js</code>，部分功能还需要<code>jquery</code>，在第一章中会提及如何引入。</strong></p>
+<p>另外本文篇幅太长，阅读体验不好，将其进行分章如下：</p>
+<ul>
+<li><a href="/posts/hugo-3.html/" rel="">Hugo系列(3.0) - LoveIt主题美化与博客功能增强 · 第一章</a>
+</li>
+<li><a href="/posts/hugo-3.1.html/" rel="">Hugo系列(3.1) - LoveIt主题美化与博客功能增强 · 第二章</a>
+</li>
+<li><a href="/posts/hugo-3.2.html/" rel="">Hugo系列(3.2) - LoveIt主题美化与博客功能增强 · 第三章</a>
+</li>
+<li><a href="/posts/hugo-3-3/" rel="">Hugo系列(3.3) - LoveIt主题美化与博客功能增强 · 第四章</a>
+</li>
+</ul>]]></description>
+</item>
+<item>
     <title>免费图标</title>
     <link>https://freerun.xyz/%E5%85%8D%E8%B4%B9%E5%9B%BE%E6%A0%87/</link>
     <pubDate>Mon, 16 May 2022 14:29:09 &#43;0800</pubDate>
@@ -77,14 +111,6 @@
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/nethogs%E5%91%BD%E4%BB%A4/</guid>
     <description><![CDATA[1 2 3 4 5 6 wget https://github.com/raboof/nethogs/archive/v0.8.1.tar.gz yum install libpcap-devel tar zxvf v0.8.1.tar.gz cd nethogs-0.8.1/ make &amp;&amp; make install nethogs eno1 以下是NetHogs的一些很有用的交互控制(键盘快捷键) 1 2 3 4 5 6 -m: Change the units displayed forthe bandwidth inunits like KB/sec-&gt;KB-&gt;B-&gt;MB. -r: Sort by magnitude]]></description>
-</item>
-<item>
-    <title>Crontab的应用</title>
-    <link>https://freerun.xyz/crontab%E7%9A%84%E5%BA%94%E7%94%A8/</link>
-    <pubDate>Sun, 08 Aug 2021 01:22:41 &#43;0800</pubDate>
-    <author>Ylimhs</author>
-    <guid>https://freerun.xyz/crontab%E7%9A%84%E5%BA%94%E7%94%A8/</guid>
-    <description><![CDATA[1 2 3 crontab -l crontab -r crontab -e 1 2 3 -e : 执行文字编辑器来设定时程表，内定的文字编辑器是 VI，如果你想用别的文字编辑器，则请先设定 VISUAL 环境变数来指定使用那个]]></description>
 </item>
 </channel>
 </rss>
