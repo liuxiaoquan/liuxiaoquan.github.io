@@ -187,14 +187,39 @@ hugo server --disableFastRender  -e production -D --bind 192.168.75.128 --baseUR
 https://themes.gohugo.io/github-style/
 
 ![](/img/hugobucuo.png)
-# 将个人博客部署到远端服务器(可以使用github部署到github仓库)
+
+# 远程部署到Pages服务
+
+Hugo和Hexo一样是静态站点生成工具，不需要服务器即可进行部署运行，为了可以在网络上也访问到我们的博客，需要将静态博客部署到某些网站的pages服务上，借用人家的服务器进行托管。
+
+常用的Pages服务有GitHub pages、Coding pages等，由于暂时没有找到好用的Hugo的远程部署插件，所以这里使用Git命令来进行远程部署。
+
+**注意，所谓的远程部署，其实就是把`hugo`命令生成的`public`目录里的所有文件push到远程库，然后启用Pages服务进行静态网站的部署。这样，当有人访问静态站点的主页时，Pages服务就会去读取根目录下的`index.html`。**
+
+本文以部署到GitHub Pages为例。
+
+## 1.安装Git
+
+首先要安装Git，Git是一个版本控制工具，可以用来帮忙管理我们的博客，直接前往官网下载安装包即可。
+
+{{< admonition >}}
+
+[下载链接](https://git-scm.com/)
+
+{{< /admonition >}}
+
+在安装的时候会问你是否安装git的cmd工具，把这个也一起安装了后就可以不需要配置环境变量了。这样就可以直接在cmd窗口里运行Git命令，如`git version`。
+
+当然也可以直接使用安装时自带的Git Bash，个人更喜欢用Git Bash。
+
+## 2.将个人博客部署到远端服务器(可以使用github部署到github仓库)
 
 `在github创建一个远端仓库`
 
 ![img](/img/2.png)
 
 
-## 在myblog目录下执行
+## 3.在myblog目录下执行
 
 ```shell
 hugo --theme=m10c --baseUrl="https://liuxiaoquan.github.io/" --buildDrafts #执行其中一条命令
@@ -203,7 +228,7 @@ hugo --theme=m10c --baseUrl="https://freerun.xyz/" --buildDrafts #执行其中�
 hugo --theme=LoveIt --baseUrl="https://freerun.xyz/" --buildDrafts
 ```
 
-## 接下来把public文件推送到github上：
+## 4.接下来把public文件推送到github上：
 
 - ### 切换到public文件夹下，代开命令行窗口，依次键入
 

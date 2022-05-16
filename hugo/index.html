@@ -26,7 +26,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/freerun.xyz\/hugo\/"
-        },"image": ["https:\/\/freerun.xyz\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "博客搭建, Ubuntu, hugo, github","wordcount":  796 ,
+        },"image": ["https:\/\/freerun.xyz\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "博客搭建, Ubuntu, hugo, github","wordcount":  1298 ,
         "url": "https:\/\/freerun.xyz\/hugo\/","datePublished": "2021-04-26T00:27:10+08:00","dateModified": "2021-04-26T00:27:10+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -102,8 +102,8 @@
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">hugo搭建</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/liuxiaoquan/free-programming-books-zh_CN" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Ylimhs</a>
 </span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%BF%90%E7%BB%B4/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>运维</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-04-26">2021-04-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 796 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 2 分钟&nbsp;<span id="/hugo/" class="leancloud_visitors" data-flag-title="hugo搭建">
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-04-26">2021-04-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1298 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;<span id="/hugo/" class="leancloud_visitors" data-flag-title="hugo搭建">
                         <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
@@ -154,10 +154,12 @@
       </ul>
     </li>
     <li><a href="#hugo不错模板">hugo不错模板</a></li>
-    <li><a href="#将个人博客部署到远端服务器可以使用github部署到github仓库">将个人博客部署到远端服务器(可以使用github部署到github仓库)</a>
+    <li><a href="#远程部署到pages服务">远程部署到Pages服务</a>
       <ul>
-        <li><a href="#在myblog目录下执行">在myblog目录下执行</a></li>
-        <li><a href="#接下来把public文件推送到github上">接下来把public文件推送到github上：</a>
+        <li><a href="#1安装git">1.安装Git</a></li>
+        <li><a href="#2将个人博客部署到远端服务器可以使用github部署到github仓库">2.将个人博客部署到远端服务器(可以使用github部署到github仓库)</a></li>
+        <li><a href="#3在myblog目录下执行">3.在myblog目录下执行</a></li>
+        <li><a href="#4接下来把public文件推送到github上">4.接下来把public文件推送到github上：</a>
           <ul>
             <li><a href="#切换到public文件夹下代开命令行窗口依次键入">切换到public文件夹下，代开命令行窗口，依次键入</a></li>
             <li><a href="#添加cname文件">添加CNAME文件</a></li>
@@ -440,7 +442,24 @@ hugo server --disableFastRender  -e production -D --bind 192.168.75.128 --baseUR
         data-sizes="auto"
         alt="/img/hugobucuo.png"
         title="/img/hugobucuo.png" /></p>
-<h1 id="将个人博客部署到远端服务器可以使用github部署到github仓库">将个人博客部署到远端服务器(可以使用github部署到github仓库)</h1>
+<h1 id="远程部署到pages服务">远程部署到Pages服务</h1>
+<p>Hugo和Hexo一样是静态站点生成工具，不需要服务器即可进行部署运行，为了可以在网络上也访问到我们的博客，需要将静态博客部署到某些网站的pages服务上，借用人家的服务器进行托管。</p>
+<p>常用的Pages服务有GitHub pages、Coding pages等，由于暂时没有找到好用的Hugo的远程部署插件，所以这里使用Git命令来进行远程部署。</p>
+<p><strong>注意，所谓的远程部署，其实就是把<code>hugo</code>命令生成的<code>public</code>目录里的所有文件push到远程库，然后启用Pages服务进行静态网站的部署。这样，当有人访问静态站点的主页时，Pages服务就会去读取根目录下的<code>index.html</code>。</strong></p>
+<p>本文以部署到GitHub Pages为例。</p>
+<h2 id="1安装git">1.安装Git</h2>
+<p>首先要安装Git，Git是一个版本控制工具，可以用来帮忙管理我们的博客，直接前往官网下载安装包即可。</p>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><a href="https://git-scm.com/" target="_blank" rel="noopener noreffer">下载链接</a></div>
+        </div>
+    </div>
+<p>在安装的时候会问你是否安装git的cmd工具，把这个也一起安装了后就可以不需要配置环境变量了。这样就可以直接在cmd窗口里运行Git命令，如<code>git version</code>。</p>
+<p>当然也可以直接使用安装时自带的Git Bash，个人更喜欢用Git Bash。</p>
+<h2 id="2将个人博客部署到远端服务器可以使用github部署到github仓库">2.将个人博客部署到远端服务器(可以使用github部署到github仓库)</h2>
 <p><code>在github创建一个远端仓库</code></p>
 <p><img
         class="lazyload"
@@ -450,7 +469,7 @@ hugo server --disableFastRender  -e production -D --bind 192.168.75.128 --baseUR
         data-sizes="auto"
         alt="/img/2.png"
         title="img" /></p>
-<h2 id="在myblog目录下执行">在myblog目录下执行</h2>
+<h2 id="3在myblog目录下执行">3.在myblog目录下执行</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -465,7 +484,7 @@ hugo --theme<span class="o">=</span>m10c --baseUrl<span class="o">=</span><span 
 hugo --theme<span class="o">=</span>LoveIt --baseUrl<span class="o">=</span><span class="s2">&#34;https://freerun.xyz/&#34;</span> --buildDrafts
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="接下来把public文件推送到github上">接下来把public文件推送到github上：</h2>
+</div><h2 id="4接下来把public文件推送到github上">4.接下来把public文件推送到github上：</h2>
 <ul>
 <li>
 <h3 id="切换到public文件夹下代开命令行窗口依次键入">切换到public文件夹下，代开命令行窗口，依次键入</h3>
