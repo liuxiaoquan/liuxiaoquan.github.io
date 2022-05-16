@@ -3,12 +3,12 @@
         <title>docker-compose - 标签 - 在阅读中遇见自己</title>
         <link>https://freerun.xyz/tags/docker-compose/</link>
         <description>docker-compose - 标签 - 在阅读中遇见自己</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (小全)</managingEditor>
-            <webMaster>823715972@qq.com (小全)</webMaster><lastBuildDate>Fri, 15 Apr 2022 12:44:39 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/tags/docker-compose/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Fri, 15 Apr 2022 12:44:39 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/tags/docker-compose/" rel="self" type="application/rss+xml" /><item>
     <title>Docker Compose的一些常用命令</title>
     <link>https://freerun.xyz/docker-compose%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</link>
     <pubDate>Fri, 15 Apr 2022 12:44:39 &#43;0800</pubDate>
-    <author>刘小全</author>
+    <author>Ylimhs</author>
     <guid>https://freerun.xyz/docker-compose%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid>
     <description><![CDATA[Docker-Compose的一些常用命令 一、Docker-Compose简介 1、Docker-Compose简介 Docker-Compos]]></description>
 </item>

@@ -3,12 +3,12 @@
         <title>crontab - 标签 - 在阅读中遇见自己</title>
         <link>https://freerun.xyz/tags/crontab/</link>
         <description>crontab - 标签 - 在阅读中遇见自己</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (小全)</managingEditor>
-            <webMaster>823715972@qq.com (小全)</webMaster><lastBuildDate>Sun, 08 Aug 2021 01:22:41 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/tags/crontab/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Sun, 08 Aug 2021 01:22:41 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/tags/crontab/" rel="self" type="application/rss+xml" /><item>
     <title>Crontab的应用</title>
     <link>https://freerun.xyz/crontab%E7%9A%84%E5%BA%94%E7%94%A8/</link>
     <pubDate>Sun, 08 Aug 2021 01:22:41 &#43;0800</pubDate>
-    <author>刘小全</author>
+    <author>Ylimhs</author>
     <guid>https://freerun.xyz/crontab%E7%9A%84%E5%BA%94%E7%94%A8/</guid>
     <description><![CDATA[1 2 3 crontab -l crontab -r crontab -e 1 2 3 -e : 执行文字编辑器来设定时程表，内定的文字编辑器是 VI，如果你想用别的文字编辑器，则请先设定 VISUAL 环境变数来指定使用那个]]></description>
 </item>

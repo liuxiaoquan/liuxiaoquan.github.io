@@ -3,12 +3,12 @@
         <title>linux 挂盘 - 标签 - 在阅读中遇见自己</title>
         <link>https://freerun.xyz/tags/linux-%E6%8C%82%E7%9B%98/</link>
         <description>linux 挂盘 - 标签 - 在阅读中遇见自己</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (小全)</managingEditor>
-            <webMaster>823715972@qq.com (小全)</webMaster><lastBuildDate>Tue, 11 May 2021 12:34:21 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/tags/linux-%E6%8C%82%E7%9B%98/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Tue, 11 May 2021 12:34:21 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/tags/linux-%E6%8C%82%E7%9B%98/" rel="self" type="application/rss+xml" /><item>
     <title>Lvm挂载硬盘步骤</title>
     <link>https://freerun.xyz/lvm%E6%8C%82%E8%BD%BD%E7%A1%AC%E7%9B%98%E6%AD%A5%E9%AA%A4/</link>
     <pubDate>Tue, 11 May 2021 12:34:21 &#43;0800</pubDate>
-    <author>刘小全</author>
+    <author>Ylimhs</author>
     <guid>https://freerun.xyz/lvm%E6%8C%82%E8%BD%BD%E7%A1%AC%E7%9B%98%E6%AD%A5%E9%AA%A4/</guid>
     <description><![CDATA[备注说明：lvm的硬盘挂载原理，可参考如下链接，有详细解释所有的挂载硬盘原理 https://zhuanlan.zhihu.com/p/296777898 步骤： 硬盘格式化成pv 1 pvcreate /dev/sdb 创建完PV以后，我们可以使用pvd]]></description>
 </item>

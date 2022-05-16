@@ -3,12 +3,12 @@
         <title>所有文章 - 在阅读中遇见自己</title>
         <link>https://freerun.xyz/posts/</link>
         <description>所有文章 | 在阅读中遇见自己</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (小全)</managingEditor>
-            <webMaster>823715972@qq.com (小全)</webMaster><lastBuildDate>Sat, 14 May 2022 15:13:40 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Sat, 14 May 2022 15:13:40 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/posts/" rel="self" type="application/rss+xml" /><item>
     <title>JAVA线上故障排查全套路</title>
     <link>https://freerun.xyz/java%E7%BA%BF%E4%B8%8A%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5%E5%85%A8%E5%A5%97%E8%B7%AF/</link>
     <pubDate>Sat, 14 May 2022 15:13:40 &#43;0800</pubDate>
-    <author>刘小全</author>
+    <author>Ylimhs</author>
     <guid>https://freerun.xyz/java%E7%BA%BF%E4%B8%8A%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5%E5%85%A8%E5%A5%97%E8%B7%AF/</guid>
     <description><![CDATA[JAVA线上故障排查全套路 线上故障主要会包括cpu、磁盘、内存以及网络问题，而大多数故障可能会包含不止一个层面的问题，所以进行排查时候尽量四]]></description>
 </item>
@@ -16,7 +16,7 @@
     <title>LoveIt主题配置与使用</title>
     <link>https://freerun.xyz/loveit%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/</link>
     <pubDate>Thu, 12 May 2022 21:48:15 &#43;0800</pubDate>
-    <author>刘小全</author>
+    <author>Ylimhs</author>
     <guid>https://freerun.xyz/loveit%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/</guid>
     <description><![CDATA[Hugo LoveIt主题配置与使用 1. 安装主题 把这个主题克隆到 themes 目录: 2. 配置主题 2.1. 站点配置文件的修改 将根目录\themes\LoveIt\examp]]></description>
 </item>
@@ -24,7 +24,7 @@
     <title>Docker Compose的一些常用命令</title>
     <link>https://freerun.xyz/docker-compose%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</link>
     <pubDate>Fri, 15 Apr 2022 12:44:39 &#43;0800</pubDate>
-    <author>刘小全</author>
+    <author>Ylimhs</author>
     <guid>https://freerun.xyz/docker-compose%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid>
     <description><![CDATA[Docker-Compose的一些常用命令 一、Docker-Compose简介 1、Docker-Compose简介 Docker-Compos]]></description>
 </item>
@@ -32,7 +32,7 @@
     <title>时间同步的问题和解决方法</title>
     <link>https://freerun.xyz/%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5%E7%9A%84%E9%97%AE%E9%A2%98%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</link>
     <pubDate>Thu, 07 Apr 2022 16:17:17 &#43;0800</pubDate>
-    <author>刘小全</author>
+    <author>Ylimhs</author>
     <guid>https://freerun.xyz/%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5%E7%9A%84%E9%97%AE%E9%A2%98%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</guid>
     <description><![CDATA[时间同步的问题和解决方法 一、虚拟服务器时间同步设置 使用条件： 主机已经与授时服务器进行时间同步 配置VMware虚拟服务器的“同步客户机与主机时]]></description>
 </item>
@@ -40,7 +40,7 @@
     <title>Linux系统下提示磁盘空间满,但实际占用却很小</title>
     <link>https://freerun.xyz/linux%E7%B3%BB%E7%BB%9F%E4%B8%8B%E6%8F%90%E7%A4%BA%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E6%BB%A1%E4%BD%86%E5%AE%9E%E9%99%85%E5%8D%A0%E7%94%A8%E5%8D%B4%E5%BE%88%E5%B0%8F/</link>
     <pubDate>Wed, 16 Mar 2022 20:14:51 &#43;0800</pubDate>
-    <author>刘小全</author>
+    <author>Ylimhs</author>
     <guid>https://freerun.xyz/linux%E7%B3%BB%E7%BB%9F%E4%B8%8B%E6%8F%90%E7%A4%BA%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E6%BB%A1%E4%BD%86%E5%AE%9E%E9%99%85%E5%8D%A0%E7%94%A8%E5%8D%B4%E5%BE%88%E5%B0%8F/</guid>
     <description><![CDATA[因为公司放在测试服务器上的服务比较多，磁盘经常性会满。以前满过几次，因为时间比较赶，每次只是草率的删掉一点log或者临时文件，到今天早上又发]]></description>
 </item>
@@ -48,7 +48,7 @@
     <title>普罗米修斯Prometheus</title>
     <link>https://freerun.xyz/prometheus-%E7%9B%91%E6%8E%A7%E9%83%A8%E7%BD%B2-last/</link>
     <pubDate>Wed, 20 Oct 2021 11:40:40 &#43;0800</pubDate>
-    <author>刘小全</author>
+    <author>Ylimhs</author>
     <guid>https://freerun.xyz/prometheus-%E7%9B%91%E6%8E%A7%E9%83%A8%E7%BD%B2-last/</guid>
     <description><![CDATA[1、prometheus 主服务的下载与部署 1.1创建安装目录和下载部署包并解压 下载x86安装包 1 2 3 4 5 6 mkdir -p /data/monitor/prometheus #下载prometheus包]]></description>
 </item>
@@ -56,7 +56,7 @@
     <title>Linux扩容home目录</title>
     <link>https://freerun.xyz/linux%E6%89%A9%E5%AE%B9home%E7%9B%AE%E5%BD%95/</link>
     <pubDate>Sat, 18 Sep 2021 15:19:40 &#43;0800</pubDate>
-    <author>刘小全</author>
+    <author>Ylimhs</author>
     <guid>https://freerun.xyz/linux%E6%89%A9%E5%AE%B9home%E7%9B%AE%E5%BD%95/</guid>
     <description><![CDATA[机器装了一块新硬盘, 先使用sudo fdisk -l看看新添加的硬盘叫什么, 我的叫sdb接下来按照这篇文章操作即可, 该文章新挂载的硬盘叫sdb1, 注意替]]></description>
 </item>
@@ -72,7 +72,7 @@
     <title>Crontab的应用</title>
     <link>https://freerun.xyz/crontab%E7%9A%84%E5%BA%94%E7%94%A8/</link>
     <pubDate>Sun, 08 Aug 2021 01:22:41 &#43;0800</pubDate>
-    <author>刘小全</author>
+    <author>Ylimhs</author>
     <guid>https://freerun.xyz/crontab%E7%9A%84%E5%BA%94%E7%94%A8/</guid>
     <description><![CDATA[1 2 3 crontab -l crontab -r crontab -e 1 2 3 -e : 执行文字编辑器来设定时程表，内定的文字编辑器是 VI，如果你想用别的文字编辑器，则请先设定 VISUAL 环境变数来指定使用那个]]></description>
 </item>
@@ -80,7 +80,7 @@
     <title>Docker版本升级</title>
     <link>https://freerun.xyz/docker%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7/</link>
     <pubDate>Thu, 05 Aug 2021 14:23:32 &#43;0800</pubDate>
-    <author>刘小全</author>
+    <author>Ylimhs</author>
     <guid>https://freerun.xyz/docker%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7/</guid>
     <description><![CDATA[升级背景 1 2 3 4 5 6 7 8 9 10 漏洞描述： Docker是一款开源的应用容器引擎。该产品支持在Linux系统上创建一个容器（轻量级虚拟机）并部署和]]></description>
 </item>

@@ -3,12 +3,12 @@
         <title>升级ssh - 标签 - 在阅读中遇见自己</title>
         <link>https://freerun.xyz/tags/%E5%8D%87%E7%BA%A7ssh/</link>
         <description>升级ssh - 标签 - 在阅读中遇见自己</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (小全)</managingEditor>
-            <webMaster>823715972@qq.com (小全)</webMaster><lastBuildDate>Thu, 29 Apr 2021 00:59:20 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/tags/%E5%8D%87%E7%BA%A7ssh/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Thu, 29 Apr 2021 00:59:20 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/tags/%E5%8D%87%E7%BA%A7ssh/" rel="self" type="application/rss+xml" /><item>
     <title>手动升级ssh</title>
     <link>https://freerun.xyz/%E6%89%8B%E5%8A%A8%E5%8D%87%E7%BA%A7ssh/</link>
     <pubDate>Thu, 29 Apr 2021 00:59:20 &#43;0800</pubDate>
-    <author>刘小全</author>
+    <author>Ylimhs</author>
     <guid>https://freerun.xyz/%E6%89%8B%E5%8A%A8%E5%8D%87%E7%BA%A7ssh/</guid>
     <description><![CDATA[openssl、openssh下载地址 https://openbsd.hk/pub/OpenBSD/OpenSSH/portable/ （ssh） https://ftp.openssl.org/source/ (ssl) 配置yum源 1 2 mount /dev/sdd /mnt vim /etc/yum.repos.d/local.repo #编辑 1 2 3 4 5 [my] name=my baseurl=file:///mnt enabled=1 gpgcheck=0 1 yum list #检查配置是否成功 1 2 3 4 5]]></description>
 </item>

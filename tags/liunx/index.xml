@@ -3,12 +3,12 @@
         <title>liunx - 标签 - 在阅读中遇见自己</title>
         <link>https://freerun.xyz/tags/liunx/</link>
         <description>liunx - 标签 - 在阅读中遇见自己</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (小全)</managingEditor>
-            <webMaster>823715972@qq.com (小全)</webMaster><lastBuildDate>Wed, 16 Mar 2022 20:14:51 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/tags/liunx/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Wed, 16 Mar 2022 20:14:51 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/tags/liunx/" rel="self" type="application/rss+xml" /><item>
     <title>Linux系统下提示磁盘空间满,但实际占用却很小</title>
     <link>https://freerun.xyz/linux%E7%B3%BB%E7%BB%9F%E4%B8%8B%E6%8F%90%E7%A4%BA%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E6%BB%A1%E4%BD%86%E5%AE%9E%E9%99%85%E5%8D%A0%E7%94%A8%E5%8D%B4%E5%BE%88%E5%B0%8F/</link>
     <pubDate>Wed, 16 Mar 2022 20:14:51 &#43;0800</pubDate>
-    <author>刘小全</author>
+    <author>Ylimhs</author>
     <guid>https://freerun.xyz/linux%E7%B3%BB%E7%BB%9F%E4%B8%8B%E6%8F%90%E7%A4%BA%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E6%BB%A1%E4%BD%86%E5%AE%9E%E9%99%85%E5%8D%A0%E7%94%A8%E5%8D%B4%E5%BE%88%E5%B0%8F/</guid>
     <description><![CDATA[因为公司放在测试服务器上的服务比较多，磁盘经常性会满。以前满过几次，因为时间比较赶，每次只是草率的删掉一点log或者临时文件，到今天早上又发]]></description>
 </item>

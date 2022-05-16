@@ -3,12 +3,12 @@
         <title>sudo漏洞 - 标签 - 在阅读中遇见自己</title>
         <link>https://freerun.xyz/tags/sudo%E6%BC%8F%E6%B4%9E/</link>
         <description>sudo漏洞 - 标签 - 在阅读中遇见自己</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (小全)</managingEditor>
-            <webMaster>823715972@qq.com (小全)</webMaster><lastBuildDate>Tue, 25 May 2021 11:03:03 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/tags/sudo%E6%BC%8F%E6%B4%9E/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Tue, 25 May 2021 11:03:03 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/tags/sudo%E6%BC%8F%E6%B4%9E/" rel="self" type="application/rss+xml" /><item>
     <title>CentOS升级sudo版本 解决Sudo权限绕过漏洞 修复堆缓冲区溢出漏洞(CVE-2021-3156)</title>
     <link>https://freerun.xyz/centos%E5%8D%87%E7%BA%A7sudo%E7%89%88%E6%9C%AC-%E8%A7%A3%E5%86%B3sudo%E6%9D%83%E9%99%90%E7%BB%95%E8%BF%87%E6%BC%8F%E6%B4%9E-%E4%BF%AE%E5%A4%8D%E5%A0%86%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E/</link>
     <pubDate>Tue, 25 May 2021 11:03:03 &#43;0800</pubDate>
-    <author>刘小全</author>
+    <author>Ylimhs</author>
     <guid>https://freerun.xyz/centos%E5%8D%87%E7%BA%A7sudo%E7%89%88%E6%9C%AC-%E8%A7%A3%E5%86%B3sudo%E6%9D%83%E9%99%90%E7%BB%95%E8%BF%87%E6%BC%8F%E6%B4%9E-%E4%BF%AE%E5%A4%8D%E5%A0%86%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E/</guid>
     <description><![CDATA[漏洞介绍 关于 Sudo 堆缓冲区溢出漏洞(CVE-2021- 3156)的预警通知 有关情报显示，sudo 存在缓冲区溢出漏洞。攻击者在取得服 务器基础权限的]]></description>
 </item>

@@ -3,12 +3,12 @@
         <title>常见命令 - 标签 - 在阅读中遇见自己</title>
         <link>https://freerun.xyz/tags/%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/</link>
         <description>常见命令 - 标签 - 在阅读中遇见自己</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (小全)</managingEditor>
-            <webMaster>823715972@qq.com (小全)</webMaster><lastBuildDate>Mon, 26 Apr 2021 15:40:13 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/tags/%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Mon, 26 Apr 2021 15:40:13 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/tags/%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" rel="self" type="application/rss+xml" /><item>
     <title>Shell常见命令分享</title>
     <link>https://freerun.xyz/shell%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4%E5%88%86%E4%BA%AB/</link>
     <pubDate>Mon, 26 Apr 2021 15:40:13 &#43;0800</pubDate>
-    <author>刘小全</author>
+    <author>Ylimhs</author>
     <guid>https://freerun.xyz/shell%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4%E5%88%86%E4%BA%AB/</guid>
     <description><![CDATA[centos基础 1 ifconfig/ip addr # 查看ip 1 netstat -tunlp | grep 8080 #查询8080端口是否存在 1 2 ping 10.0.0.1 -s 65507 #包大小为65507 ping 10.0.0.1 -l 65500 #window 1 ifconfig eth0 192.168.60.128 #修改ip 1 free -m #查]]></description>
 </item>

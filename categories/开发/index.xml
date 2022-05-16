@@ -3,12 +3,12 @@
         <title>开发 - 分类 - 在阅读中遇见自己</title>
         <link>https://freerun.xyz/categories/%E5%BC%80%E5%8F%91/</link>
         <description>开发 - 分类 - 在阅读中遇见自己</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (小全)</managingEditor>
-            <webMaster>823715972@qq.com (小全)</webMaster><lastBuildDate>Sat, 14 May 2022 15:13:40 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/categories/%E5%BC%80%E5%8F%91/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Sat, 14 May 2022 15:13:40 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/categories/%E5%BC%80%E5%8F%91/" rel="self" type="application/rss+xml" /><item>
     <title>JAVA线上故障排查全套路</title>
     <link>https://freerun.xyz/java%E7%BA%BF%E4%B8%8A%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5%E5%85%A8%E5%A5%97%E8%B7%AF/</link>
     <pubDate>Sat, 14 May 2022 15:13:40 &#43;0800</pubDate>
-    <author>刘小全</author>
+    <author>Ylimhs</author>
     <guid>https://freerun.xyz/java%E7%BA%BF%E4%B8%8A%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5%E5%85%A8%E5%A5%97%E8%B7%AF/</guid>
     <description><![CDATA[JAVA线上故障排查全套路 线上故障主要会包括cpu、磁盘、内存以及网络问题，而大多数故障可能会包含不止一个层面的问题，所以进行排查时候尽量四]]></description>
 </item>
