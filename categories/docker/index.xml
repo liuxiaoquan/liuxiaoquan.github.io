@@ -4,7 +4,15 @@
         <link>https://freerun.xyz/categories/docker/</link>
         <description>docker - 分类 - 在阅读中遇见自己</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
-            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Thu, 05 Aug 2021 14:23:32 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/categories/docker/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Fri, 15 Apr 2022 12:44:39 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/categories/docker/" rel="self" type="application/rss+xml" /><item>
+    <title>Docker Compose的一些常用命令</title>
+    <link>https://freerun.xyz/docker-compose%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</link>
+    <pubDate>Fri, 15 Apr 2022 12:44:39 &#43;0800</pubDate>
+    <author>Ylimhs</author>
+    <guid>https://freerun.xyz/docker-compose%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid>
+    <description><![CDATA[Docker-Compose的一些常用命令 一、Docker-Compose简介 1、Docker-Compose简介 Docker-Compos]]></description>
+</item>
+<item>
     <title>Docker版本升级</title>
     <link>https://freerun.xyz/docker%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7/</link>
     <pubDate>Thu, 05 Aug 2021 14:23:32 &#43;0800</pubDate>
