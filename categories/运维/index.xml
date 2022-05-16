@@ -56,7 +56,7 @@
     <title>Nethogs命令</title>
     <link>https://freerun.xyz/nethogs%E5%91%BD%E4%BB%A4/</link>
     <pubDate>Fri, 27 Aug 2021 15:25:51 &#43;0800</pubDate>
-    <author>刘小全</author>
+    <author>Ylimhs</author>
     <guid>https://freerun.xyz/nethogs%E5%91%BD%E4%BB%A4/</guid>
     <description><![CDATA[1 2 3 4 5 6 wget https://github.com/raboof/nethogs/archive/v0.8.1.tar.gz yum install libpcap-devel tar zxvf v0.8.1.tar.gz cd nethogs-0.8.1/ make &amp;&amp; make install nethogs eno1 以下是NetHogs的一些很有用的交互控制(键盘快捷键) 1 2 3 4 5 6 -m: Change the units displayed forthe bandwidth inunits like KB/sec-&gt;KB-&gt;B-&gt;MB. -r: Sort by magnitude]]></description>
 </item>

@@ -32,7 +32,7 @@
     <title>Nslookup命令详解</title>
     <link>https://freerun.xyz/nslookup%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</link>
     <pubDate>Thu, 06 May 2021 12:01:27 &#43;0800</pubDate>
-    <author>刘小全</author>
+    <author>Ylimhs</author>
     <guid>https://freerun.xyz/nslookup%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</guid>
     <description><![CDATA[nslookup命令用于**查询DNS的记录，查看域名解析是否正常，在网络故障的时候用来诊断网络问题。** nslookup的用法相对来说还是]]></description>
 </item>
