@@ -4,7 +4,15 @@
         <link>https://freerun.xyz/posts/</link>
         <description>所有文章 | 在阅读中遇见自己</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
-            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Mon, 16 May 2022 15:03:29 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Tue, 17 May 2022 21:58:32 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Navicat_premium破解</title>
+    <link>https://freerun.xyz/navicat_premium%E7%A0%B4%E8%A7%A3/</link>
+    <pubDate>Tue, 17 May 2022 21:58:32 &#43;0800</pubDate>
+    <author>Ylimhs</author>
+    <guid>https://freerun.xyz/navicat_premium%E7%A0%B4%E8%A7%A3/</guid>
+    <description><![CDATA[注意 1.运行注册机时最好关闭电脑的杀毒软件； 2.运行注册机请断网，无需将注册机放到Navicat Premium安装目录下； 3.请选择对各个版]]></description>
+</item>
+<item>
     <title>LoveIt主题美化与博客功能增强 第一章</title>
     <link>https://freerun.xyz/loveit%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96%E4%B8%8E%E5%8D%9A%E5%AE%A2%E5%8A%9F%E8%83%BD%E5%A2%9E%E5%BC%BA-%E7%AC%AC%E4%B8%80%E7%AB%A0/</link>
     <pubDate>Mon, 16 May 2022 15:03:29 &#43;0800</pubDate>
@@ -101,14 +109,6 @@ LoveIt: v0.2.10
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/linux%E6%89%A9%E5%AE%B9home%E7%9B%AE%E5%BD%95/</guid>
     <description><![CDATA[机器装了一块新硬盘, 先使用sudo fdisk -l看看新添加的硬盘叫什么, 我的叫sdb接下来按照这篇文章操作即可, 该文章新挂载的硬盘叫sdb1, 注意替]]></description>
-</item>
-<item>
-    <title>Nethogs命令</title>
-    <link>https://freerun.xyz/nethogs%E5%91%BD%E4%BB%A4/</link>
-    <pubDate>Fri, 27 Aug 2021 15:25:51 &#43;0800</pubDate>
-    <author>Ylimhs</author>
-    <guid>https://freerun.xyz/nethogs%E5%91%BD%E4%BB%A4/</guid>
-    <description><![CDATA[1 2 3 4 5 6 wget https://github.com/raboof/nethogs/archive/v0.8.1.tar.gz yum install libpcap-devel tar zxvf v0.8.1.tar.gz cd nethogs-0.8.1/ make &amp;&amp; make install nethogs eno1 以下是NetHogs的一些很有用的交互控制(键盘快捷键) 1 2 3 4 5 6 -m: Change the units displayed forthe bandwidth inunits like KB/sec-&gt;KB-&gt;B-&gt;MB. -r: Sort by magnitude]]></description>
 </item>
 </channel>
 </rss>
