@@ -1,13 +1,48 @@
-# Iptables规则列表
+# Centos 7下配置iptables
 
 
-#### 禁止访问9200端口
+# 1、安装iptables
+
+```shell
+systemctl status iptables #查看是否安装iptables
+```
+
+![](/image/20180402093142757.png)
+
+{{< admonition warning >}}
+输出结果表示没有iptables的相关服务，我们需要安装
+{{< /admonition >}}
+
+```sh
+yum install iptables-services #安装
+systemctl status iptables 
+systemctl start iptables
+systemctl enable iptables.service #设置开机启动
+systemctl disable iptables.service #禁止开机启动
+```
+
+{{< admonition warning >}}
+这里需要关闭SELINUX，因为当SELINUX不关闭时，iptables不读取配置文件 `vi /etc/selinux/config`
+
+![](/image/20180402094955791.png)
+
+`重新加载配置 source /etc/selinux/config `
+
+{{< /admonition >}}
+
+{{< admonition danger >}}
+第一次创建规则要使用-F 清空，否者会出现很多奇怪的问题！
+{{< /admonition >}}
+
+# 2、配置规则
+
+## 禁止访问9200端口
 
 ```sh
 iptables -I INPUT -p tcp --dport 9200 -j DROP
 ```
 
-#### 允许ip为192.168.1.1的机器访问
+## 允许ip为192.168.1.1的机器访问
 
 ```shell
 iptables -I INPUT -p tcp -s 192.168.1.1 --dport 9200 -j ACCEPT
@@ -15,32 +50,32 @@ iptables -I INPUT -p tcp -s 192.168.1.1 --dport 9200 -j ACCEPT
 iptables -I INPUT 10 -p tcp -s 192.168.1.1 --dport 9200 -j ACCEPT
 ```
 
-#### 允许ip在192.168网段的机器访问
+## 允许ip在192.168网段的机器访问
 
 ```sh
 iptables -I INPUT -p tcp -s 192.168.1.1/16 --dport 9200 -j ACCEPT
 ```
 
-#### 允许所有ip访问
+## 允许所有ip访问
 
 ```sh
 iptables -I INPUT -p tcp --dport 9200 -j ACCEPT
 ```
 
-#### 查看规则列表
+## 查看规则列表
 
 ```sh
 iptables -nvL --line-number
 ```
 
-#### 删除规则
+## 删除规则
 
 ```sh
 #删除第10行规则
 iptables -D INPUT 10
 ```
 
-#### 清空所有规则
+## 清空所有规则
 
 ```sh
 iptables -F
@@ -59,7 +94,7 @@ iptables -I INPUT -p tcp --dport 9200 -j DROP
 
 ## [9个常用iptables配置实例]
 
-#### **1.删除已有规则**
+### **1.删除已有规则**
 
 在新设定iptables规则时，我们一般先确保旧规则被清除，用以下命令清除旧规则：
 
@@ -70,7 +105,7 @@ iptables -F
 
 
 
-#### **2.设置chain策略**
+### **2.设置chain策略**
 
 对于filter table，默认的chain策略为ACCEPT，我们可以通过以下命令修改chain的策略：
 
@@ -84,7 +119,7 @@ iptables -P OUTPUT DROP
 
  
 
-#### **3.屏蔽指定ip**
+### **3.屏蔽指定ip**
 
 有时候我们发现某个ip不停的往服务器发包，这时我们可以使用以下命令，将指定ip发来的包丢弃：
 
@@ -97,7 +132,7 @@ iptables -A INPUT -i eth0 -p tcp -s "$BLOCK_THIS_IP" -j DROP
 
  
 
-#### **4.配置服务项**
+### **4.配置服务项**
 
 利用iptables，我们可以对日常用到的服务项进行安全管理，比如设定只能通过指定网段、由指定网口通过SSH连接本机：
 
@@ -124,7 +159,7 @@ iptables -A OUTPUT -p udp -o eth0 --dport 53 -j ACCEPT
 iptables -A INPUT -p udp -i eth0 --sport 53 -j ACCEPT
 ```
 
-#### **5.网口转发配置**
+### **5.网口转发配置**
 
 对于用作防火墙或网关的服务器，一个网口连接到公网，其他网口的包转发到该网口实现内网向公网通信，假设eth0连接内网，eth1连接公网，配置规则如下：
 
@@ -134,7 +169,7 @@ iptables -A FORWARD -i eth0 -o eth1 -j ACCEPT
 
  
 
-#### **6.端口转发配置**
+### **6.端口转发配置**
 
 对于端口，我们也可以运用iptables完成转发配置：
 
@@ -146,7 +181,7 @@ iptables -t nat -A PREROUTING -p tcp -d 192.168.102.37 --dport 422 -j DNAT --to 
 
  
 
-#### **7.DoS攻击防范**
+### **7.DoS攻击防范**
 
 利用扩展模块limit，我们还可以配置iptables规则，实现DoS攻击防范：
 
@@ -160,7 +195,7 @@ iptables -A INPUT -p tcp --dport 80 -m limit --limit 25/minute --limit-burst 100
 
  
 
-#### **8.配置web流量均衡**
+### **8.配置web流量均衡**
 
 我们可以将一台服务器作为前端服务器，利用iptables进行流量分发，配置方法如下：
 
@@ -174,7 +209,7 @@ iptables -A PREROUTING -i eth0 -p tcp --dport 80 -m state --state NEW -m nth --c
 
  
 
-#### **9.将丢弃包情况记入日志**
+### **9.将丢弃包情况记入日志**
 
 使用LOG目标和syslog服务，我们可以记录某协议某端口下的收发包情况。拿记录丢包情况举例，可以通过以下方式实现。
 
