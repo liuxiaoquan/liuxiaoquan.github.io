@@ -10,7 +10,281 @@
     <pubDate>Sat, 18 Sep 2021 15:19:40 &#43;0800</pubDate>
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/linux%E6%89%A9%E5%AE%B9home%E7%9B%AE%E5%BD%95/</guid>
-    <description><![CDATA[机器装了一块新硬盘, 先使用sudo fdisk -l看看新添加的硬盘叫什么, 我的叫sdb接下来按照这篇文章操作即可, 该文章新挂载的硬盘叫sdb1, 注意替]]></description>
+    <description><![CDATA[<p>机器装了一块新硬盘, 先使用sudo fdisk -l看看新添加的硬盘叫什么, 我的叫sdb接下来按照这篇文章操作即可, 该文章新挂载的硬盘叫sdb1, 注意替换成自己的硬盘名</p>
+<p>注释：先使用<code>sudo fdisk -l</code>看看新添加的硬盘叫什么,我的叫sdb1</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">lsblk -f <span class="c1">#列出块设备列表，-f用于输出文件系统的详细信息</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>0.格式化分区</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">mkfs.ext4 /dev/sdb1
+</code></pre></td></tr></table>
+</div>
+</div><p>1.创建目录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">mkdir /media/home
+</code></pre></td></tr></table>
+</div>
+</div><p>2.把/dev/sdb1挂载到/media/home</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">mount /dev/sdb1 /media/home
+</code></pre></td></tr></table>
+</div>
+</div><p>3.执行几次sync命令,确保文件系统数据都落盘</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sync  <span class="c1">#执行三次或更多次sync命令</span>
+
+<span class="c1">#在Linux系统中，为了加快数据的读取速度，所以在默认的情况中， 某些已经加载内存中的数据将不会直接被写回硬盘，而是先缓存在内存当中，如此一来， 如果一个数据被你重复的改写，那么由于他尚未被写入硬盘中，因此可以直接由内存当中读取出来， 在速度上一定是快上相当多的！</span>
+
+<span class="c1">#不过，如此一来也造成些许的困扰，那就是万一你的系统因为某些特殊情况造成不正常关机 (例如停电或者是不小心踢到power)时，由于数据尚未被写入硬盘当中，哇！所以就会造成数据的升级不正常啦！ 那要怎么办呢？这个时候就需要sync这个命令来进行数据的写入动作啦！ 直接在文字接口下输入sync，那么在内存中尚未被升级的数据，就会被写入硬盘中！所以，这个命令在系统关机或重新启动之前， 很重要喔！最好多运行几次(2-4次)！</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>4.同步/home到/media/home</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">rsync -aXS /home/. /media/home/.
+<span class="c1">#或者加上-v详细模式输出 rsync -avXS /home/. /media/home/.</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># Options
+-v, --verbose 			# 详细模式输出。(打印一些信息，比如文件列表、文件数量等)
+-q, --quiet 			# 精简输出模式。
+-c, --checksum 			# 打开校验开关，强制对文件传输进行校验。
+-a, --archive 			# 归档模式，表示以递归方式传输文件，并保持所有文件属性，等于-rlptgoD。
+-r, --recursive 		# 对子目录以递归模式处理。
+-R, --relative 			# 使用相对路径信息。
+-b, --backup 			# 创建备份，也就是对于目的已经存在有同样的文件名时，将老的文件重新命名为~filename。可以使用--suffix选项来指定不同的备份文件前缀。
+--backup-dir 			# 将备份文件(如~filename)存放在在目录下。
+-suffix=SUFFIX 			# 定义备份文件前缀。
+-u, --update 			# 仅仅进行更新，也就是跳过所有已经存在于DST，并且文件时间晚于要备份的文件，不覆盖更新的文件。
+-l, --links 			# 保留软链结。
+-L, --copy-links 		# 想对待常规文件一样处理软链结。
+--copy-unsafe-links		# 仅仅拷贝指向SRC路径目录树以外的链结。
+--safe-links 			# 忽略指向SRC路径目录树以外的链结。
+-H, --hard-links 		# 保留硬链结。
+-p, --perms 			# 保持文件权限。
+-o, --owner 			# 保持文件属主信息。
+-g, --group 			# 保持文件属组信息。
+-D, --devices 			# 保持设备文件信息。
+-t, --times 			# 保持文件时间信息。
+-S, --sparse 			# 对稀疏文件进行特殊处理以节省DST的空间。
+-n, --dry-run			# 现实哪些文件将被传输。
+-w, --whole-file 		# 拷贝文件，不进行增量检测。
+-x, --one-file-system	# 不要跨越文件系统边界。
+-X, --xattrs			# 保留扩展属性
+-B, --block-size=SIZE	# 检验算法使用的块尺寸，默认是700字节。
+-e, --rsh=command 		# 指定使用rsh、ssh方式进行数据同步。
+--rsync-path=PATH 		# 指定远程服务器上的rsync命令所在路径信息。
+-C, --cvs-exclude 		# 使用和CVS一样的方法自动忽略文件，用来排除那些不希望传输的文件。
+--existing				# 仅仅更新那些已经存在于DST的文件，而不备份那些新创建的文件。
+--delete				# 删除那些DST中SRC没有的文件。
+--delete-excluded 		# 同样删除接收端那些被该选项指定排除的文件。
+--delete-after 			# 传输结束以后再删除。
+--ignore-errors 		# 及时出现IO错误也进行删除。
+--max-delete=NUM 		# 最多删除NUM个文件。
+--partial				# 保留那些因故没有完全传输的文件，以是加快随后的再次传输。
+--force					# 强制删除目录，即使不为空。
+--numeric-ids 			# 不将数字的用户和组id匹配为用户名和组名。
+--timeout=time 			# ip超时时间，单位为秒。
+-I, --ignore-times 		# 不跳过那些有同样的时间和长度的文件。
+--size-only 			# 当决定是否要备份文件时，仅仅察看文件大小而不考虑文件时间。
+--modify-window=NUM		# 决定文件是否时间相同时使用的时间戳窗口，默认为0。
+-T --temp-dir=DIR 		# 在DIR中创建临时文件。
+--compare-dest=DIR 		# 同样比较DIR中的文件来决定是否需要备份。
+-P						# 等同于 --partial。
+--progress				# 显示备份过程。
+-z, --compress 			# 对备份的文件在传输时进行压缩处理。
+--exclude=PATTERN 		# 指定排除不需要传输的文件模式。
+--include=PATTERN 		# 指定不排除而需要传输的文件模式。
+--exclude-from=FILE		# 排除FILE中指定模式的文件。
+--include-from=FILE		# 不排除FILE指定模式匹配的文件。
+--version				# 打印版本信息。
+--address				# 绑定到特定的地址。
+--config=FILE 			# 指定其他的配置文件，不使用默认的rsyncd.conf文件。
+--port=PORT 			# 指定其他的rsync服务端口。
+--blocking-io 			# 对远程shell使用阻塞IO。
+-stats					# 给出某些文件的传输状态。
+--progress				# 在传输时现实传输过程。
+--log-format=formAT		# 指定日志文件格式。
+--password-file=FILE	# 从FILE中得到密码。
+--bwlimit=KBPS 			# 限制I/O带宽，KBytes per second。
+-h, --help				# 显示帮助信息。
+</code></pre></td></tr></table>
+</div>
+</div><p>5.同步完成后重命名/home</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">mv /home /home_old
+</code></pre></td></tr></table>
+</div>
+</div><p>6.新建/home</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">mkdir /home
+</code></pre></td></tr></table>
+</div>
+</div><p>7.取消/dev/sdb1挂载</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">umount /dev/sdb1
+</code></pre></td></tr></table>
+</div>
+</div><p>8.重新挂载/dev/sdb1到home</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">mount /dev/sdb1 /home
+</code></pre></td></tr></table>
+</div>
+</div><p>9.查看/dev/sdb1的UUID</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">blkid
+</code></pre></td></tr></table>
+</div>
+</div><p>10.把UUID复制下来，修改/etc/fstab文件，实现开机自动挂载</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">vim /etc/fstab
+mount -a <span class="c1">#将/etc/fstab的所有内容重新加载。</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在文件最后添加如下内容：
+UUID=8da46012-ab9c-434f-a855-2484112fd1a7 /home ext4 nodev,nosuid 0 2</p>
+<p>11.保存之后重启系统，查看分区的挂载情况</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">df –Th
+</code></pre></td></tr></table>
+</div>
+</div><p>12.确认一切正常后删除/home_old</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">rm -rf /home_old
+</code></pre></td></tr></table>
+</div>
+</div><p>至此，给/home增加空间的工作就完成了。</p>
+]]></description>
 </item>
 <item>
     <title>Top命令详解</title>
@@ -18,7 +292,500 @@
     <pubDate>Wed, 09 Jun 2021 11:17:50 &#43;0800</pubDate>
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/top%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</guid>
-    <description><![CDATA[top命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的任务管理器。 下面详细介绍它的使用]]></description>
+    <description><![CDATA[<p>top命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的任务管理器。</p>
+<p>下面详细介绍它的使用方法。top是一个动态显示过程,即可以通过用户按键来不断刷新当前状态.如果在前台执行该命令,它将独占前台,直到用户终止该程序为止.比较准确的说,top命令提供了实时的对系统处理器的状态监视.它将显示系统中CPU最“敏感”的任务列表.该命令可以按CPU使用.内存使用和执行时间对任务进行排序；而且该命令的很多特性都可以通过交互式命令或者在个人定制文件中进行设定.</p>
+<h2 id="1命令格式"><strong>1．命令格式：</strong></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">top <span class="o">[</span>参数<span class="o">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="2命令功能"><strong>2．命令功能：</strong></h2>
+<p>显示当前系统正在执行的进程的相关信息，包括进程ID、内存占用率、CPU占用率等</p>
+<h2 id="3命令参数"><strong>3．命令参数：</strong></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">-b 批处理
+
+-c 显示完整的治命令
+
+-I 忽略失效过程
+
+-s 保密模式
+
+-S 累积模式
+
+-i&lt;时间&gt; 设置间隔时间
+
+-u&lt;用户名&gt; 指定用户名
+
+-p&lt;进程号&gt; 指定进程
+
+-n&lt;次数&gt; 循环显示的次数
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="4使用实例"><strong>4．使用实例：</strong></h2>
+<h3 id="实例1显示进程信息"><strong>实例1：显示进程信息</strong></h3>
+<h4 id="命令"><strong>命令：</strong></h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">top
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="输出"><strong>输出：</strong></h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@TG1704 log<span class="o">]</span><span class="c1"># top</span>
+
+top - 14:06:23 up <span class="m">70</span> days, 16:44,  <span class="m">2</span> users,  load average: 1.25, 1.32, 1.35
+Tasks: <span class="m">206</span> total,   <span class="m">1</span> running, <span class="m">205</span> sleeping,   <span class="m">0</span> stopped,   <span class="m">0</span> zombie
+Cpu<span class="o">(</span>s<span class="o">)</span>:  5.9%us,  3.4%sy,  0.0%ni, 90.4%id,  0.0%wa,  0.0%hi,  0.2%si,  0.0%st
+Mem:  32949016k total, 14411180k used, 18537836k free,   169884k buffers
+Swap: 32764556k total,        0k used, 32764556k free,  3612636k cached
+
+PID   USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND                      
+<span class="m">28894</span> root      <span class="m">22</span>   <span class="m">0</span> 1501m 405m  10m S 52.2  1.3   2534:16 java                                                                
+<span class="m">18249</span> root      <span class="m">18</span>   <span class="m">0</span> 3201m 1.9g  11m S 35.9  6.0 569:39.41 java                                                                
+ <span class="m">2808</span> root      <span class="m">25</span>   <span class="m">0</span> 3333m 1.0g  11m S 24.3  3.1 526:51.85 java                                                                 
+<span class="m">25668</span> root      <span class="m">23</span>   <span class="m">0</span> 3180m 704m  11m S 14.0  2.2 360:44.53 java                                                                 
+  <span class="m">574</span> root      <span class="m">25</span>   <span class="m">0</span> 3168m 611m  10m S 12.6  1.9 556:59.63 java                                                                 
+ <span class="m">1599</span> root      <span class="m">20</span>   <span class="m">0</span> 3237m 1.9g  11m S 12.3  6.2 262:01.14 java                                                                 
+ <span class="m">1008</span> root      <span class="m">21</span>   <span class="m">0</span> 3147m 842m  10m S  0.3  2.6   4:31.08 java                                                                
+<span class="m">13823</span> root      <span class="m">23</span>   <span class="m">0</span> 3031m 2.1g  10m S  0.3  6.8 176:57.34 java                                                                
+<span class="m">28218</span> root      <span class="m">15</span>   <span class="m">0</span> <span class="m">12760</span> <span class="m">1168</span>  <span class="m">808</span> R  0.3  0.0   0:01.43 top                                                                 
+<span class="m">29062</span> root      <span class="m">20</span>   <span class="m">0</span> 1241m 227m  10m S  0.3  0.7   2:07.32 java                                                                 
+    <span class="m">1</span> root      <span class="m">15</span>   <span class="m">0</span> <span class="m">10368</span>  <span class="m">684</span>  <span class="m">572</span> S  0.0  0.0   1:30.85 init                                                                 
+    <span class="m">2</span> root      RT  -5     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:01.01 migration/0                                                         
+    <span class="m">3</span> root      <span class="m">34</span>  <span class="m">19</span>     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:00.00 ksoftirqd/0                                                         
+    <span class="m">4</span> root      RT  -5     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:00.00 watchdog/0                                                          
+    <span class="m">5</span> root      RT  -5     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:00.80 migration/1                                                         
+    <span class="m">6</span> root      <span class="m">34</span>  <span class="m">19</span>     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:00.00 ksoftirqd/1                                                         
+    <span class="m">7</span> root      RT  -5     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:00.00 watchdog/1                                                           
+    <span class="m">8</span> root      RT  -5     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:20.59 migration/2                                                         
+    <span class="m">9</span> root      <span class="m">34</span>  <span class="m">19</span>     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:00.09 ksoftirqd/2                                                         
+   <span class="m">10</span> root      RT  -5     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:00.00 watchdog/2                                                           
+   <span class="m">11</span> root      RT  -5     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:23.66 migration/3                                                         
+   <span class="m">12</span> root      <span class="m">34</span>  <span class="m">19</span>     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:00.03 ksoftirqd/3                                                        
+   <span class="m">13</span> root      RT  -5     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:00.00 watchdog/3                                                          
+   <span class="m">14</span> root      RT  -5     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:20.29 migration/4                                                         
+   <span class="m">15</span> root      <span class="m">34</span>  <span class="m">19</span>     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:00.07 ksoftirqd/4                                                         
+   <span class="m">16</span> root      RT  -5     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:00.00 watchdog/4                                                           
+   <span class="m">17</span> root      RT  -5     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:23.07 migration/5                                                         
+   <span class="m">18</span> root      <span class="m">34</span>  <span class="m">19</span>     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:00.07 ksoftirqd/5                                                        
+   <span class="m">19</span> root      RT  -5     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:00.00 watchdog/5                                                           
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="说明"><strong>说明：</strong></h4>
+<h5 id="统计信息区"><strong>统计信息区:</strong></h5>
+<p>前五行是当前系统情况整体的统计信息区。下面我们看每一行信息的具体意义。</p>
+<h5 id="第一行任务队列信息同-uptime-命令的执行结果具体参数说明情况如下">第一行，任务队列信息，同 uptime 命令的执行结果，具体参数说明情况如下：</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">14:06:23 — 当前系统时间
+
+up 70 days, 16:44 — 系统已经运行了70天16小时44分钟（在这期间系统没有重启过的吆！）
+
+2 users — 当前有2个用户登录系统
+
+load average: 1.15, 1.42, 1.44 — load average后面的三个数分别是1分钟、5分钟、15分钟的负载情况。
+
+load average数据是每隔5秒钟检查一次活跃的进程数，然后按特定算法计算出的数值。如果这个数除以逻辑CPU的数量，结果高于5的时候就表明系统在超负荷运转了。
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="第二行tasks--任务进程具体信息说明如下">第二行，Tasks — 任务（进程），具体信息说明如下：</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">系统现在共有206个进程，其中处于运行中的有1个，205个在休眠（sleep），stoped状态的有0个，zombie状态（僵尸）的有0个。
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="第三行cpu状态信息具体属性说明如下">第三行，cpu状态信息，具体属性说明如下：</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">5.9%us — 用户空间占用CPU的百分比。
+
+3.4% sy — 内核空间占用CPU的百分比。
+
+0.0% ni — 改变过优先级的进程占用CPU的百分比
+
+90.4% id — 空闲CPU百分比
+
+0.0% wa — IO等待占用CPU的百分比
+
+0.0% hi — 硬中断（Hardware IRQ）占用CPU的百分比
+
+0.2% si — 软中断（Software Interrupts）占用CPU的百分比
+
+**备注：****在这里CPU的使用比率和windows概念不同，****需要****理解****linux系统****用户空间和内核空间****的相关知识！**
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="第四行内存状态具体信息如下">第四行,内存状态，具体信息如下：</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">32949016k total — 物理内存总量（32GB）
+
+14411180k used — 使用中的内存总量（14GB）
+
+18537836k free — 空闲内存总量（18GB）
+
+169884k buffers — 缓存的内存量 （169M）
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="第五行swap交换分区信息具体信息说明如下">第五行，swap交换分区信息，具体信息说明如下：</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">32764556k total — 交换区总量（32GB）
+
+0k used — 使用的交换区总量（0K）
+
+32764556k free — 空闲交换区总量（32GB）
+
+3612636k cached — 缓冲的交换区总量（3.6GB）
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>备注：</strong></p>
+<p><strong>第四行中使用中的内存总量（used）指的是现在系统内核控制的内存数，空闲内存总量（free）是内核还未纳入其管控范围的数量。纳入内核管理的内存不见得都在使用中，还包括过去使用过的现在可以被重复利用的内存，内核并不把这些可被重新使用的内存交还到free中去，因此在linux上free内存会越来越少，但不用为此担心。</strong></p>
+<p><strong>如果出于习惯去计算可用内存数，这里有个近似的计算公式：第四行的free + 第四行的buffers + 第五行的cached，按这个公式此台服务器的可用内存：18537836k +169884k +3612636k = 22GB左右。</strong></p>
+<p><strong>对于内存监控，在top里我们要时刻监控第五行swap交换分区的used，如果这个数值在不断的变化，说明内核在不断进行内存和swap的数据交换，这是真正的内存不够用了。</strong></p>
+<h5 id="第六行空行">第六行，空行。</h5>
+<h5 id="第七行以下各进程任务的状态监控项目列信息说明如下"><strong>第七行以下：各进程（任务）的状态监控，项目列信息说明如下：</strong></h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">PID — 进程id
+
+USER — 进程所有者
+
+PR — 进程优先级
+
+NI — nice值。负值表示高优先级，正值表示低优先级
+
+VIRT — 进程使用的虚拟内存总量，单位kb。VIRT=SWAP+RES
+
+RES — 进程使用的、未被换出的物理内存大小，单位kb。RES=CODE+DATA
+
+SHR — 共享内存大小，单位kb
+
+S — 进程状态。D=不可中断的睡眠状态 R=运行 S=睡眠 T=跟踪/停止 Z=僵尸进程
+
+%CPU — 上次更新到现在的CPU时间占用百分比
+
+%MEM — 进程使用的物理内存百分比
+
+TIME+ — 进程使用的CPU时间总计，单位1/100秒
+
+COMMAND — 进程名称（命令名/命令行）
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="其他使用技巧"><strong>其他使用技巧：</strong></h4>
+<h5 id="1多u多核cpu监控">1.多U多核CPU监控</h5>
+<p>在top基本视图中，按键盘数字“1”，可监控每个逻辑CPU的状况：</p>
+<p></p>
+<p>观察上图，服务器有16个逻辑CPU，实际上是4个物理CPU。再按数字键1，就会返回到top基本视图界面。</p>
+<h5 id="2高亮显示当前运行进程">2.高亮显示当前运行进程</h5>
+<p>​	敲击键盘“b”（打开/关闭加亮效果），top的视图变化如下：</p>
+<p></p>
+<p>我们发现进程id为2570的“top”进程被加亮了，top进程就是视图第二行显示的唯一的运行态（runing）的那个进程，可以通过敲击“y”键关闭或打开运行态进程的加亮效果。</p>
+<h5 id="3进程字段排序">3.进程字段排序</h5>
+<p>默认进入top时，各进程是按照CPU的占用量来排序的，在下图中进程ID为28894的java进程排在第一（cpu占用142%），进程ID为574的java进程排在第二（cpu占用16%）。</p>
+<p></p>
+<p>敲击键盘“x”（打开/关闭排序列的加亮效果），top的视图变化如下：</p>
+<p></p>
+<p>可以看到，top默认的排序列是“%CPU”。</p>
+<ol start="4">
+<li>
+<h5 id="通过shift--或shift--可以向右或左改变排序列"><strong>通过”shift + &gt;”或”shift + &lt;”可以向右或左改变排序列</strong></h5>
+</li>
+</ol>
+<p>​	下图是按一次”shift + &gt;”的效果图,视图现在已经按照%MEM来排序。</p>
+<p></p>
+<h3 id="实例2显示-完整命令">实例2：显示 完整命令</h3>
+<h4 id="命令-1"><strong>命令：</strong></h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">top -c
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="输出-1"><strong>输出：</strong></h4>
+<p></p>
+<p><strong>说明：</strong></p>
+<h3 id="实例3以批处理模式显示程序信息"><strong>实例3：以批处理模式显示程序信息</strong></h3>
+<h4 id="命令-2"><strong>命令：</strong></h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">top -b
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="输出-2"><strong>输出：</strong></h4>
+<h4 id="说明-1"><strong>说明：</strong></h4>
+<h3 id="实例4以累积模式显示程序信息">实例4：以累积模式显示程序信息</h3>
+<h4 id="命令-3"><strong>命令：</strong></h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">top -S
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="输出-3"><strong>输出：</strong></h4>
+<h4 id="说明-2"><strong>说明：</strong></h4>
+<h3 id="实例5设置信息更新次数">实例5：设置信息更新次数</h3>
+<h4 id="命令-4"><strong>命令：</strong></h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">top -n <span class="m">2</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="输出-4"><strong>输出：</strong></h4>
+<h4 id="说明-3"><strong>说明：</strong></h4>
+<p>表示更新两次后终止更新显示</p>
+<h3 id="实例6设置信息更新时间"><strong>实例6：设置信息更新时间</strong></h3>
+<h4 id="命令-5"><strong>命令：</strong></h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">top -d <span class="m">3</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="输出-5"><strong>输出：</strong></h4>
+<h4 id="说明-4"><strong>说明：</strong></h4>
+<p>表示更新周期为3秒</p>
+<h3 id="实例7显示指定的进程信息"><strong>实例7：显示指定的进程信息</strong></h3>
+<h4 id="命令-6"><strong>命令：</strong></h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">top -p <span class="m">574</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="输出-6"><strong>输出：</strong></h4>
+<p></p>
+<h5 id="5top交互命令"><strong>5.top交互命令</strong></h5>
+<p>在top 命令执行过程中可以使用的一些交互命令。这些命令都是单字母的，如果在命令行中使用了s 选项， 其中一些命令可能会被屏蔽。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">h 显示帮助画面，给出一些简短的命令总结说明
+
+k 终止一个进程。
+
+i 忽略闲置和僵死进程。这是一个开关式命令。
+
+q 退出程序
+
+r 重新安排一个进程的优先级别
+
+S 切换到累计模式
+
+s 改变两次刷新之间的延迟时间（单位为s），如果有小数，就换算成m s。输入0值则系统将不断刷新，默认值是5 s
+
+f或者F 从当前显示中添加或者删除项目
+
+o或者O 改变显示项目的顺序
+
+l 切换显示平均负载和启动时间信息
+
+m 切换显示内存信息
+
+t 切换显示进程和CPU状态信息
+
+c 切换显示命令名称和完整命令行
+
+M 根据驻留内存大小进行排序
+
+P 根据CPU使用百分比大小进行排序
+
+T 根据时间/累计时间进行排序
+
+W 将当前设置写入~/.toprc文件中
+</code></pre></td></tr></table>
+</div>
+</div>]]></description>
 </item>
 <item>
     <title>Linux系统IO分析工具之iotop常用参数介绍</title>
@@ -26,7 +793,128 @@
     <pubDate>Tue, 18 May 2021 14:15:06 &#43;0800</pubDate>
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/linux%E7%B3%BB%E7%BB%9Fio%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E4%B9%8Biotop%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D/</guid>
-    <description><![CDATA[Linux系统IO分析工具之iotop常用参数介绍 在一般运维工作中经常会遇到这么一个场景，服务器的IO负载很高（iostat中的util），]]></description>
+    <description><![CDATA[<h1 id="linux系统io分析工具之iotop常用参数介绍">Linux系统IO分析工具之iotop常用参数介绍</h1>
+<p>在一般运维工作中经常会遇到这么一个场景，服务器的IO负载很高（iostat中的util），但是无法快速的定位到IO负载的来源进程和来源文件导致无法进行相应的策略来解决问题。</p>
+<p>　　Windows操作系统可以通过鲁大师等硬盘检测工具来查看硬盘读写速度，那么linux下测试硬盘IO读写情况怎么看?iotop是linux系统下测试硬盘IO读写的工具，简单的说,iotop是一个用来监视磁盘I/O使用状况的 top 类工具，可监测到哪一个程序使用的磁盘IO的信息（requires 2.6.20 or later)</p>
+<p><strong>1&gt;.安装iotop</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span>root@node105 ~<span class="o">]</span><span class="c1"># yum -y install iotop</span>
+</code></pre></td></tr></table>
+</div>
+</div><p></p>
+<p><strong>2&gt;.查看iotop的帮助信息</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span>root@node105 ~<span class="o">]</span><span class="c1"># iotop -help</span>
+</code></pre></td></tr></table>
+</div>
+</div><p></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">各个参数说明：
+
+　　-o, 		--only只显示正在产生I/O的进程或线程。除了传参，可以在运行过程中按o生效。
+　　-b, 		--batch非交互模式，一般用来记录日志。
+　　-n NUM, 	--iter=NUM设置监测的次数，默认无限。在非交互模式下很有用。
+　　-d SEC, 	--delay=SEC设置每次监测的间隔，默认1秒，接受非整形数据例如1.1。
+　　-p PID, 	--pid=PID指定监测的进程/线程。
+　　-u USER, 	--user=USER指定监测某个用户产生的I/O。
+　　-P, 		--processes仅显示进程，默认iotop显示所有线程。
+　　-a, 		--accumulated显示累积的I/O，而不是带宽。
+　　-k, 		--kilobytes使用kB单位，而不是对人友好的单位。在非交互模式下，脚本编程有用。
+　　-t, 		--time 加上时间戳，非交互非模式。
+　　-q, 		--quiet 禁止头几行，非交互模式。有三种指定方式。
+　　-q 		只在第一次监测时显示列名
+　　-qq 		永远不显示列名。
+　　-qqq 		永远不显示I/O汇总。
+　　
+交互按键：
+　　和top命令类似，iotop也支持以下几个交互按键。
+　　left和right方向键：改变排序。　　
+　　r：反向排序。
+　　o：切换至选项--only。
+　　p：切换至--processes选项。
+　　a：切换至--accumulated选项。
+　　q：退出。
+　　i：改变线程的优先级。
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>3&gt;.</strong> <strong>只显示正在产生I/O的进程或线程。除了传参，可以在运行过程中按o生效。</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span>root@node105 ~<span class="o">]</span><span class="c1"># iotop  -o</span>
+</code></pre></td></tr></table>
+</div>
+</div><p></p>
+<p><strong>4&gt;.时间刷新间隔2秒，输出5次</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span>root@node105 ~<span class="o">]</span><span class="c1"># iotop  -d 2 -n 5</span>
+</code></pre></td></tr></table>
+</div>
+</div><p></p>
+<p><strong>5&gt;.非交互式，输出5次，间隔2秒，输出到屏幕，也可输出到日志文本，用于监控某时间段的io信息</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span>root@node105 ~<span class="o">]</span><span class="c1"># iotop -botq -n 5 -d 2 </span>
+</code></pre></td></tr></table>
+</div>
+</div><p></p>
+<p><strong>6&gt;.非交互式，输出pid为8382的进程信息</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span>root@kafka118 ~<span class="o">]</span><span class="c1"># iotop -botq -p 8382</span>
+</code></pre></td></tr></table>
+</div>
+</div><p></p>
+]]></description>
 </item>
 <item>
     <title>Nslookup命令详解</title>
@@ -34,7 +922,154 @@
     <pubDate>Thu, 06 May 2021 12:01:27 &#43;0800</pubDate>
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/nslookup%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</guid>
-    <description><![CDATA[nslookup命令用于**查询DNS的记录，查看域名解析是否正常，在网络故障的时候用来诊断网络问题。** nslookup的用法相对来说还是]]></description>
+    <description><![CDATA[<p><code>nslookup命令用于**查询DNS的记录，查看域名解析是否正常，在网络故障的时候用来诊断网络问题。** nslookup的用法相对来说还是蛮简单的，主要是下面的几个用法。</code></p>
+<h2 id="1直接查询"><strong>1、直接查询</strong></h2>
+<p><code>这个可能大家用到最多，查询一个域名的A记录。</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">nslookup domain <span class="o">[</span>dns-server<span class="o">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>如果没指定dns-server，用系统默认的dns服务器。下面是一个例子：</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># nslookup baidu.com</span>
+Server:     10.30.7.177
+Address:    10.30.7.177#53
+
+Non-authoritative answer:
+Name:   baidu.com
+Address: 123.125.114.144
+Name:   baidu.com
+Address: 111.13.101.208
+Name:   baidu.com
+Address: 180.149.132.47
+Name:   baidu.com
+Address: 220.181.57.217
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="2查询其他记录"><strong>2、查询其他记录</strong></h2>
+<p><code>直接查询返回的是A记录，我们可以指定参数，查询其他记录，比如AAAA、MX等。</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">nslookup -qt<span class="o">=</span><span class="nb">type</span> domain <span class="o">[</span>dns-server<span class="o">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">其中，type可以是以下这些类型：
+
+A 	地址记录
+AAAA 	地址记录
+AFSDB 	Andrew文件系统数据库服务器记录
+ATMA 	ATM地址记录
+CNAME 	别名记录
+HINFO 	硬件配置记录，包括CPU、操作系统信息
+ISDN 	域名对应的ISDN号码
+MB 	存放指定邮箱的服务器
+MG 	邮件组记录
+MINFO 	邮件组和邮箱的信息记录
+MR 	改名的邮箱记录
+MX 	邮件服务器记录
+NS 	名字服务器记录
+PTR 	反向记录
+RP 	负责人记录
+RT 	路由穿透记录
+SRV 	TCP服务器信息记录
+TXT 	域名对应的文本信息
+X25 	域名对应的X.25地址记录
+</code></pre></td></tr></table>
+</div>
+</div><p>例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># nslookup -qt=mx baidu.com 8.8.8.8</span>
+*** Invalid option: <span class="nv">qt</span><span class="o">=</span>mx
+Server:     8.8.8.8
+Address:    8.8.8.8#53
+
+Non-authoritative answer:
+Name:   baidu.com
+Address: 111.13.101.208
+Name:   baidu.com
+Address: 123.125.114.144
+Name:   baidu.com
+Address: 180.149.132.47
+Name:   baidu.com
+Address: 220.181.57.217
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="3查询更具体的信息"><strong>3、查询更具体的信息</strong></h3>
+<p><code>查询语法：</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">nslookup –d <span class="o">[</span>其他参数<span class="o">]</span> domain <span class="o">[</span>dns-server<span class="o">]</span>  <span class="c1">#只要在查询的时候，加上-d参数，即可查询域名的缓存。</span>
+</code></pre></td></tr></table>
+</div>
+</div>]]></description>
 </item>
 </channel>
 </rss>

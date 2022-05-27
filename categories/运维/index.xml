@@ -10,7 +10,410 @@
     <pubDate>Thu, 07 Apr 2022 16:17:17 &#43;0800</pubDate>
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5%E7%9A%84%E9%97%AE%E9%A2%98%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</guid>
-    <description><![CDATA[时间同步的问题和解决方法 一、虚拟服务器时间同步设置 使用条件： 主机已经与授时服务器进行时间同步 配置VMware虚拟服务器的“同步客户机与主机时]]></description>
+    <description><![CDATA[<h1 id="时间同步的问题和解决方法">时间同步的问题和解决方法</h1>
+<h2 id="一虚拟服务器时间同步设置">一、虚拟服务器时间同步设置</h2>
+<p><strong>使用条件</strong>： 主机已经与授时服务器进行时间同步</p>
+<p>配置VMware虚拟服务器的“同步客户机与主机时间”选项，实现虚拟服务器与主机的时间同步。</p>
+<p>方法如下：</p>
+<ul>
+<li>启动VMware vClient 客户端</li>
+<li>选择虚拟主机，打开编辑设置&ndash;&gt;选项&mdash;-&gt;vmware tools &mdash;-&gt;同步客户机时间与主机时间</li>
+</ul>
+<h2 id="二物理服务器时间同步设置">二、物理服务器时间同步设置</h2>
+<h3 id="21-ntpdate工具的使用"><strong>2.1 ntpdate工具的使用</strong></h3>
+<p><strong>使用条件：</strong> 服务器可访直接问互联网并且支持UDP协议</p>
+<p><strong>在线安装</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">yum install ntpdate -y
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>离线安装</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">rpm -ivh ntpdate-4.2.6p5-28.el7.centos.x86_64.rpm
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>注意：</strong> 本文以centos 7.6的安装为基准，在其它版本中安装可能会出现兼容问题，导致不能成功安装。可到http://vault.centos.org/站点选择下载对应版本的安装包。</p>
+<p><strong>手动测试</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">/usr/sbin/ntpdate ntp.ntsc.ac.cn  <span class="c1">#后边的域名或IP为授时服务器，ntp.ntsc.ac.cn为国家授时中心域名 </span>
+/sbin/hwclock –w 					<span class="c1">#写入物理时钟</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>自动运行，在crontab的最后一行，添加脚本如下：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1">#crontab –e </span>
+<span class="c1">#每30分钟执行一次，如果是局域网内，请注意修改ntp.ntsc.ac.cn为对应的内网ntpd服务器IP地址。 </span>
+*/30 * * * * /usr/sbin/ntpdate ntp.ntsc.ac.cn <span class="p">;</span>/sbin/hwclock -w &gt; /dev/null <span class="c1">#2&gt;&amp;1</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>验证crond执行时间同步的情况</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">cat /var/log/cron<span class="p">|</span>grep ntpdate
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="22-rdate工具的使用">2.2 rdate工具的使用</h3>
+<p><strong>使用条件：</strong> 服务器在内网区，可访问互联网（可通过接入网关），但只支持TCP协议通信</p>
+<p><strong>在线安装</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">yum install rdate -y
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>注意：</strong> rdate命令同时支持TCP和UDP通信协议，使用的time协议，但支持time协议的授时服务器不多。</p>
+<p><strong>离线安装</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">rpm -ivh rdate-1.4-25.el7.x86_64.rpm
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>注意：</strong> 本文以centos 7.6的安装为基准，在其它版本中安装可能会出现兼容问题，导致不能成功安装。可到http://vault.centos.org/站点选择下载对应版本的安装包。</p>
+<p><strong>自动运行</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1">#crontab –e </span>
+<span class="c1"># 每30分钟执行一次 </span>
+*/30 * * * * /usr/bin/rdate -s time.nist.gov <span class="p">;</span>/sbin/hwclock -w &gt; /dev/null <span class="c1">#2&gt;&amp;1</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="三服务器处于隔离网络时方法">三、服务器处于隔离网络时方法</h2>
+<p><strong>情况1：</strong> 服务器处于隔离网络，但内网有授时服务器，此时可参照第二节的方法</p>
+<p><strong>情况2：</strong> 服务器处于离网络时，无内网授时服务器，这种情况下，我们选择自建ntpd或chrony服务器</p>
+<h3 id="31-ntpd服务端">3.1 ntpd服务端</h3>
+<h4 id="311-ntp安装">3.1.1 ntp安装</h4>
+<ul>
+<li>在线安装</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">yum install ntp ntpdate -y
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>离线安装</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">rpm -ivh autogen-libopts-5.18-5.el7.x86_64.rpm ntp-4.2.6p5-28.el7.centos.x86_64.rpm ntpdate-4.2.6p5-28.el7.centos.x86_64.rpm
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>注意：</strong> 本文以centos 7.6的安装为基准，在其它版本中安装可能会出现兼容问题，导致不能成功安装。可到http://vault.centos.org/站点选择下载对应版本的安装包。</p>
+<h4 id="312-ntpd服务器配置">3.1.2 ntpd服务器配置</h4>
+<ul>
+<li>修改配置/etc/ntp.conf文件，（此配置文件请按照实际的来修改，主要修改restrict的配置）</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">driftfile /var/lib/ntp/drift 
+restrict default kod nomodify notrap nopeer noquery 
+restrict 127.0.0.1 
+restrict ::1 
+restrict 192.168.0.0 mask 255.255.0.0 nomodify notrap <span class="c1">#对192.168.0.0/16网段授权访问 </span>
+restrict 10.0.0.0 mask 255.0.0.0 nomodify notrap <span class="c1">#对10.0.0.0/8网段授权访问 </span>
+restrict 172.16.1.100 mask 255.255.255.255 nomodify notrap <span class="c1">#只对IP为172.16.1.10授权访问 </span>
+fudge 127.0.0.1 stratum <span class="m">10</span> <span class="c1">#设置本地时间级别是10，如果上级时间服务器均失效，对外发布本地时间。</span>
+server 127.0.0.1 <span class="c1"># 如果公网NTP不可用时，将使用Local时间作为NTP服务提供给NTP Client。 </span>
+server ntp.ntsc.ac.cn iburst prefer <span class="c1">#国家授时中心 </span>
+server 0.centos.pool.ntp.org iburst 
+server 1.centos.pool.ntp.org iburst 
+server 2.centos.pool.ntp.org iburst 
+server 3.centos.pool.ntp.org iburst 
+
+includefile /etc/ntp/crypto/pw 
+cdisable monitor
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>restrict参数</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">kod 使用kod技术防范“kiss of death”攻击 
+ignore 拒绝任何NTP连接 
+nomodify 用户端不能使用ntpc,ntpq修改时间服务器参数，可以进行网络校时 
+noquery 用户端不能使用ntpc,ntpq查询时间服务器参数，可以进行网络校时 
+notrap 不提供远程日志功能 
+notrust 拒绝没有认证的客户端 
+restrict ip 或者 restrict IP地址 + mask + 子网掩码 + 参数 例如:restrict default nomodify notrap nopeer noquery <span class="c1">#默认拒绝所有访问 只可以同步时间 </span>
+restrict 211.71.14.254 mask 255.255.255.0 <span class="c1">#添加允许211.71.14.254/24网段访问 </span>
+restrict 10.111.1.1 mask 255.0.0.0 nomodify <span class="c1">#添加10.0.0.0/8网段访问</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>server 参数</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">server    用于设定ntp同步时间的外网时间服务器 
+prefer    默认上级时间服务器 
+burst     当一个运程NTP服务器可用时，向它发送一系列的并发包进行检测。 
+iburst    当一个运程NTP服务器不可用时，向它发送一系列的并发包进行检测
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="313-ntpd启动和验证">3.1.3 ntpd启动和验证</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">systemctl <span class="nb">enable</span> ntpd 
+systemctl start ntpd
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>验证ntpd运行情况</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@localhost packages<span class="o">]</span><span class="c1"># netstat -nap|grep ntpd </span>
+udp 	<span class="m">0</span> 	<span class="m">0</span> 192.168.56.101:123 	  	0.0.0.0:* 			16037/ntpd 
+udp 	<span class="m">0</span> 	<span class="m">0</span> 127.0.0.1:123 		  	0.0.0.0:* 			16037/ntpd 
+udp 	<span class="m">0</span> 	<span class="m">0</span> 0.0.0.0:123 			  	0.0.0.0:* 			16037/ntpd 
+udp6 	<span class="m">0</span> 	<span class="m">0</span> fe80::1c7b:80ff:fe2:123 	:::* 				16037/ntpd 
+udp6 	<span class="m">0</span> 	<span class="m">0</span> ::1:123 				  	:::* 				16037/ntpd 
+udp6 	<span class="m">0</span> 	<span class="m">0</span> fe80::a00:27ff:fe46:123 	:::* 				16037/ntpd 
+udp6 	<span class="m">0</span> 	<span class="m">0</span> :::123 				  	:::* 				16037/ntpd
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="314-ntpdate客户端安装">3.1.4 ntpdate客户端安装</h4>
+<p>请参考第二节的ntpdate工具的使用</p>
+<p>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-分割线&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-</p>
+<h3 id="32-chrony服务端">3.2 chrony服务端</h3>
+<h4 id="321-chrony安装">3.2.1 chrony安装</h4>
+<ul>
+<li>在线安装(chrony需要在所有服务端和客户端中执行安装)</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">yum install chrony -y
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>离线安装</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">rpm -ivh chrony-3.2-2.el7.x86_64.rpm
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>注意：</strong> 本文以centos 7.6的安装为基准，在其它版本中安装可能会出现兼容问题，导致不能成功安装。可到http://vault.centos.org/站点选择下载对应版本的安装包。</p>
+<h4 id="322-chrony服务器配置">3.2.2 chrony服务器配置</h4>
+<ul>
+<li>修改配置/etc/chrony.conf文件 （带注释的为重要配置）</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">server ntp.ntsc.ac.cn iburst <span class="c1">#国家授时中心 </span>
+server 0.centos.pool.ntp.org iburst 
+server 1.centos.pool.ntp.org iburst 
+server 2.centos.pool.ntp.org iburst 
+server 3.centos.pool.ntp.org iburst 
+
+driftfile /var/lib/chrony/drift 
+makestep 1.0 <span class="m">3</span> 
+rtcsync 
+
+allow 192.168.0.0/16 <span class="c1">#允许被访问的IP段，请根据实际情况修改 </span>
+allow 192.168.56.101/24 <span class="c1">#允许被访问的IP </span>
+
+<span class="nb">local</span> stratum <span class="m">10</span> <span class="c1">#设置本地时间级别是10，如果上级时间服务器均失效，对外发布本地时间。 </span>
+
+logdir /var/log/chrony
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="323-chrony客户端配置">3.2.3 chrony客户端配置</h4>
+<ul>
+<li>修改配置文件/etc/chrony.conf（有注释行为重要配置）</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">server 192.168.56.101 iburst <span class="c1">#根据实际情况，指向本地授时服务器的IP地址 </span>
+
+driftfile /var/lib/chrony/drift 
+makestep 1.0 <span class="m">3</span> 
+rtcsync 
+logdir /var/log/chrony
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="324-启动服务">3.2.4 启动服务</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">systemctl <span class="nb">enable</span> chronyd.service <span class="c1">#开机自启动 </span>
+systemctl start chronyd.service <span class="c1">#启动chrony </span>
+systemctl status chronyd.service <span class="c1">#查看chrony服务状态</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="325-验证时间同步状态">3.2.5 验证时间同步状态</h4>
+<ul>
+<li>MS列中包含^*的行，指明NTP服务当前同步的服务器。当前同步的源为114.118.7.163：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># chronyc sources </span>
+<span class="m">210</span> Number of <span class="nv">sources</span> <span class="o">=</span> <span class="m">2</span> 
+MS Name/IP address 			Stratum Poll Reach LastRx Last <span class="nv">sample</span> <span class="o">===============================================================================</span> 
+^- stratum2-1.ntp.sea03.us.&gt; 	<span class="m">2</span> 	<span class="m">6</span> 	<span class="m">377</span> 	<span class="m">6</span> 	+40ms<span class="o">[</span> +40ms<span class="o">]</span> +/- 160ms 
+^* 114.118.7.163 				<span class="m">2</span> 	<span class="m">6</span> 	<span class="m">77</span> 		<span class="m">16</span> 	-908us<span class="o">[</span>-1190us<span class="o">]</span> +/- 51ms
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>查看当前时间是否准确，其中NTP synchronized: yes说明同步成功</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># timedatectl </span>
+		Local time: 四 2019-05-30 13:25:29 CST 
+	Universal time: 四 2019-05-30 05:25:29 UTC 
+		  RTC time: 三 2019-05-29 11:57:46 
+		 Time zone: Asia/Shanghai <span class="o">(</span>CST, +0800<span class="o">)</span> 
+	   NTP enabled: yes 
+  NTP synchronized: yes 
+   RTC in <span class="nb">local</span> TZ: no 
+        DST active: n/a
+</code></pre></td></tr></table>
+</div>
+</div>]]></description>
 </item>
 <item>
     <title>Linux系统下提示磁盘空间满,但实际占用却很小</title>
@@ -18,7 +421,23 @@
     <pubDate>Wed, 16 Mar 2022 20:14:51 &#43;0800</pubDate>
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/linux%E7%B3%BB%E7%BB%9F%E4%B8%8B%E6%8F%90%E7%A4%BA%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E6%BB%A1%E4%BD%86%E5%AE%9E%E9%99%85%E5%8D%A0%E7%94%A8%E5%8D%B4%E5%BE%88%E5%B0%8F/</guid>
-    <description><![CDATA[因为公司放在测试服务器上的服务比较多，磁盘经常性会满。以前满过几次，因为时间比较赶，每次只是草率的删掉一点log或者临时文件，到今天早上又发]]></description>
+    <description><![CDATA[<p>因为公司放在测试服务器上的服务比较多，磁盘经常性会满。以前满过几次，因为时间比较赶，每次只是草率的删掉一点log或者临时文件，到今天早上又发生一起事故，依然是磁盘空间满，看了一下好像没什么东西可以删了，才静下心来慢慢研究解决。</p>
+<p>系统：Ubuntu14.04 x64
+磁盘名称：/data
+磁盘空间：200G</p>
+<h4 id="错误描述">错误描述：</h4>
+<pre><code>今早发现磁盘空间满，服务数据写不进数据库中，使用du -h --max-depth=1命令查看大文件，
+发现文件只占100G，然而使用df -h 命令查看时，磁盘用了200G占用了百分之一百。其中100G的空间莫名其妙就没有了
+</code></pre>
+<h4 id="解决方法">解决方法：</h4>
+<pre><code>用lsof检查后才发现原因是，有文件被删除，而进程还活着，因而造成还占用空间的现象。可以通过命令 lsof |grep deleted 来进行查看
+</code></pre>
+<p></p>
+<p>把这些进程删掉就可以了，批量杀死进程命令</p>
+<p>lsof |grep delete | grep -v grep | awk &lsquo;{print $2}&rsquo; | xargs kill -9</p>
+<p>期间可能会等一段时间，等杀完后，重新 df -h 查看，磁盘空间多出来了87G</p>
+<p></p>
+]]></description>
 </item>
 <item>
     <title>普罗米修斯Prometheus</title>
@@ -26,7 +445,756 @@
     <pubDate>Wed, 20 Oct 2021 11:40:40 &#43;0800</pubDate>
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/prometheus-%E7%9B%91%E6%8E%A7%E9%83%A8%E7%BD%B2-last/</guid>
-    <description><![CDATA[1、prometheus 主服务的下载与部署 1.1创建安装目录和下载部署包并解压 下载x86安装包 1 2 3 4 5 6 mkdir -p /data/monitor/prometheus #下载prometheus包]]></description>
+    <description><![CDATA[<h2 id="1prometheus-主服务的下载与部署">1、prometheus 主服务的下载与部署</h2>
+<h3 id="11创建安装目录和下载部署包并解压--下载x86安装包packageprometheus-2271linux-amd64targz">1.1创建安装目录和下载部署包并解压  <a href="/package/prometheus-2.27.1.linux-amd64.tar.gz" rel="">下载x86安装包</a>
+</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">mkdir -p /data/monitor/prometheus
+<span class="c1">#下载prometheus包，pakage文件夹中有下载好的包</span>
+<span class="c1">#wget https://github.com/prometheus/prometheus/releases/download/v2.27.1/prometheus-2.27.1.linux-amd64.tar.gz</span>
+
+<span class="c1">#解压prometheus包，并且解压后/data/monitor/prometheus里去除prometheus-2.27.1.linux-amd64文件目录</span>
+tar -zxvf prometheus-2.27.1.linux-amd64.tar.gz -C /data/monitor/prometheus --strip-components <span class="m">1</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="12配置prometheus启动文件">1.2配置Prometheus启动文件</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">cat &gt; /etc/systemd/system/prometheus.service <span class="s">&lt;&lt; EOF
+</span><span class="s">[Unit]
+</span><span class="s">Description=prometheus Service
+</span><span class="s">After=network.target
+</span><span class="s">After=network-online.target
+</span><span class="s">Wants=network-online.target
+</span><span class="s">[Service]
+</span><span class="s">Type=simple
+</span><span class="s">WorkingDirectory=/data/monitor/prometheus
+</span><span class="s">ExecStart=/data/monitor/prometheus/prometheus --config.file=prometheus.yml --web.enable-lifecycle --web.external-url=https://freerun.xyz/prometheus
+</span><span class="s">ExecStop=/usr/bin/curl -X POST http://localhost:9090/prometheus/-/quit
+</span><span class="s">Restart=on-failure
+</span><span class="s">RestartSec=5
+</span><span class="s">LimitNOFILE=65536
+</span><span class="s">[Install]
+</span><span class="s">WantedBy=multi-user.target
+</span><span class="s">EOF</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>注：可以把启动文件直接放到/etc/systemd/system/目录下</strong>    <a href="/%e5%90%af%e5%8a%a8%e6%96%87%e4%bb%b6/prometheus.service" rel="">下载prometheus启动文件</a>
+</p>
+<p></p>
+<h3 id="13-设置prometheus开机自启动">1.3 设置Prometheus开机自启动</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">systemctl daemon-reload
+systemctl <span class="nb">enable</span> prometheus
+systemctl start prometheus
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="14-测试验证prometheus是否启动成功访问-ip9090prometheus">1.4 测试，验证Prometheus是否启动成功：访问 IP:9090/prometheus/</h3>
+<p></p>
+<h2 id="2部署-exporter采集节点信息">2、部署 exporter采集节点信息</h2>
+<h3 id="21创建安装目录和下载部署包并解压--下载x86安装包packagenode_exporter-112linux-amd64targz-使用-uname--a查询架构下载arm安装包packagenode_exporter-112linux-arm64targz">2.1创建安装目录和下载部署包并解压  <a href="/package/node_exporter-1.1.2.linux-amd64.tar.gz" rel="">下载x86安装包</a>
+ 使用 uname -a查询架构，<a href="/package/node_exporter-1.1.2.linux-arm64.tar.gz" rel="">下载arm安装包</a>
+</h3>
+<p><strong>(其他版本下载地址：https://github.com/prometheus/node_exporter/releases)</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">mkdir -p /data/monitor/node_exporter
+<span class="c1">#wget https://github.com/prometheus/node_exporter/releases/download/v1.1.2/node_exporter-1.1.2.linux-amd64.tar.gz</span>
+tar -zxvf node_exporter-1.1.2.linux-amd64.tar.gz -C /data/monitor/node_exporter --strip-components <span class="m">1</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="22配置node_exporter-服务">2.2配置node_exporter 服务</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">cat &gt; /etc/systemd/system/node_exporter.service <span class="s">&lt;&lt;EOF
+</span><span class="s">[Unit]
+</span><span class="s">Description=node-exporter Service
+</span><span class="s">After=network.target
+</span><span class="s">After=network-online.target
+</span><span class="s">Wants=network-online.target
+</span><span class="s">[Service]
+</span><span class="s">Type=simple
+</span><span class="s">WorkingDirectory=/data/monitor/node_exporter
+</span><span class="s">ExecStart=/data/monitor/node_exporter/node_exporter --web.listen-address=0.0.0.0:9100
+</span><span class="s">Restart=on-failure
+</span><span class="s">RestartSec=5
+</span><span class="s">LimitNOFILE=65536
+</span><span class="s">[Install]
+</span><span class="s">WantedBy=multi-user.target
+</span><span class="s">EOF</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>注：可以把启动文件直接放到/etc/systemd/system/目录下</strong>     <a href="/%e5%90%af%e5%8a%a8%e6%96%87%e4%bb%b6/node-exporter.service" rel="">下载node-exporter启动文件</a>
+</p>
+<p></p>
+<h3 id="23-设置node_exporter开机自启动">2.3 设置node_exporter开机自启动</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">systemctl daemon-reload
+systemctl <span class="nb">enable</span> node-exporter
+systemctl start node-exporter
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="24-测试验证node_exporter是否启动成功访问-ip9100">2.4 测试，验证node_exporter是否启动成功：访问 IP:9100</h3>
+<p></p>
+<h3 id="25-把-node_exporter-这个采集程序接配置到prometheusyml">2.5 把 node_exporter 这个采集程序接⼊配置到prometheus.yml</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># my global config</span><span class="w">
+</span><span class="w"></span><span class="nt">global</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w">     </span><span class="l">15s</span><span class="w"> </span><span class="c"># Set the scrape interval to every 15 seconds. Default is every 1 minute.</span><span class="w">
+</span><span class="w">  </span><span class="nt">evaluation_interval</span><span class="p">:</span><span class="w"> </span><span class="l">15s</span><span class="w"> </span><span class="c"># Evaluate rules every 15 seconds. The default is every 1 minute.</span><span class="w">
+</span><span class="w">  </span><span class="c"># scrape_timeout is set to the global default (10s).</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># Alertmanager configuration</span><span class="w">
+</span><span class="w"></span><span class="nt">alerting</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">alertmanagers</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">static_configs</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">targets</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="c"># - alertmanager:9093</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># Load rules once and periodically evaluate them according to the global &#39;evaluation_interval&#39;.</span><span class="w">
+</span><span class="w"></span><span class="nt">rule_files</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="c"># - &#34;first_rules.yml&#34;</span><span class="w">
+</span><span class="w">  </span><span class="c"># - &#34;second_rules.yml&#34;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># A scrape configuration containing exactly one endpoint to scrape:</span><span class="w">
+</span><span class="w"></span><span class="c"># Here it&#39;s Prometheus itself.</span><span class="w">
+</span><span class="w"></span><span class="nt">scrape_configs</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="c"># The job name is added as a label `job=&lt;job_name&gt;` to any timeseries scraped from this config.</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;prometheus&#39;</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c"># metrics_path defaults to &#39;/metrics&#39;</span><span class="w">
+</span><span class="w">    </span><span class="c"># scheme defaults to &#39;http&#39;.</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="nt">static_configs</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;localhost:9090&#39;</span><span class="p">]</span><span class="w">
+</span><span class="w">    
+</span><span class="w">  </span>- <span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;node-exporter&#39;</span><span class="w">
+</span><span class="w">    
+</span><span class="w">    </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w"> </span><span class="l">5s</span><span class="w">
+</span><span class="w">    </span><span class="nt">static_configs</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;localhost:9100&#39;</span><span class="p">,</span><span class="s1">&#39;10.9.0.1:9100&#39;</span><span class="p">]</span><span class="w">
+</span><span class="w">      </span><span class="nt">labels</span><span class="p">:</span><span class="w"> 
+</span><span class="w">        </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;web&#39;</span><span class="w">
+</span><span class="w">        </span><span class="nt">annotation</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;节点信息采集&#39;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong>导⼊node_exporter 后，重新载⼊配置 :</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">curl -X POST http://localhost:9090/prometheus/-/reload
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="3安装grafana展示">3、安装grafana展示</h2>
+<h3 id="31-创建安装目录与下载部署包--下载x86安装包packagegrafana-757linux-amd64targz">3.1 创建安装目录与下载部署包  <a href="/package/grafana-7.5.7.linux-amd64.tar.gz" rel="">下载x86安装包</a>
+</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">mkdir -p /data/monitor/grafana
+<span class="c1">#wget https://dl.grafana.com/oss/release/grafana-7.5.7.linux-amd64.tar.gz</span>
+tar -zxvf grafana-7.5.7.linux-amd64.tar.gz -C /data/monitor/grafana --strip-components <span class="m">1</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="32-配置grafana-服务--下载grafana启动文件启动文件grafanaservice">3.2 配置grafana 服务  <a href="/%e5%90%af%e5%8a%a8%e6%96%87%e4%bb%b6/grafana.service" rel="">下载grafana启动文件</a>
+</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">cat &gt; /etc/systemd/system/grafana.service <span class="s">&lt;&lt;EOF
+</span><span class="s">[Unit]
+</span><span class="s">Description=grafana Service
+</span><span class="s">After=network.target
+</span><span class="s">After=network-online.target
+</span><span class="s">Wants=network-online.target
+</span><span class="s">[Service]
+</span><span class="s">Type=simple
+</span><span class="s">WorkingDirectory=/data/monitor/grafana
+</span><span class="s">ExecStart=/data/monitor/grafana/bin/grafana-server web
+</span><span class="s">Restart=on-failure
+</span><span class="s">RestartSec=5
+</span><span class="s">LimitNOFILE=65536
+</span><span class="s">[Install]
+</span><span class="s">WantedBy=multi-user.target
+</span><span class="s">EOF</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="33-设置grafana-开机自启动">3.3 设置grafana 开机自启动</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">systemctl daemon-reload
+systemctl <span class="nb">enable</span> grafanasy
+stemctl start grafana
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="34-测试访问ip3000默认登录账户和密码都是admin进后界面如下">3.4 测试，访问：ip:3000（默认登录账户和密码都是admin，进⼊后界面如下）</h3>
+<p></p>
+<h2 id="4监控配置">4、监控配置</h2>
+<h3 id="41-查看prometheus管理后台是否有采集到服务器的信息">4.1 查看Prometheus管理后台是否有采集到服务器的信息</h3>
+<p></p>
+<h3 id="42-配置grafana管理后台">4.2 配置grafana管理后台</h3>
+<p></p>
+<p></p>
+<h3 id="43-导监控模板保存基础监控大盘官网下载地址httpsgrafanacomgrafanadashboards8919-注释与官网下载的基础监控大盘一样选择一个下载就行大盘配置基础监控大盘json">4.3 导⼊监控模板，保存。<a href="https://grafana.com/grafana/dashboards/8919" target="_blank" rel="noopener noreffer">基础监控大盘官网下载地址</a>
+ 注释：<a href="/%e5%a4%a7%e7%9b%98%e9%85%8d%e7%bd%ae/%e5%9f%ba%e7%a1%80%e7%9b%91%e6%8e%a7%e5%a4%a7%e7%9b%98.json" rel="">与官网下载的基础监控大盘一样，选择一个下载就行</a>
+</h3>
+<p></p>
+<p></p>
+<h3 id="44查看服务器的基础监控">4.4查看服务器的基础监控</h3>
+<p></p>
+<h2 id="5监控里约网关接调用情况">5、监控里约网关接⼝调用情况</h2>
+<h3 id="1添加-es-数据源">1.添加 ES 数据源</h3>
+<p></p>
+<p></p>
+<h3 id="2导-json-模板rio-sg-access日志大盘-1617280890686json下载日志大盘大盘配置rio-sg-access日志大盘-1617280890686json">2.导⼊ json 模板（Rio-SG-Access日志大盘-1617280890686.json）<a href="/%e5%a4%a7%e7%9b%98%e9%85%8d%e7%bd%ae/Rio-SG-Access%e6%97%a5%e5%bf%97%e5%a4%a7%e7%9b%98-1617280890686.json" rel="">下载日志大盘</a>
+</h3>
+<p></p>
+<p></p>
+<h2 id="6部署部-mysqld_exporter采集节点信息"><strong>6</strong>、部署部 mysqld_exporter采集节点信息</h2>
+<h3 id="61在数据库服务器上执行以下操作在">6.1在数据库服务器上执行以下操作在</h3>
+<h4 id="611官网下载包httpsprometheusiodownloadmysqld_exporter----注释与官网下载的安装包一样选一个下载就行packagemysqld_exporter-0130linux-amd64targz"><strong>6.1.1</strong><a href="https://prometheus.io/download/#mysqld_exporter" target="_blank" rel="noopener noreffer">官网下载包</a>
+    注释：<a href="/package/mysqld_exporter-0.13.0.linux-amd64.tar.gz" rel="">与官网下载的安装包一样，选一个下载就行</a>
+</h4>
+<p></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">mkdir -p /data/monitor/mysqld_exporter
+tar -zxvf mysqld_exporter-0.13.0.linux-amd64.tar.gz -C /data/monitor/mysqld_exporter/ --strip-components <span class="m">1</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="612配置mycnf"><strong>6.1.2</strong>配置.my.cnf</h4>
+<p>.my.cnf默认放置在启动用户的家目录，启动时无需指定；也可以随意放置在任意目录，在启动时通过 <code>--config.my-cnf={conf_dir}/.my.cnf</code>指定配置文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#正常这里没有.my.cnf文件，需要创建.my.cnf文件</span>
+vim /data/monitor/mysqld_exporter/.my.cnf
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">[client]
+host=localhost
+user=root
+port=3306
+password=root # 数据库密码
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="613启动">6.1.3启动</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /data/monitor/mysqld_exporter/
+<span class="c1">#创建start.sh脚本</span>
+vim start.sh
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>start.sh脚本内容如下：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="cp">#!/bin/bash
+</span><span class="cp"></span>nohup ./mysqld_exporter --config.my-cnf<span class="o">=</span>/data/monitor/mysqld_exporter/.my.cnf <span class="p">&amp;</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">chmod <span class="m">744</span> start.sh
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>注册服务</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#创建启动文件</span>
+vim /etc/systemd/system/mysqld_exporter.service
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>Unit<span class="o">]</span>
+<span class="nv">Description</span><span class="o">=</span>mysqld_exporter service
+<span class="nv">After</span><span class="o">=</span>network.target
+<span class="o">[</span>Service<span class="o">]</span>
+<span class="nv">Type</span><span class="o">=</span>forking
+<span class="nv">WorkingDirectory</span><span class="o">=</span>/data/monitor/mysqld_exporter
+<span class="nv">ExecStart</span><span class="o">=</span>/data/monitor/mysqld_exporter/start.sh
+<span class="o">[</span>Install<span class="o">]</span>
+<span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#设置开机自启</span>
+systemctl daemon-reload
+systemctl <span class="nb">enable</span> mysqld_exporter
+stemctl start mysqld_exporter
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="614-启动后的访问端是-启-9104访问访-http数据库服务器-数-ip9104metrics">6.1.4 启动后的访问端⼝是 启 9104：访问访 http://数据库服务器 数 ip:9104/metrics</h4>
+<p></p>
+<h3 id="62-把-mysql_exporter-这个采集程序接配置到-这-prometheusyml-参照下图参考文件prometheusyml">6.2 把 mysql_exporter 这个采集程序接⼊配置到 这 prometheus.yml 参照下图<a href="/prometheus.yml" rel="">参考文件</a>
+</h3>
+<p></p>
+<p><strong>导⼊node_exporter 后，重新载⼊配置 :</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">curl -X POST http://localhost:9090/prometheus/-/reload
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="63配置配-grafana管理后台这一步可以省略">6.3配置配 grafana管理后台(这一步可以省略)</h3>
+<p></p>
+<h4 id="631-上传上-mysql监控模板--下载更多面板链接httpsgrafanacomgrafanadashboardssearchmysql">6.3.1 上传上 mysql监控模板  <a href="https://grafana.com/grafana/dashboards?search=mysql" target="_blank" rel="noopener noreffer">下载更多面板链接</a>
+</h4>
+<p></p>
+<p><strong>注：<a href="/%e5%a4%a7%e7%9b%98%e9%85%8d%e7%bd%ae/mysql.json" rel="">下载文mysql大盘</a>
+</strong></p>
+<p></p>
+<p></p>
+<h2 id="7-设置邮件告警">7、 设置邮件告警</h2>
+<p><strong>1、 修改修 grafana 告警配置文件 告 SMTP 邮箱配置修改邮箱相关的配置，例如下面。重启 grafan 系统。 vim /data/monitor/grafana/conf/defaults.ini</strong></p>
+<p></p>
+<h3 id="2配置通知邮箱-配-在-grafana">2、配置通知邮箱 配 在 grafana</h3>
+<p></p>
+<p></p>
+<p></p>
+<p><strong>关键字： Template variables are not supported in alert queries</strong></p>
+<p><strong>分析： 分 由于Prometheus 告警不支持变量，而模板面板使用了⼤量变量，导致不可使用告警。 解决办法：单独配置个告警的视图，用正则匹配出所有的主机 或者每台主机单独⼀个查询 语句</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-xml" data-lang="xml">(1 - (node_memory_MemAvailable_bytes{instance=&#34;101.133.173.223:9100&#34;} / (node_memory_MemTotal_bytes{instance=&#34;101.133.173.223:9100&#34;})))*100
+</code></pre></td></tr></table>
+</div>
+</div><p></p>
+<p></p>
+<h2 id="8设置其他告警演示设置企业微信群告警">8、设置其他告警，演示设置企业微信群告警</h2>
+<p><strong>注： PrometheusAlert全家桶是开源的运维告警中心消息转发系统,支持主流的监控系统Prometheus,Zabbix,日志系统Graylog和数据可视化系统Grafana发出的预警消息,支持钉钉,微信,华为云短信,腾讯云短信,腾讯云电话,阿里云短信,阿里云电话等</strong></p>
+<p><a href="https://gitee.com/feiyu563/PrometheusAlert" target="_blank" rel="noopener noreffer">gitee项目地址</a>
+  <a href="/package/linux.zip" rel="">下载包</a>
+</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#如果下载不下来，package文件夹中有liunx.zip包</span>
+wget https://github.com/feiyu563/PrometheusAlert/releases/download/v4.4.0/linux.zip
+
+mkdir -p /data/monitor/linux_PrometheusAlert
+
+<span class="c1">#确保解压后文件在/data/monitor/linux_PrometheusAlert夹中</span>
+mv linux.zip /data/monitor/linux_PrometheusAlert/ <span class="o">&amp;&amp;</span> <span class="nb">cd</span> /data/monitor/linux_PrometheusAlert/ <span class="o">&amp;&amp;</span> unzip linux.zip <span class="o">&amp;&amp;</span> <span class="nb">cd</span> linux/ <span class="o">&amp;&amp;</span> mv * ../ <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ../ <span class="o">&amp;&amp;</span> rm -rf linux/
+
+<span class="c1">#运行PrometheusAlert</span>
+<span class="c1"># ./PrometheusAlert (#后台运行请执行 nohup ./PrometheusAlert &amp;)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="81启动">8.1启动</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">chmod <span class="m">777</span> PrometheusAlert
+
+<span class="nb">cd</span> /data/monitor/linux_PrometheusAlert
+<span class="c1">#创建start.sh脚本</span>
+vim start.sh
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>start.sh脚本内容如下：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="cp">#!/bin/bash
+</span><span class="cp"></span>nohup /data/monitor/linux_PrometheusAlert/PrometheusAlert <span class="p">&amp;</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">chmod <span class="m">744</span> start.sh
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>注册服务</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#创建启动文件</span>
+vim /etc/systemd/system/PrometheusAlert.service
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>Unit<span class="o">]</span>
+<span class="nv">Description</span><span class="o">=</span>mysqld_exporter service
+<span class="nv">After</span><span class="o">=</span>network.target
+<span class="o">[</span>Service<span class="o">]</span>
+<span class="nv">Type</span><span class="o">=</span>forking
+<span class="nv">WorkingDirectory</span><span class="o">=</span>/data/monitor/linux_PrometheusAlert/
+<span class="nv">ExecStart</span><span class="o">=</span>/data/monitor/linux_PrometheusAlert/start.sh
+<span class="o">[</span>Install<span class="o">]</span>
+<span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#设置开机自启</span>
+systemctl daemon-reload
+systemctl <span class="nb">enable</span> PrometheusAlert
+systemctl start PrometheusAlert
+
+<span class="c1">#启动后可使用浏览器打开以下地址查看：http://127.0.0.1:8080</span>
+<span class="c1">#默认登录帐号和密码在conf/app.conf中有配置</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="82-企业微信告警配置">8.2 企业微信告警配置</h3>
+<p>打开企业微信,进入企业微信群中,选择群设置&ndash;&gt;群机器人&ndash;&gt;添加，可参下图：</p>
+<p></p>
+<p></p>
+<p><strong>复制图中的Webhook地址，并填入PrometheusAlert配置文件app.conf中对应配置项即可。</strong></p>
+<p></p>
+<p><strong>企业微信机器人目前支持的markdown语法是如下的子集：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-markdown" data-lang="markdown">标题 （支持1至6级标题，注意#与文字中间要有空格）
+<span class="gh"># 标题一
+</span><span class="gh"></span><span class="gu">## 标题二
+</span><span class="gu">### 标题三
+</span><span class="gu">#### 标题四
+</span><span class="gu">##### 标题五
+</span><span class="gu">###### 标题六
+</span><span class="gu"></span>
+加粗
+<span class="gs">**bold**</span>
+
+链接
+[<span class="nt">这是一个链接</span>](<span class="na">http://work.weixin.qq.com/api/doc</span>)
+
+行内代码段（暂不支持跨行）
+<span class="sb">`code`</span>
+
+引用
+<span class="k">&gt; </span><span class="ge">引用文字
+</span><span class="ge"></span>
+字体颜色(只支持3种内置颜色)
+<span class="p">&lt;</span><span class="nt">font</span> <span class="na">color</span><span class="o">=</span><span class="s">&#34;info&#34;</span><span class="p">&gt;</span>绿色<span class="p">&lt;/</span><span class="nt">font</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">font</span> <span class="na">color</span><span class="o">=</span><span class="s">&#34;comment&#34;</span><span class="p">&gt;</span>灰色<span class="p">&lt;/</span><span class="nt">font</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">font</span> <span class="na">color</span><span class="o">=</span><span class="s">&#34;warning&#34;</span><span class="p">&gt;</span>橙红色<span class="p">&lt;/</span><span class="nt">font</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p></p>
+<p><strong>测试发送机器人</strong></p>
+<p></p>
+<p></p>
+<h4 id="grafana内置固定消息模版接入配置">grafana（内置固定消息模版）接入配置</h4>
+<p><strong>首先使用管理员或者具有告警配置权限的帐号登录进Grafana管理页面，登录后进入notification channels配置。</strong></p>
+<p></p>
+<p></p>
+<p><strong>注意这里的url地址填写上自己部署所在的url</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">/grafana/dingding  处理Grafana告警消息转发到钉钉接口，可选参数(ddurl)
+/grafana/weixin    处理Grafana告警消息转发到微信接口，可选参数(wxurl)
+/grafana/feishu    处理Grafana告警消息转发到飞书接口，可选参数(fsurl)
+/grafana/txdx      处理Grafana告警消息转发到腾讯云短信接口，可选参数(phone)
+/grafana/txdh      处理Grafana告警消息转发到腾讯云电话接口，可选参数(phone)
+/grafana/hwdx      处理Grafana告警消息转发到华为云短信接口，可选参数(phone)
+/grafana/bddx      处理Grafana告警消息转发到百度云短信接口，可选参数(phone)
+/grafana/alydx     处理Grafana告警消息转发到阿里云短信接口，可选参数(phone)
+/grafana/rlydh     处理Grafana告警消息转发到容联云电话接口，可选参数(phone)
+/grafana/email     处理Grafana告警消息转发到email接口，可选参数(email)
+/grafana/tg        处理Grafana告警消息转发到telegram接口
+/grafana/workwechat处理Grafana告警消息转发到企业微信应用接口
+</code></pre></td></tr></table>
+</div>
+</div><p></p>
+<p><strong>效果</strong></p>
+<p></p>
+<h2 id="9参考文档">9.参考文档</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">#Prometheus Alert
+https://gitee.com/feiyu563/PrometheusAlert#/feiyu563/PrometheusAlert/blob/master/doc/readme/grafana.md
+
+#grafana创建告警
+https://grafana.com/docs/grafana/latest/alerting/old-alerting/create-alerts/
+</code></pre></td></tr></table>
+</div>
+</div><p>注释：大盘json文件  <a href="/%e5%a4%a7%e7%9b%98%e9%85%8d%e7%bd%ae/%e6%94%bf%e5%8a%a1%e5%be%ae%e4%bf%a1%e5%a4%a7%e7%9b%98.json" rel="">下载</a>
+</p>
+<p><strong>Prometheus常用查询函数 产考连接:https://www.cnblogs.com/xjzyy/p/15346954.html</strong></p>
+]]></description>
 </item>
 <item>
     <title>Linux扩容home目录</title>
@@ -34,7 +1202,281 @@
     <pubDate>Sat, 18 Sep 2021 15:19:40 &#43;0800</pubDate>
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/linux%E6%89%A9%E5%AE%B9home%E7%9B%AE%E5%BD%95/</guid>
-    <description><![CDATA[机器装了一块新硬盘, 先使用sudo fdisk -l看看新添加的硬盘叫什么, 我的叫sdb接下来按照这篇文章操作即可, 该文章新挂载的硬盘叫sdb1, 注意替]]></description>
+    <description><![CDATA[<p>机器装了一块新硬盘, 先使用sudo fdisk -l看看新添加的硬盘叫什么, 我的叫sdb接下来按照这篇文章操作即可, 该文章新挂载的硬盘叫sdb1, 注意替换成自己的硬盘名</p>
+<p>注释：先使用<code>sudo fdisk -l</code>看看新添加的硬盘叫什么,我的叫sdb1</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">lsblk -f <span class="c1">#列出块设备列表，-f用于输出文件系统的详细信息</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>0.格式化分区</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">mkfs.ext4 /dev/sdb1
+</code></pre></td></tr></table>
+</div>
+</div><p>1.创建目录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">mkdir /media/home
+</code></pre></td></tr></table>
+</div>
+</div><p>2.把/dev/sdb1挂载到/media/home</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">mount /dev/sdb1 /media/home
+</code></pre></td></tr></table>
+</div>
+</div><p>3.执行几次sync命令,确保文件系统数据都落盘</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sync  <span class="c1">#执行三次或更多次sync命令</span>
+
+<span class="c1">#在Linux系统中，为了加快数据的读取速度，所以在默认的情况中， 某些已经加载内存中的数据将不会直接被写回硬盘，而是先缓存在内存当中，如此一来， 如果一个数据被你重复的改写，那么由于他尚未被写入硬盘中，因此可以直接由内存当中读取出来， 在速度上一定是快上相当多的！</span>
+
+<span class="c1">#不过，如此一来也造成些许的困扰，那就是万一你的系统因为某些特殊情况造成不正常关机 (例如停电或者是不小心踢到power)时，由于数据尚未被写入硬盘当中，哇！所以就会造成数据的升级不正常啦！ 那要怎么办呢？这个时候就需要sync这个命令来进行数据的写入动作啦！ 直接在文字接口下输入sync，那么在内存中尚未被升级的数据，就会被写入硬盘中！所以，这个命令在系统关机或重新启动之前， 很重要喔！最好多运行几次(2-4次)！</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>4.同步/home到/media/home</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">rsync -aXS /home/. /media/home/.
+<span class="c1">#或者加上-v详细模式输出 rsync -avXS /home/. /media/home/.</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># Options
+-v, --verbose 			# 详细模式输出。(打印一些信息，比如文件列表、文件数量等)
+-q, --quiet 			# 精简输出模式。
+-c, --checksum 			# 打开校验开关，强制对文件传输进行校验。
+-a, --archive 			# 归档模式，表示以递归方式传输文件，并保持所有文件属性，等于-rlptgoD。
+-r, --recursive 		# 对子目录以递归模式处理。
+-R, --relative 			# 使用相对路径信息。
+-b, --backup 			# 创建备份，也就是对于目的已经存在有同样的文件名时，将老的文件重新命名为~filename。可以使用--suffix选项来指定不同的备份文件前缀。
+--backup-dir 			# 将备份文件(如~filename)存放在在目录下。
+-suffix=SUFFIX 			# 定义备份文件前缀。
+-u, --update 			# 仅仅进行更新，也就是跳过所有已经存在于DST，并且文件时间晚于要备份的文件，不覆盖更新的文件。
+-l, --links 			# 保留软链结。
+-L, --copy-links 		# 想对待常规文件一样处理软链结。
+--copy-unsafe-links		# 仅仅拷贝指向SRC路径目录树以外的链结。
+--safe-links 			# 忽略指向SRC路径目录树以外的链结。
+-H, --hard-links 		# 保留硬链结。
+-p, --perms 			# 保持文件权限。
+-o, --owner 			# 保持文件属主信息。
+-g, --group 			# 保持文件属组信息。
+-D, --devices 			# 保持设备文件信息。
+-t, --times 			# 保持文件时间信息。
+-S, --sparse 			# 对稀疏文件进行特殊处理以节省DST的空间。
+-n, --dry-run			# 现实哪些文件将被传输。
+-w, --whole-file 		# 拷贝文件，不进行增量检测。
+-x, --one-file-system	# 不要跨越文件系统边界。
+-X, --xattrs			# 保留扩展属性
+-B, --block-size=SIZE	# 检验算法使用的块尺寸，默认是700字节。
+-e, --rsh=command 		# 指定使用rsh、ssh方式进行数据同步。
+--rsync-path=PATH 		# 指定远程服务器上的rsync命令所在路径信息。
+-C, --cvs-exclude 		# 使用和CVS一样的方法自动忽略文件，用来排除那些不希望传输的文件。
+--existing				# 仅仅更新那些已经存在于DST的文件，而不备份那些新创建的文件。
+--delete				# 删除那些DST中SRC没有的文件。
+--delete-excluded 		# 同样删除接收端那些被该选项指定排除的文件。
+--delete-after 			# 传输结束以后再删除。
+--ignore-errors 		# 及时出现IO错误也进行删除。
+--max-delete=NUM 		# 最多删除NUM个文件。
+--partial				# 保留那些因故没有完全传输的文件，以是加快随后的再次传输。
+--force					# 强制删除目录，即使不为空。
+--numeric-ids 			# 不将数字的用户和组id匹配为用户名和组名。
+--timeout=time 			# ip超时时间，单位为秒。
+-I, --ignore-times 		# 不跳过那些有同样的时间和长度的文件。
+--size-only 			# 当决定是否要备份文件时，仅仅察看文件大小而不考虑文件时间。
+--modify-window=NUM		# 决定文件是否时间相同时使用的时间戳窗口，默认为0。
+-T --temp-dir=DIR 		# 在DIR中创建临时文件。
+--compare-dest=DIR 		# 同样比较DIR中的文件来决定是否需要备份。
+-P						# 等同于 --partial。
+--progress				# 显示备份过程。
+-z, --compress 			# 对备份的文件在传输时进行压缩处理。
+--exclude=PATTERN 		# 指定排除不需要传输的文件模式。
+--include=PATTERN 		# 指定不排除而需要传输的文件模式。
+--exclude-from=FILE		# 排除FILE中指定模式的文件。
+--include-from=FILE		# 不排除FILE指定模式匹配的文件。
+--version				# 打印版本信息。
+--address				# 绑定到特定的地址。
+--config=FILE 			# 指定其他的配置文件，不使用默认的rsyncd.conf文件。
+--port=PORT 			# 指定其他的rsync服务端口。
+--blocking-io 			# 对远程shell使用阻塞IO。
+-stats					# 给出某些文件的传输状态。
+--progress				# 在传输时现实传输过程。
+--log-format=formAT		# 指定日志文件格式。
+--password-file=FILE	# 从FILE中得到密码。
+--bwlimit=KBPS 			# 限制I/O带宽，KBytes per second。
+-h, --help				# 显示帮助信息。
+</code></pre></td></tr></table>
+</div>
+</div><p>5.同步完成后重命名/home</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">mv /home /home_old
+</code></pre></td></tr></table>
+</div>
+</div><p>6.新建/home</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">mkdir /home
+</code></pre></td></tr></table>
+</div>
+</div><p>7.取消/dev/sdb1挂载</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">umount /dev/sdb1
+</code></pre></td></tr></table>
+</div>
+</div><p>8.重新挂载/dev/sdb1到home</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">mount /dev/sdb1 /home
+</code></pre></td></tr></table>
+</div>
+</div><p>9.查看/dev/sdb1的UUID</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">blkid
+</code></pre></td></tr></table>
+</div>
+</div><p>10.把UUID复制下来，修改/etc/fstab文件，实现开机自动挂载</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">vim /etc/fstab
+mount -a <span class="c1">#将/etc/fstab的所有内容重新加载。</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在文件最后添加如下内容：
+UUID=8da46012-ab9c-434f-a855-2484112fd1a7 /home ext4 nodev,nosuid 0 2</p>
+<p>11.保存之后重启系统，查看分区的挂载情况</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">df –Th
+</code></pre></td></tr></table>
+</div>
+</div><p>12.确认一切正常后删除/home_old</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">rm -rf /home_old
+</code></pre></td></tr></table>
+</div>
+</div><p>至此，给/home增加空间的工作就完成了。</p>
+]]></description>
 </item>
 <item>
     <title>Nethogs命令</title>
@@ -42,7 +1484,45 @@
     <pubDate>Fri, 27 Aug 2021 15:25:51 &#43;0800</pubDate>
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/nethogs%E5%91%BD%E4%BB%A4/</guid>
-    <description><![CDATA[1 2 3 4 5 6 wget https://github.com/raboof/nethogs/archive/v0.8.1.tar.gz yum install libpcap-devel tar zxvf v0.8.1.tar.gz cd nethogs-0.8.1/ make &amp;&amp; make install nethogs eno1 以下是NetHogs的一些很有用的交互控制(键盘快捷键) 1 2 3 4 5 6 -m: Change the units displayed forthe bandwidth inunits like KB/sec-&gt;KB-&gt;B-&gt;MB. -r: Sort by magnitude]]></description>
+    <description><![CDATA[<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">wget https://github.com/raboof/nethogs/archive/v0.8.1.tar.gz
+yum install libpcap-devel
+tar zxvf v0.8.1.tar.gz
+<span class="nb">cd</span> nethogs-0.8.1/
+make <span class="o">&amp;&amp;</span> make install
+nethogs eno1
+</code></pre></td></tr></table>
+</div>
+</div><p></p>
+<p><code>以下是NetHogs的一些很有用的交互控制(键盘快捷键)</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+    -m: Change the units displayed forthe bandwidth inunits like KB/sec-&gt;KB-&gt;B-&gt;MB.
+    -r: Sort by magnitude of respectively traffic.
+    -s: Sort by magnitude of sent traffic.
+    -q: Hit quit tothe shell prompt.
+
+</code></pre></td></tr></table>
+</div>
+</div>]]></description>
 </item>
 <item>
     <title>Crontab的应用</title>
@@ -50,7 +1530,127 @@
     <pubDate>Sun, 08 Aug 2021 01:22:41 &#43;0800</pubDate>
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/crontab%E7%9A%84%E5%BA%94%E7%94%A8/</guid>
-    <description><![CDATA[1 2 3 crontab -l crontab -r crontab -e 1 2 3 -e : 执行文字编辑器来设定时程表，内定的文字编辑器是 VI，如果你想用别的文字编辑器，则请先设定 VISUAL 环境变数来指定使用那个]]></description>
+    <description><![CDATA[<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">crontab -l 
+crontab -r 
+crontab -e 
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">-e : 执行文字编辑器来设定时程表，内定的文字编辑器是 VI，如果你想用别的文字编辑器，则请先设定 VISUAL 环境变数来指定使用那个文字编辑器(比如说 setenv VISUAL joe)
+-r : 删除目前的时程表
+-l : 列出目前的时程表
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="列子">列子</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="m">0</span> */2 * * * /sbin/service httpd restart  意思是每两个小时重启一次apache 
+
+<span class="m">50</span> <span class="m">7</span> * * * /sbin/service sshd start  意思是每天7：50开启ssh服务 
+
+<span class="m">50</span> <span class="m">22</span> * * * /sbin/service sshd stop  意思是每天22：50关闭ssh服务 
+
+<span class="m">0</span> <span class="m">0</span> 1,15 * * fsck /home  每月1号和15号检查/home 磁盘 
+
+<span class="m">1</span> * * * * /home/bruce/backup  每小时的第一分执行 /home/bruce/backup这个文件 
+
+<span class="m">00</span> <span class="m">03</span> * * 1-5 find /home <span class="s2">&#34;*.xxx&#34;</span> -mtime +4 -exec rm <span class="o">{}</span> <span class="se">\;</span>  每周一至周五3点钟，在目录/home中，查找文件名为*.xxx的文件，并删除4天前的文件。
+
+<span class="m">30</span> <span class="m">6</span> */10 * * ls  意思是每月的1、11、21、31日是的6：30执行一次ls命令
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="例子2">例子2</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">vim /root/restart_v2ray.sh
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="cp">#!/bin/bash
+</span><span class="cp"></span>
+v2ray restart
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">crontab -e
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#每5个小时重启一次</span>
+<span class="m">0</span> */5 * * *  . /etc/profile<span class="p">;</span>/bin/sh /root/restart_v2ray.sh &gt; /dev/null 2&gt;<span class="p">&amp;</span><span class="m">1</span>
+
+<span class="c1">#注意：当程序在你所指定的时间执行后，系统会发一封邮件给当前的用户，显示该程序执行的内容，若是你不希望收到这样的邮件，请在每一行空一格之后加上 &gt; /dev/null 2&gt;&amp;1 即可</span>
+<span class="c1">#注意一定要添加“ . /etc/profile; ，这句用于将环境变量include进当前脚本的执行环境！</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="例子3">例子3</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">*/3 * * * * <span class="k">if</span> <span class="o">[</span> <span class="k">$(</span>netstat -tnpl <span class="p">|</span>grep <span class="m">8683</span>  <span class="p">|</span> wc -l<span class="k">)</span> -ne <span class="m">1</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span> systemctl start test.service<span class="p">;</span><span class="k">fi</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="查看日志">查看日志</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">tailf /var/log/cron
+</code></pre></td></tr></table>
+</div>
+</div>]]></description>
 </item>
 <item>
     <title>Top命令详解</title>
@@ -58,7 +1658,500 @@
     <pubDate>Wed, 09 Jun 2021 11:17:50 &#43;0800</pubDate>
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/top%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</guid>
-    <description><![CDATA[top命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的任务管理器。 下面详细介绍它的使用]]></description>
+    <description><![CDATA[<p>top命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的任务管理器。</p>
+<p>下面详细介绍它的使用方法。top是一个动态显示过程,即可以通过用户按键来不断刷新当前状态.如果在前台执行该命令,它将独占前台,直到用户终止该程序为止.比较准确的说,top命令提供了实时的对系统处理器的状态监视.它将显示系统中CPU最“敏感”的任务列表.该命令可以按CPU使用.内存使用和执行时间对任务进行排序；而且该命令的很多特性都可以通过交互式命令或者在个人定制文件中进行设定.</p>
+<h2 id="1命令格式"><strong>1．命令格式：</strong></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">top <span class="o">[</span>参数<span class="o">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="2命令功能"><strong>2．命令功能：</strong></h2>
+<p>显示当前系统正在执行的进程的相关信息，包括进程ID、内存占用率、CPU占用率等</p>
+<h2 id="3命令参数"><strong>3．命令参数：</strong></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">-b 批处理
+
+-c 显示完整的治命令
+
+-I 忽略失效过程
+
+-s 保密模式
+
+-S 累积模式
+
+-i&lt;时间&gt; 设置间隔时间
+
+-u&lt;用户名&gt; 指定用户名
+
+-p&lt;进程号&gt; 指定进程
+
+-n&lt;次数&gt; 循环显示的次数
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="4使用实例"><strong>4．使用实例：</strong></h2>
+<h3 id="实例1显示进程信息"><strong>实例1：显示进程信息</strong></h3>
+<h4 id="命令"><strong>命令：</strong></h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">top
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="输出"><strong>输出：</strong></h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@TG1704 log<span class="o">]</span><span class="c1"># top</span>
+
+top - 14:06:23 up <span class="m">70</span> days, 16:44,  <span class="m">2</span> users,  load average: 1.25, 1.32, 1.35
+Tasks: <span class="m">206</span> total,   <span class="m">1</span> running, <span class="m">205</span> sleeping,   <span class="m">0</span> stopped,   <span class="m">0</span> zombie
+Cpu<span class="o">(</span>s<span class="o">)</span>:  5.9%us,  3.4%sy,  0.0%ni, 90.4%id,  0.0%wa,  0.0%hi,  0.2%si,  0.0%st
+Mem:  32949016k total, 14411180k used, 18537836k free,   169884k buffers
+Swap: 32764556k total,        0k used, 32764556k free,  3612636k cached
+
+PID   USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND                      
+<span class="m">28894</span> root      <span class="m">22</span>   <span class="m">0</span> 1501m 405m  10m S 52.2  1.3   2534:16 java                                                                
+<span class="m">18249</span> root      <span class="m">18</span>   <span class="m">0</span> 3201m 1.9g  11m S 35.9  6.0 569:39.41 java                                                                
+ <span class="m">2808</span> root      <span class="m">25</span>   <span class="m">0</span> 3333m 1.0g  11m S 24.3  3.1 526:51.85 java                                                                 
+<span class="m">25668</span> root      <span class="m">23</span>   <span class="m">0</span> 3180m 704m  11m S 14.0  2.2 360:44.53 java                                                                 
+  <span class="m">574</span> root      <span class="m">25</span>   <span class="m">0</span> 3168m 611m  10m S 12.6  1.9 556:59.63 java                                                                 
+ <span class="m">1599</span> root      <span class="m">20</span>   <span class="m">0</span> 3237m 1.9g  11m S 12.3  6.2 262:01.14 java                                                                 
+ <span class="m">1008</span> root      <span class="m">21</span>   <span class="m">0</span> 3147m 842m  10m S  0.3  2.6   4:31.08 java                                                                
+<span class="m">13823</span> root      <span class="m">23</span>   <span class="m">0</span> 3031m 2.1g  10m S  0.3  6.8 176:57.34 java                                                                
+<span class="m">28218</span> root      <span class="m">15</span>   <span class="m">0</span> <span class="m">12760</span> <span class="m">1168</span>  <span class="m">808</span> R  0.3  0.0   0:01.43 top                                                                 
+<span class="m">29062</span> root      <span class="m">20</span>   <span class="m">0</span> 1241m 227m  10m S  0.3  0.7   2:07.32 java                                                                 
+    <span class="m">1</span> root      <span class="m">15</span>   <span class="m">0</span> <span class="m">10368</span>  <span class="m">684</span>  <span class="m">572</span> S  0.0  0.0   1:30.85 init                                                                 
+    <span class="m">2</span> root      RT  -5     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:01.01 migration/0                                                         
+    <span class="m">3</span> root      <span class="m">34</span>  <span class="m">19</span>     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:00.00 ksoftirqd/0                                                         
+    <span class="m">4</span> root      RT  -5     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:00.00 watchdog/0                                                          
+    <span class="m">5</span> root      RT  -5     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:00.80 migration/1                                                         
+    <span class="m">6</span> root      <span class="m">34</span>  <span class="m">19</span>     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:00.00 ksoftirqd/1                                                         
+    <span class="m">7</span> root      RT  -5     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:00.00 watchdog/1                                                           
+    <span class="m">8</span> root      RT  -5     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:20.59 migration/2                                                         
+    <span class="m">9</span> root      <span class="m">34</span>  <span class="m">19</span>     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:00.09 ksoftirqd/2                                                         
+   <span class="m">10</span> root      RT  -5     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:00.00 watchdog/2                                                           
+   <span class="m">11</span> root      RT  -5     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:23.66 migration/3                                                         
+   <span class="m">12</span> root      <span class="m">34</span>  <span class="m">19</span>     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:00.03 ksoftirqd/3                                                        
+   <span class="m">13</span> root      RT  -5     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:00.00 watchdog/3                                                          
+   <span class="m">14</span> root      RT  -5     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:20.29 migration/4                                                         
+   <span class="m">15</span> root      <span class="m">34</span>  <span class="m">19</span>     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:00.07 ksoftirqd/4                                                         
+   <span class="m">16</span> root      RT  -5     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:00.00 watchdog/4                                                           
+   <span class="m">17</span> root      RT  -5     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:23.07 migration/5                                                         
+   <span class="m">18</span> root      <span class="m">34</span>  <span class="m">19</span>     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:00.07 ksoftirqd/5                                                        
+   <span class="m">19</span> root      RT  -5     <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> S  0.0  0.0   0:00.00 watchdog/5                                                           
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="说明"><strong>说明：</strong></h4>
+<h5 id="统计信息区"><strong>统计信息区:</strong></h5>
+<p>前五行是当前系统情况整体的统计信息区。下面我们看每一行信息的具体意义。</p>
+<h5 id="第一行任务队列信息同-uptime-命令的执行结果具体参数说明情况如下">第一行，任务队列信息，同 uptime 命令的执行结果，具体参数说明情况如下：</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">14:06:23 — 当前系统时间
+
+up 70 days, 16:44 — 系统已经运行了70天16小时44分钟（在这期间系统没有重启过的吆！）
+
+2 users — 当前有2个用户登录系统
+
+load average: 1.15, 1.42, 1.44 — load average后面的三个数分别是1分钟、5分钟、15分钟的负载情况。
+
+load average数据是每隔5秒钟检查一次活跃的进程数，然后按特定算法计算出的数值。如果这个数除以逻辑CPU的数量，结果高于5的时候就表明系统在超负荷运转了。
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="第二行tasks--任务进程具体信息说明如下">第二行，Tasks — 任务（进程），具体信息说明如下：</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">系统现在共有206个进程，其中处于运行中的有1个，205个在休眠（sleep），stoped状态的有0个，zombie状态（僵尸）的有0个。
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="第三行cpu状态信息具体属性说明如下">第三行，cpu状态信息，具体属性说明如下：</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">5.9%us — 用户空间占用CPU的百分比。
+
+3.4% sy — 内核空间占用CPU的百分比。
+
+0.0% ni — 改变过优先级的进程占用CPU的百分比
+
+90.4% id — 空闲CPU百分比
+
+0.0% wa — IO等待占用CPU的百分比
+
+0.0% hi — 硬中断（Hardware IRQ）占用CPU的百分比
+
+0.2% si — 软中断（Software Interrupts）占用CPU的百分比
+
+**备注：****在这里CPU的使用比率和windows概念不同，****需要****理解****linux系统****用户空间和内核空间****的相关知识！**
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="第四行内存状态具体信息如下">第四行,内存状态，具体信息如下：</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">32949016k total — 物理内存总量（32GB）
+
+14411180k used — 使用中的内存总量（14GB）
+
+18537836k free — 空闲内存总量（18GB）
+
+169884k buffers — 缓存的内存量 （169M）
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="第五行swap交换分区信息具体信息说明如下">第五行，swap交换分区信息，具体信息说明如下：</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">32764556k total — 交换区总量（32GB）
+
+0k used — 使用的交换区总量（0K）
+
+32764556k free — 空闲交换区总量（32GB）
+
+3612636k cached — 缓冲的交换区总量（3.6GB）
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>备注：</strong></p>
+<p><strong>第四行中使用中的内存总量（used）指的是现在系统内核控制的内存数，空闲内存总量（free）是内核还未纳入其管控范围的数量。纳入内核管理的内存不见得都在使用中，还包括过去使用过的现在可以被重复利用的内存，内核并不把这些可被重新使用的内存交还到free中去，因此在linux上free内存会越来越少，但不用为此担心。</strong></p>
+<p><strong>如果出于习惯去计算可用内存数，这里有个近似的计算公式：第四行的free + 第四行的buffers + 第五行的cached，按这个公式此台服务器的可用内存：18537836k +169884k +3612636k = 22GB左右。</strong></p>
+<p><strong>对于内存监控，在top里我们要时刻监控第五行swap交换分区的used，如果这个数值在不断的变化，说明内核在不断进行内存和swap的数据交换，这是真正的内存不够用了。</strong></p>
+<h5 id="第六行空行">第六行，空行。</h5>
+<h5 id="第七行以下各进程任务的状态监控项目列信息说明如下"><strong>第七行以下：各进程（任务）的状态监控，项目列信息说明如下：</strong></h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">PID — 进程id
+
+USER — 进程所有者
+
+PR — 进程优先级
+
+NI — nice值。负值表示高优先级，正值表示低优先级
+
+VIRT — 进程使用的虚拟内存总量，单位kb。VIRT=SWAP+RES
+
+RES — 进程使用的、未被换出的物理内存大小，单位kb。RES=CODE+DATA
+
+SHR — 共享内存大小，单位kb
+
+S — 进程状态。D=不可中断的睡眠状态 R=运行 S=睡眠 T=跟踪/停止 Z=僵尸进程
+
+%CPU — 上次更新到现在的CPU时间占用百分比
+
+%MEM — 进程使用的物理内存百分比
+
+TIME+ — 进程使用的CPU时间总计，单位1/100秒
+
+COMMAND — 进程名称（命令名/命令行）
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="其他使用技巧"><strong>其他使用技巧：</strong></h4>
+<h5 id="1多u多核cpu监控">1.多U多核CPU监控</h5>
+<p>在top基本视图中，按键盘数字“1”，可监控每个逻辑CPU的状况：</p>
+<p></p>
+<p>观察上图，服务器有16个逻辑CPU，实际上是4个物理CPU。再按数字键1，就会返回到top基本视图界面。</p>
+<h5 id="2高亮显示当前运行进程">2.高亮显示当前运行进程</h5>
+<p>​	敲击键盘“b”（打开/关闭加亮效果），top的视图变化如下：</p>
+<p></p>
+<p>我们发现进程id为2570的“top”进程被加亮了，top进程就是视图第二行显示的唯一的运行态（runing）的那个进程，可以通过敲击“y”键关闭或打开运行态进程的加亮效果。</p>
+<h5 id="3进程字段排序">3.进程字段排序</h5>
+<p>默认进入top时，各进程是按照CPU的占用量来排序的，在下图中进程ID为28894的java进程排在第一（cpu占用142%），进程ID为574的java进程排在第二（cpu占用16%）。</p>
+<p></p>
+<p>敲击键盘“x”（打开/关闭排序列的加亮效果），top的视图变化如下：</p>
+<p></p>
+<p>可以看到，top默认的排序列是“%CPU”。</p>
+<ol start="4">
+<li>
+<h5 id="通过shift--或shift--可以向右或左改变排序列"><strong>通过”shift + &gt;”或”shift + &lt;”可以向右或左改变排序列</strong></h5>
+</li>
+</ol>
+<p>​	下图是按一次”shift + &gt;”的效果图,视图现在已经按照%MEM来排序。</p>
+<p></p>
+<h3 id="实例2显示-完整命令">实例2：显示 完整命令</h3>
+<h4 id="命令-1"><strong>命令：</strong></h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">top -c
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="输出-1"><strong>输出：</strong></h4>
+<p></p>
+<p><strong>说明：</strong></p>
+<h3 id="实例3以批处理模式显示程序信息"><strong>实例3：以批处理模式显示程序信息</strong></h3>
+<h4 id="命令-2"><strong>命令：</strong></h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">top -b
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="输出-2"><strong>输出：</strong></h4>
+<h4 id="说明-1"><strong>说明：</strong></h4>
+<h3 id="实例4以累积模式显示程序信息">实例4：以累积模式显示程序信息</h3>
+<h4 id="命令-3"><strong>命令：</strong></h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">top -S
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="输出-3"><strong>输出：</strong></h4>
+<h4 id="说明-2"><strong>说明：</strong></h4>
+<h3 id="实例5设置信息更新次数">实例5：设置信息更新次数</h3>
+<h4 id="命令-4"><strong>命令：</strong></h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">top -n <span class="m">2</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="输出-4"><strong>输出：</strong></h4>
+<h4 id="说明-3"><strong>说明：</strong></h4>
+<p>表示更新两次后终止更新显示</p>
+<h3 id="实例6设置信息更新时间"><strong>实例6：设置信息更新时间</strong></h3>
+<h4 id="命令-5"><strong>命令：</strong></h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">top -d <span class="m">3</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="输出-5"><strong>输出：</strong></h4>
+<h4 id="说明-4"><strong>说明：</strong></h4>
+<p>表示更新周期为3秒</p>
+<h3 id="实例7显示指定的进程信息"><strong>实例7：显示指定的进程信息</strong></h3>
+<h4 id="命令-6"><strong>命令：</strong></h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">top -p <span class="m">574</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="输出-6"><strong>输出：</strong></h4>
+<p></p>
+<h5 id="5top交互命令"><strong>5.top交互命令</strong></h5>
+<p>在top 命令执行过程中可以使用的一些交互命令。这些命令都是单字母的，如果在命令行中使用了s 选项， 其中一些命令可能会被屏蔽。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">h 显示帮助画面，给出一些简短的命令总结说明
+
+k 终止一个进程。
+
+i 忽略闲置和僵死进程。这是一个开关式命令。
+
+q 退出程序
+
+r 重新安排一个进程的优先级别
+
+S 切换到累计模式
+
+s 改变两次刷新之间的延迟时间（单位为s），如果有小数，就换算成m s。输入0值则系统将不断刷新，默认值是5 s
+
+f或者F 从当前显示中添加或者删除项目
+
+o或者O 改变显示项目的顺序
+
+l 切换显示平均负载和启动时间信息
+
+m 切换显示内存信息
+
+t 切换显示进程和CPU状态信息
+
+c 切换显示命令名称和完整命令行
+
+M 根据驻留内存大小进行排序
+
+P 根据CPU使用百分比大小进行排序
+
+T 根据时间/累计时间进行排序
+
+W 将当前设置写入~/.toprc文件中
+</code></pre></td></tr></table>
+</div>
+</div>]]></description>
 </item>
 <item>
     <title>Centos中挂载NTFS与exFAT的U盘</title>
@@ -66,7 +2159,125 @@
     <pubDate>Thu, 03 Jun 2021 16:47:07 &#43;0800</pubDate>
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/centos%E4%B8%AD%E6%8C%82%E8%BD%BDntfs%E4%B8%8Eexfat%E7%9A%84u%E7%9B%98/</guid>
-    <description><![CDATA[1、认识挂载： （1）Linux的宗旨是一切皆文件，从以上我们也看到。我们存储的所有文件都在sda3下存放着，sda3也就是我们的根。那我们要]]></description>
+    <description><![CDATA[<h1 id="1认识挂载">1、认识挂载：</h1>
+<p>（1）Linux的宗旨是一切皆文件，从以上我们也看到。我们存储的所有文件都在sda3下存放着，sda3也就是我们的根。那我们要在sda5中写入文件时，首先要sda5要与sda3先建立一个联系，这个联系就是一个目录。建立联系的过程我们叫做<strong>挂载</strong>。 （2）当我们访问sda3底下的这个目录的时候，实际上我们访问的才是sda5这个设备文件。这个目录相当于一个访问sda5的入口，可以理解为一个接口，有了这个接口才可以访问这个磁盘。</p>
+<h1 id="2磁盘的挂载">2、磁盘的挂载：</h1>
+<p>（1）挂载点目录:我们将磁盘切到根目录， <strong>media</strong> 和 <strong>mnt</strong> 这两个目录被叫做挂载点目录。除此之外，我们也可以自己创建一个目录作为一个挂载点目录，</p>
+<p></p>
+<p>（2）<strong>临时挂载</strong>：将指定的一个目录作为挂载点目录时，如果挂载点的目录有文件，那么文件会被隐藏。因此当我们需要挂载目录时，最好新建一个空文件夹来作为挂在点目录。（<strong>重启后失效</strong>）</p>
+<h1 id="挂载ntfs过程"><strong>挂载NTFS过程</strong></h1>
+<p>1.因为是虚拟机，所以先到系统的服务目录下寻找【VMware USB Arbitration Service】服务，并确保此服务已经启动。</p>
+<p>2.进入Centos 7环境，在mnt目录下创建一个子目录：udisk（用来将U盘挂载到此目录），所需命令为：<strong>mkdir -p /mnt/udisk</strong>。注意，此目录名称可以随意命名，按个人爱好创建。</p>
+<p>3.插入U盘</p>
+<p>4.运行命令：fdisk -l查看U盘是否已经加载到Centos中，方法为：通过检查没有插入U盘与插入U盘情况下，系统的输出是否一致，如果一致，说明系统没有加载到U盘，否则说明系统加载到U盘。系统加载到U盘后的输出如下图所示：</p>
+<p></p>
+<p>5.运行命令：其中sdb1就是上个步骤查询出的U盘名称。运行此命令时，一般会报错：<code>mount:unknown filesystem type ntfs-3g</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">mount -t ntfs-3g /dev/sdb1 /mnt/udisk
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="报错原因">报错原因</h2>
+<p>Linux 和 Mac OS X 本身不支持读写 NTFS 文件系统（windows系统），大多数人平时也不需要与 NTFS 做数据文件的交互，只是有时候 Windows 用户应急状态下需要使用大容量移动硬盘拷贝数据，必须实现 Linux 下挂载 NTFS，而 Tuxera 恰好为 Linux 和 Mac 用户提供了灰常简单的实现方法</p>
+<h2 id="介绍">介绍</h2>
+<ul>
+<li>我偷个大懒直接引用官方的原话</li>
+</ul>
+<p>NTFS-3G is a stable, full-featured, read-write NTFS driver for Linux, Android, Mac OS X, FreeBSD, NetBSD, OpenSolaris, QNX, Haiku, and other  operating systems. It provides safe handling of the Windows XP, Windows  Server 2003, Windows 2000, Windows Vista, Windows Server 2008, Windows  7, Windows 8 and Windows 10 NTFS file systems. A  <a href="http://www.tuxera.com/products/tuxera-ntfs-embedded/performance/" target="_blank" rel="noopener noreffer">high-performance</a>
+  alternative, called Tuxera NTFS is available for  <a href="http://www.tuxera.com/products/tuxera-ntfs-embedded/" target="_blank" rel="noopener noreffer">embedded devices</a>
+  and  <a href="http://www.tuxera.com/products/tuxera-ntfs-for-mac/" target="_blank" rel="noopener noreffer">Mac OS X</a>
+.</p>
+<p>The release notes and the software changes can be found on the  <a href="http://www.tuxera.com/community/release-history/" target="_blank" rel="noopener noreffer">Release History</a>
+  page. Subscribe  <a href="http://lists.sourceforge.net/mailman/listinfo/ntfs-3g-news" target="_blank" rel="noopener noreffer">here</a>
+  for new release notifications.</p>
+<h2 id="open-source-ntfs-3g">Open Source: NTFS-3G</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#Installation</span>
+tar zxvf /tmp/ntfs-3g_ntfsprogs-2016.2.22.tgz
+<span class="nb">cd</span> ntfs*
+<span class="c1">#yum -y install gcc gcc-c++ make</span>
+./configure
+make
+make install <span class="c1"># or &#39;sudo make install&#39; if you aren&#39;t root</span>
+
+<span class="c1">#Usage</span>
+fdisk -l
+mkdir -p /mnt/windows
+mount -t ntfs-3g /dev/sda1 /mnt/windows
+<span class="c1">#You can also make NTFS to be mounted during boot by adding the following line to the end of the /etc/fstab file:</span>
+vi /etc/fstab
+/dev/sda1 /mnt/windows ntfs-3g defaults <span class="m">0</span> <span class="m">0</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="卸载u盘请使用命令">卸载U盘，请使用命令：</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">umount /mnt/udisk
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="挂载exfat过程"><strong>挂载exFAT过程</strong></h1>
+<p>下载fuse-exfat模块：https://github.com/relan/exfat/archive/refs/heads/master.zip</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#编译前，请先检查系统，如果系统中没有scons和gcc，请通过yum安装 ，这个软件是fuse模块，编译需要fuse-devel包支持</span>
+yum install -y scons gcc autoconf automake pkg-config fuse-devel make
+
+unzip master.zip
+
+<span class="nb">cd</span> exfat-master
+
+autoreconf --install
+
+./configure
+
+make <span class="o">&amp;&amp;</span> make install 
+
+<span class="c1">##使用方法</span>
+mount.exfat /dev/spec /mnt/exfat
+</code></pre></td></tr></table>
+</div>
+</div>]]></description>
 </item>
 <item>
     <title>CentOS升级sudo版本 解决Sudo权限绕过漏洞 修复堆缓冲区溢出漏洞(CVE-2021-3156)</title>
@@ -74,7 +2285,126 @@
     <pubDate>Tue, 25 May 2021 11:03:03 &#43;0800</pubDate>
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/centos%E5%8D%87%E7%BA%A7sudo%E7%89%88%E6%9C%AC-%E8%A7%A3%E5%86%B3sudo%E6%9D%83%E9%99%90%E7%BB%95%E8%BF%87%E6%BC%8F%E6%B4%9E-%E4%BF%AE%E5%A4%8D%E5%A0%86%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E/</guid>
-    <description><![CDATA[漏洞介绍 关于 Sudo 堆缓冲区溢出漏洞(CVE-2021- 3156)的预警通知 有关情报显示，sudo 存在缓冲区溢出漏洞。攻击者在取得服 务器基础权限的]]></description>
+    <description><![CDATA[<h2 id="漏洞介绍">漏洞介绍</h2>
+<p>关于 Sudo 堆缓冲区溢出漏洞(CVE-2021- 3156)的预警通知</p>
+<p>有关情报显示，sudo 存在缓冲区溢出漏洞。攻击者在取得服 务器基础权限的情况下，可以利用 sudo 基于堆的缓冲区溢出漏 洞，获得 root 权限。在 sudo 解析命令行参数的方式中发现了基 于堆的缓冲区溢出。任何本地用户(普通用户和系统用户，sudo er 和非 sudoers)都可以利用此漏洞，而无需进行身份验证，攻 击者不需要知道用户的密码。</p>
+<p>漏洞编号:CVE-2021-3156。</p>
+<p>一、漏洞情况分析</p>
+<pre><code>Sudo 是一种程序，用于类 Unix 操作系统如 BSD，Mac OS X，以及 GNU/Linux 以允许用户透过安全的方式使用特殊的权限 运行程序。
+</code></pre>
+<p>二、 漏洞影响范围</p>
+<pre><code>影响版本:
+1.8.2 - 1.8.31p2
+1.9.0 - 1.9.5p1
+</code></pre>
+<h2 id="升级环境">升级环境</h2>
+<pre><code>系统：CentOS6/CentOS7
+sudo：1.8.23 查看本地sudo版本命令：sudo -V
+最新版本：sudo-1.9.5p2 查看官方最新版本文件：https://www.sudo.ws/dist/
+</code></pre>
+<h2 id="准备">准备</h2>
+<ul>
+<li>查看本地sudo版本，查看官方最新版本文件：https://www.sudo.ws/dist/</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo -V
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>若已经安装gcc,可以忽略此操作</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">yum -y install gcc  
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>若已经安装wget,可以忽略此操作</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">yum -y install wget   
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="安装">安装</h2>
+<ul>
+<li>切换到需要下载软件的目录</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /opt/jovtec/soft/
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>下载最新版本到服务器解压</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">wget https://www.sudo.ws/dist/sudo-1.9.5p2.tar.gz <span class="o">&amp;&amp;</span> tar zxf sudo-1.9.5p2.tar.gz
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>执行配置命令</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> sudo-1.9.5p2 <span class="o">&amp;&amp;</span> ./configure --prefix<span class="o">=</span>/usr --libexecdir<span class="o">=</span>/usr/lib --with-secure-path --with-all-insults --with-env-editor --docdir<span class="o">=</span>/usr/share/doc/sudo-1.9.5p2 --with-passprompt<span class="o">=</span><span class="s2">&#34;[sudo] password for %p: &#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>编译安装</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">make <span class="o">&amp;&amp;</span> make install <span class="o">&amp;&amp;</span> ln -sfv libsudo_util.so.0.0.0 /usr/lib/sudo/libsudo_util.so.0
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>检验</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo -V   
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">以非 root 用户登录系统，并使用命令 sudoedit -s /
+- 如果响应一个以 sudoedit: 开头的报错，那么表明存在漏洞。
+- 如果响应一个以 usage: 开头的报错，那么表明补丁已经生效。
+</code></pre></td></tr></table>
+</div>
+</div>]]></description>
 </item>
 <item>
     <title>Centos 7下配置iptables</title>
@@ -82,7 +2412,309 @@
     <pubDate>Wed, 19 May 2021 15:21:33 &#43;0800</pubDate>
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/iptables%E8%A7%84%E5%88%99%E5%88%97%E8%A1%A8/</guid>
-    <description><![CDATA[1、安装iptables 1 systemctl status iptables #查看是否安装iptables 警告 输出结果表示没有iptables的相关服务，我们需要安装 1 2 3 4 5 yum install iptables-services #]]></description>
+    <description><![CDATA[<h1 id="1安装iptables">1、安装iptables</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">systemctl status iptables <span class="c1">#查看是否安装iptables</span>
+</code></pre></td></tr></table>
+</div>
+</div><p></p>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>警告<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">输出结果表示没有iptables的相关服务，我们需要安装</div>
+        </div>
+    </div>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">yum install iptables-services <span class="c1">#安装</span>
+systemctl status iptables 
+systemctl start iptables
+systemctl <span class="nb">enable</span> iptables.service <span class="c1">#设置开机启动</span>
+systemctl disable iptables.service <span class="c1">#禁止开机启动</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>警告<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>这里需要关闭SELINUX，因为当SELINUX不关闭时，iptables不读取配置文件 <code>vi /etc/selinux/config</code></p>
+<p></p>
+<p><code>重新加载配置 source /etc/selinux/config </code></p>
+</div>
+        </div>
+    </div>
+<div class="details admonition danger open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-skull-crossbones fa-fw" aria-hidden="true"></i>危险<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">第一次创建规则要使用-F 清空，否者会出现很多奇怪的问题！</div>
+        </div>
+    </div>
+<h1 id="2配置规则">2、配置规则</h1>
+<h2 id="禁止访问9200端口">禁止访问9200端口</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">iptables -I INPUT -p tcp --dport <span class="m">9200</span> -j DROP
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="允许ip为19216811的机器访问">允许ip为192.168.1.1的机器访问</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">iptables -I INPUT -p tcp -s 192.168.1.1 --dport <span class="m">9200</span> -j ACCEPT
+<span class="c1">#插入到第10行</span>
+iptables -I INPUT <span class="m">10</span> -p tcp -s 192.168.1.1 --dport <span class="m">9200</span> -j ACCEPT
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="允许ip在192168网段的机器访问">允许ip在192.168网段的机器访问</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">iptables -I INPUT -p tcp -s 192.168.1.1/16 --dport <span class="m">9200</span> -j ACCEPT
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="允许所有ip访问">允许所有ip访问</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">iptables -I INPUT -p tcp --dport <span class="m">9200</span> -j ACCEPT
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="查看规则列表">查看规则列表</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">iptables -nvL --line-number
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="删除规则">删除规则</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#删除第10行规则</span>
+iptables -D INPUT <span class="m">10</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="清空所有规则">清空所有规则</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">iptables -F
+</code></pre></td></tr></table>
+</div>
+</div><p>【列子】</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">iptables -I INPUT -p tcp -s 192.168.1.1 --dport <span class="m">9200</span> -j ACCEPT
+iptables -I INPUT -p tcp -s 192.168.1.2 --dport <span class="m">9200</span> -j ACCEPT
+iptables -I INPUT -p tcp -s 192.168.1.3 --dport <span class="m">9200</span> -j ACCEPT
+iptables -I INPUT -p tcp --dport <span class="m">9200</span> -j DROP
+</code></pre></td></tr></table>
+</div>
+</div><p>说明：首先放开192.168.1.1至192.168.1.3ip段的9200端口，然后再禁用掉本机的9200端口</p>
+<h2 id="9个常用iptables配置实例">[9个常用iptables配置实例]</h2>
+<h3 id="1删除已有规则"><strong>1.删除已有规则</strong></h3>
+<p>在新设定iptables规则时，我们一般先确保旧规则被清除，用以下命令清除旧规则：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">iptables -F
+<span class="o">(</span>or iptables --flush<span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="2设置chain策略"><strong>2.设置chain策略</strong></h3>
+<p>对于filter table，默认的chain策略为ACCEPT，我们可以通过以下命令修改chain的策略：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT DROP
+</code></pre></td></tr></table>
+</div>
+</div><p>以上命令配置将接收、转发和发出包均丢弃，施行比较严格的包管理。由于接收和发包均被设置为丢弃，当进一步配置其他规则的时候，需要注意针对INPUT和OUTPUT分别配置。当然，如果信任本机器往外发包，以上第三条规则可不必配置。</p>
+<h3 id="3屏蔽指定ip"><strong>3.屏蔽指定ip</strong></h3>
+<p>有时候我们发现某个ip不停的往服务器发包，这时我们可以使用以下命令，将指定ip发来的包丢弃：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nv">BLOCK_THIS_IP</span><span class="o">=</span><span class="s2">&#34;x.x.x.x&#34;</span>
+iptables -A INPUT -i eth0 -p tcp -s <span class="s2">&#34;</span><span class="nv">$BLOCK_THIS_IP</span><span class="s2">&#34;</span> -j DROP
+</code></pre></td></tr></table>
+</div>
+</div><p>以上命令设置将由x.x.x.x ip发往eth0网口的tcp包丢弃。</p>
+<h3 id="4配置服务项"><strong>4.配置服务项</strong></h3>
+<p>利用iptables，我们可以对日常用到的服务项进行安全管理，比如设定只能通过指定网段、由指定网口通过SSH连接本机：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">iptables -A INPUT -i eth0 -p tcp -s 192.168.100.0/24 --dport <span class="m">22</span> -m state --state NEW,ESTABLESHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --sport <span class="m">22</span> -m state --state ESTABLISHED -j ACCEPT
+</code></pre></td></tr></table>
+</div>
+</div><p>若要支持由本机通过SSH连接其他机器，由于在本机端口建立连接，因而还需要设置以下规则：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">iptables -A INPUT -i eth0 -p tcp -s 192.168.100.0/24 --dport <span class="m">22</span> -m state --state ESTABLESHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --sport <span class="m">22</span> -m state --state NEW,ESTABLISHED -j ACCEPT
+</code></pre></td></tr></table>
+</div>
+</div><p>类似的，对于HTTP/HTTPS(80/443)、pop3(110)、rsync(873)、MySQL(3306)等基于tcp连接的服务，也可以参照上述命令配置。</p>
+<p>对于基于udp的dns服务，使用以下命令开启端口服务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">iptables -A OUTPUT -p udp -o eth0 --dport <span class="m">53</span> -j ACCEPT
+iptables -A INPUT -p udp -i eth0 --sport <span class="m">53</span> -j ACCEPT
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="5网口转发配置"><strong>5.网口转发配置</strong></h3>
+<p>对于用作防火墙或网关的服务器，一个网口连接到公网，其他网口的包转发到该网口实现内网向公网通信，假设eth0连接内网，eth1连接公网，配置规则如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">iptables -A FORWARD -i eth0 -o eth1 -j ACCEPT
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="6端口转发配置"><strong>6.端口转发配置</strong></h3>
+<p>对于端口，我们也可以运用iptables完成转发配置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">iptables -t nat -A PREROUTING -p tcp -d 192.168.102.37 --dport <span class="m">422</span> -j DNAT --to 192.168.102.37:22
+</code></pre></td></tr></table>
+</div>
+</div><p>以上命令将422端口的包转发到22端口，因而通过422端口也可进行SSH连接，当然对于422端口，我们也需要像以上“4.配置服务项”一节一样，配置其支持连接建立的规则。</p>
+<h3 id="7dos攻击防范"><strong>7.DoS攻击防范</strong></h3>
+<p>利用扩展模块limit，我们还可以配置iptables规则，实现DoS攻击防范：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">iptables -A INPUT -p tcp --dport <span class="m">80</span> -m limit --limit 25/minute --limit-burst <span class="m">100</span> -j ACCEPT
+</code></pre></td></tr></table>
+</div>
+</div><p>&ndash;litmit 25/minute 指示每分钟限制最大连接数为25</p>
+<p>&ndash;litmit-burst 100 指示当总连接数超过100时，启动 litmit/minute 限制</p>
+<h3 id="8配置web流量均衡"><strong>8.配置web流量均衡</strong></h3>
+<p>我们可以将一台服务器作为前端服务器，利用iptables进行流量分发，配置方法如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">iptables -A PREROUTING -i eth0 -p tcp --dport <span class="m">80</span> -m state --state NEW -m nth --counter <span class="m">0</span> --every <span class="m">3</span> --packet <span class="m">0</span> -j DNAT --to-destination 192.168.1.101:80
+iptables -A PREROUTING -i eth0 -p tcp --dport <span class="m">80</span> -m state --state NEW -m nth --counter <span class="m">0</span> --every <span class="m">3</span> --packet <span class="m">0</span> -j DNAT --to-destination 192.168.1.102:80
+iptables -A PREROUTING -i eth0 -p tcp --dport <span class="m">80</span> -m state --state NEW -m nth --counter <span class="m">0</span> --every <span class="m">3</span> --packet <span class="m">0</span> -j DNAT --to-destination 192.168.1.103:80
+</code></pre></td></tr></table>
+</div>
+</div><p>以上配置规则用到nth扩展模块，将80端口的流量均衡到三台服务器。</p>
+<h3 id="9将丢弃包情况记入日志"><strong>9.将丢弃包情况记入日志</strong></h3>
+<p>使用LOG目标和syslog服务，我们可以记录某协议某端口下的收发包情况。拿记录丢包情况举例，可以通过以下方式实现。</p>
+<p>首先自定义一个chain：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">iptables -N LOGGING
+</code></pre></td></tr></table>
+</div>
+</div><p>其次将所有接收包导入LOGGING chain中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">iptables -A INPUT -j LOGGING
+</code></pre></td></tr></table>
+</div>
+</div><p>然后设置日志前缀、日志级别：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">iptables -A LOGGING -m limit --limit 2/min -j LOG --log-prefix <span class="s2">&#34;IPTables Packet Dropped: &#34;</span> --log-level <span class="m">7</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>最后将包倒向DROP，将包丢弃：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">iptables -A LOGGING -j DROP
+</code></pre></td></tr></table>
+</div>
+</div><p>另可以配置syslog.conf文件，指定iptables的日志输出。</p>
+]]></description>
 </item>
 </channel>
 </rss>

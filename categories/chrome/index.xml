@@ -10,7 +10,15 @@
     <pubDate>Tue, 22 Jun 2021 15:19:09 &#43;0800</pubDate>
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/chrome%E6%88%AA%E5%9B%BE/</guid>
-    <description><![CDATA[chrome实现整个网页的完整截图 Chrome 浏览器 外贸人大部分应该用的都是 Chrome 浏览器，如果你用的是 360，先检讨下！ 首先打开一个想要截取的页面，记得一]]></description>
+    <description><![CDATA[<h1 id="chrome实现整个网页的完整截图">chrome实现整个网页的完整截图</h1>
+<p><strong>Chrome 浏览器</strong></p>
+<p>　　外贸人大部分应该用的都是 Chrome 浏览器，如果你用的是 360，先检讨下！</p>
+<p>　　首先打开一个想要截取的页面，记得一定要等页面加载完后，自己滚动一遍拉到底，等所有的内容全部展现出来后再进行下面的操作。</p>
+<p>　　按下 <strong>F12</strong> ，然后同时按下组合键 <strong>Ctrl+Shift+P</strong> ，接着在跳出的框框里输入 <strong>Capture full size screenshot</strong> ，如下。</p>
+<p></p>
+<p>稍等一会就会跳出一个框让你保存 PNG 图片，这样就 OK 了。如果不完整，可能当时网络有问题，没有完全加载完成，需要多试几次。</p>
+<p>　　如果觉得上面方法麻烦，也可以安装一个“捕捉页面截图”FireShot 的扩展插件。</p>
+]]></description>
 </item>
 <item>
     <title>Chrome浏览器中F12功能的简单介绍</title>
@@ -18,7 +26,109 @@
     <pubDate>Thu, 27 May 2021 14:24:40 &#43;0800</pubDate>
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/</guid>
-    <description><![CDATA[由于F12是前端开发人员的利器，所以我自己也在不断摸索中，查看一些博客和资料后，自己总结了一下来帮助自己理解和记忆 首先介绍Chrome开发者]]></description>
+    <description><![CDATA[<p>由于F12是前端开发人员的利器，所以我自己也在不断摸索中，查看一些博客和资料后，自己总结了一下来帮助自己理解和记忆</p>
+<p>首先介绍Chrome开发者工具中，调试时使用最多的三个功能页面是：元素（ELements）、控制台（Console）、源代码（Sources），此外还有网络（Network）等。</p>
+<p></p>
+<ul>
+<li>元素（Elements）：用于查看或修改HTML元素的属性、CSS属性、监听事件、断点等。</li>
+<li>控制台（Console）：控制台一般用于执行一次性代码，查看JavaScript对象，查看调试日志信息或异常信息。</li>
+<li>源代码（Sources）：该页面用于查看页面的HTML文件源代码、JavaScript源代码、CSS源代码，此外最重要的是可以调试JavaScript源代码，可以给JS代码添加断点等。</li>
+<li>网络（Network）：网络页面主要用于查看header等与网络连接相关的信息。</li>
+</ul>
+<h2 id="1元素elements"><strong>1、元素（Elements）</strong></h2>
+<p>查看元素代码：点击如图箭头（或用者用快捷键Ctrl+Shift+C）进入选择元素模式，然后从页面中选择需要查看的元素，然后可以在开发者工具元素（Elements）一栏中定位到该元素源代码的具体位置 。</p>
+<p>查看元素属性：可从被定位的源码中查看部分，如class、src，也可在右边的侧栏中查看全部的属性，如下图位置查看</p>
+<p></p>
+<p>修改元素的代码与属性：可直接双击想要修改的部分，然后就进行修改，或者选中要修改部分后点击右键进行修改，如下图</p>
+<p></p>
+<p><strong>注意：这个修改也仅对当前的页面渲染生效，不会修改服务器的源代码，故而这个功能也是作为调试页面效果而使用。</strong></p>
+<p>右边的侧栏个功能的介绍:如下图所示</p>
+<p></p>
+<h2 id="2控制台console"><strong>2、控制台（Console）</strong></h2>
+<ul>
+<li>查看JS对象的及其属性</li>
+<li>执行JS语句</li>
+<li>查看控制台日志：当网页的JS代码中使用了console.log()函数时，该函数输出的日志信息会在控制台中显示。日志信息一般在开发调试时启用，而当正式上线后，一般会将该函数去掉。</li>
+</ul>
+<h2 id="源代码sources"><strong>源代码（Sources）</strong></h2>
+<p></p>
+<h2 id="4网络network"><strong>4、网络（Network）</strong></h2>
+<p></p>
+<p><strong>请求文件具体说明</strong></p>
+<p></p>
+<p><strong>一共分为四个模块：</strong></p>
+<ul>
+<li>Header：面板列出资源的请求url、HTTP方法、响应状态码、请求头和响应头及它们各自的值、请求参数等等</li>
+</ul>
+<ul>
+<li>
+<p>Preview：预览面板，用于资源的预览。</p>
+</li>
+<li>
+<p>Response：响应信息面板包含资源还未进行格式处理的内容</p>
+</li>
+<li>
+<p>Timing：资源请求的详细信息花费时间</p>
+<ul>
+<li>
+<p>打开浏览器,按f12,点击Network,可以查看相关网络请求信息,记得是打开f12之后再刷新页面才会开始记录的</p>
+<p></p>
+</li>
+<li>
+<p>查看Network基本信息,请求了哪些地址及每个URL的网络相关请求信息都可以看的到URL，响应状态码，响应数据类型，响应数据大小，响应时间</p>
+<p></p>
+</li>
+<li>
+<p>请求URL可进行筛选和分类选择不同分类,查看请求URL,方便查找</p>
+<p></p>
+</li>
+<li>
+<p>也可以直接Filter搜索查询相关URL可以输入关键字或者正则表达式进行查询</p>
+<p></p>
+</li>
+<li>
+<p>Waterfall能分割重要的请求耗时,查看具体请求耗时在哪个地方鼠标指到相关区域可以看到具体耗时</p>
+<p></p>
+</li>
+</ul>
+</li>
+<li>
+<p>我们具体分析下里面每个各代表什么意思,分别耗时多少,通过这个来分析服务器到底是哪个环节出了问题</p>
+<p>Queueing 是排队的意思</p>
+<p>Stalled 是阻塞  请求访问该URL的主机是有并发和连接数限制的,必须要等之前的执行才能执行之后的,这段时间的耗时</p>
+<p>DNS Lookup 是指域名解析所耗时间</p>
+<p>Initial connection 初始化连接时间,这里一般是TCP 3次连接握手时间</p>
+<p>SSL https特有,是一种协议</p>
+<p>Request sent 发送请求所消耗的时间</p>
+<p>Waiting 等待响应时间,这里一般是最耗时的</p>
+<p>Content Download 下载内容所需要消耗的时间</p>
+</li>
+</ul>
+<h2 id="如何使用浏览器的f12调试页面"><strong>如何使用浏览器的F12调试页面？</strong></h2>
+<p>一个程序员按照要求编写一个网页，不可能一次编写就完全达到目的，一般要对自己的的代码修改调试几次后才能到达要求，浏览器的F12开发人员工具就可以很方便的帮助程序员调试自己的代码。</p>
+<p>​        F12 开发人员工具是一套按需采用的工具，网站开发人员可以随时在任何网页上使用 F12 工具，从而快速调试 JavaScript、HTML 和级联样式表 (CSS)，还可以跟踪并查明网页或网络的性能问题。</p>
+<p>​       F12调试页面各个功能分别是什么？</p>
+<p></p>
+<p>Elements标签页</p>
+<p>Elements标签页的左侧就是对页面HTML结构的查看与编辑，你可以直接在某个元素上双击修改元素的属性。</p>
+<p></p>
+<p>Elements标签页的右侧</p>
+<p></p>
+<p>Network标签页</p>
+<p>Network标签页对于分析网站请求的网络情况、查看某一请求的请求头和响应头还有响应内容很有用。注意是在你打开Chrome开发者工具后发起的请求，才会在这里显示</p>
+<p></p>
+<p>Sources标签页</p>
+<p>Sources标签页可以查看到请求的资源情况，包括CSS、JS、图片等的内容。也可以设置各种断点。对存储的内容进行编辑然后保存也会实时的反应到页面上.</p>
+<p></p>
+<p>Audits标签页</p>
+<p>这个对于优化前端页面、加速网页加载速度很有用;点击run按钮，就可以开始分析页面，分析完了就可以看到分析结果了</p>
+<p></p>
+<p>Console标签页</p>
+<p>就是Javascript控制台了</p>
+<p></p>
+<p>在控制台中可以直接模拟手机、调整UA、修改网络连接状态。</p>
+<p></p>
+]]></description>
 </item>
 </channel>
 </rss>

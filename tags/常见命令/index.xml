@@ -10,7 +10,347 @@
     <pubDate>Mon, 26 Apr 2021 15:40:13 &#43;0800</pubDate>
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/shell%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4%E5%88%86%E4%BA%AB/</guid>
-    <description><![CDATA[centos基础 1 ifconfig/ip addr # 查看ip 1 netstat -tunlp | grep 8080 #查询8080端口是否存在 1 2 ping 10.0.0.1 -s 65507 #包大小为65507 ping 10.0.0.1 -l 65500 #window 1 ifconfig eth0 192.168.60.128 #修改ip 1 free -m #查]]></description>
+    <description><![CDATA[<h1 id="centos基础">centos基础</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">ifconfig/ip addr <span class="c1"># 查看ip</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">netstat -tunlp <span class="p">|</span> grep <span class="m">8080</span> <span class="c1">#查询8080端口是否存在</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">ping 10.0.0.1 -s <span class="m">65507</span> <span class="c1">#包大小为65507</span>
+ping 10.0.0.1 -l <span class="m">65500</span> <span class="c1">#window</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">ifconfig eth0 192.168.60.128 <span class="c1">#修改ip</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">free -m <span class="c1">#查看内存</span>
+</code></pre></td></tr></table>
+</div>
+</div><p></p>
+<p><code>主要看第一行Mem 总共 15710 M , 使用了 823 M , 剩余空闲 7895 M 。这个shared 223M 也不知道用在哪里。</code></p>
+<h2 id="linux之间互传文件">Linux之间互传文件：</h2>
+<h3 id="本机-远程服务器">本机-&gt;远程服务器</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">scp /home/shaoxiaohu/test1.txt shaoxiaohu@172.16.18.1:/home/test2.txt
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="远程服务器-本机">远程服务器-&gt;本机</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">scp shaoxiaohu@172.16.18.2:/home/test2.txt /home/shaoxiaohu/test1.txt
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="文件夹复制">文件夹复制</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">scp -r shaoxiaohu@172.16.18.2:/home/ /home/
+</code></pre></td></tr></table>
+</div>
+</div><p><code>如果端口号有更改，需在scp 后输入：-P 端口号 （注意是大写，ssh的命令中 -p是小写）</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">tail -100f access.log <span class="c1">#查看100条日志</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">echo</span> <span class="m">0</span> &gt; access.log  <span class="c1">#清除日志</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="dump抓包">dump抓包</h2>
+<p><code>抓包检查，使用tcpdump抓包，tcpdump -vv -i 网卡名称 tcp port 监听端口 -w 文件名.pcap，在服务端和客户端上都抓一下，保存下来分析。（使用wireshark来分析）</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">tcpdump -i eth0 host 10.50.13.121 -vv  -w 001.pcap
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="定时任务">定时任务</h2>
+<p><code>查询crontab服务是否开启 systemctl status crond.service</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">vim /data/monitor.sh
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="cp">#!/bin/sh
+</span><span class="cp"></span>Monitor<span class="o">()</span>
+<span class="o">{</span>
+<span class="k">for</span> i in <span class="m">1</span>
+<span class="k">do</span>
+  curl http://127.0.0.1:8888/hello
+<span class="k">done</span>
+<span class="o">}</span>
+Monitor&gt;&gt;/tmp/tcpbridgeMonitor.log
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="运行crontab-e-编写一条定时任务">运行crontab –e 编写一条定时任务</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">crontab -e
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="写入">写入</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">* * * * * /data/monitor.sh   
+
+* * * * * sleep 20<span class="p">;</span> /data/monitor.sh
+
+* * * * * sleep 40<span class="p">;</span> /data/monitor.sh  <span class="c1">##每隔20秒执行一次监控脚本</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="赋权">赋权</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">chmod -R <span class="m">777</span> /data/monitor.sh
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="修改拥有者和群组">修改拥有者和群组</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">chown -R mysql:mysql /data/test <span class="c1">#-R处理指定目录以及其子目录下的所有文件</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="查看最近的crontab执行情况">查看最近的crontab执行情况</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">tail -f /var/spool/mail/root
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="查询当前用户定时任务">查询当前用户定时任务</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">crontab -l
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="删除当前用户定时任务">删除当前用户定时任务</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">crontab -r
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="日志拉取与截取">日志拉取与截取</h1>
+<h2 id="拉取指定时间的日志">拉取指定时间的日志</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sed -n ‘/2010-11-17 09:<span class="o">[</span>0-9<span class="o">][</span>0-9<span class="o">]</span>:<span class="o">[</span>0-9<span class="o">][</span>0-9<span class="o">]</span>/,/2010-11-17 16:<span class="o">[</span>0-9<span class="o">][</span>0-9<span class="o">]</span>:<span class="o">[</span>0-9<span class="o">][</span>0-9<span class="o">]</span>/p’  /hime/log.csv &gt; /data/serverlog/log.csv
+</code></pre></td></tr></table>
+</div>
+</div><p><code>注意：如果需要截取的日志太大，达到几个G的话，不能去vi打开文件: 根据之前的日志格式，[使用正则表达式](https://www.baidu.com/s?wd=使用正则表达式&amp;tn=44039180_cpr&amp;fenlei=mv6quAkxTZn0IZRqIHckPjm4nH00T1YkP1c1uHTLn1ndnH9-PH0z0ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6KdThsqpZwYTjCEQLGCpyw9Uz4Bmy-bIi4WUvYETgN-TLwGUv3EnHRLrHT3nHDd): 截图中日志的格式为：2019-06-13 10:15:27.878 所以正则表达式为：2019-06-13 09:[0-9][0-9]:[0-9][0-9].[0-9][0-9][0-9]</code></p>
+<h1 id="mysql全量and库备份与数据还原">mysql全量and库备份与数据还原</h1>
+<h2 id="全量备份">全量备份</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">/usr/local/mysql/bin/mysqldump -u用户名 -p密码 --all-databases &gt; /保存路径/文件名.sql
+</code></pre></td></tr></table>
+</div>
+</div><p></p>
+<h2 id="库备份">库备份</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">/usr/local/mysql/bin/mysqldump -u用户名 -p密码 库名1 库名2 &gt; /保存路径/文件名.sql
+</code></pre></td></tr></table>
+</div>
+</div><p></p>
+<h2 id="使用source-命令恢复数据库">使用source 命令恢复数据库</h2>
+<p></p>
+<h1 id="nohup启动">nohup启动</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">nohup ./yzweworkplatform-backend &gt;log.txt <span class="p">&amp;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>（注释：加了&amp;参数为后台启动，没有加按ctrl会退出）</code></p>
+<h1 id="主机名">主机名**</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@fangjian ~<span class="o">]</span><span class="c1"># hostnamectl #查看主机名</span>
+   Static hostname: brace
+   Pretty hostname: Brace
+         Icon name: computer-vm
+           Chassis: vm
+        Machine ID: <span class="m">20191225111607875619293640639763</span>
+           Boot ID: 25ac5021d229471382a26bea3d351de3
+    Virtualization: kvm
+  Operating System: CentOS Linux <span class="m">7</span> <span class="o">(</span>Core<span class="o">)</span>
+       CPE OS Name: cpe:/o:centos:centos:7
+            Kernel: Linux 3.10.0-1062.9.1.el7.x86_64
+      Architecture: x86-64
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="临时修改主机名">临时修改主机名</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@fangjian ~<span class="o">]</span><span class="c1"># hostname yin    #临时修改主机名，关机后失效</span>
+<span class="o">[</span>root@fangjian ~<span class="o">]</span><span class="c1"># hostname</span>
+yin
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="永久修改主机名">永久修改主机名</h2>
+<p>1、方法一：使用hostnamectl命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@fangjian ~<span class="o">]</span><span class="c1"># hostnamectl set-hostname Brace  #永久设置用户名，关机后不失效</span>
+<span class="o">[</span>root@fangjian ~<span class="o">]</span><span class="c1"># hostname</span>
+brace
+</code></pre></td></tr></table>
+</div>
+</div><p>2、方法二：修改配置文件 /etc/hostname 保存退出</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@fangjian ~<span class="o">]</span><span class="c1"># vi /etc/hostname   # 进入vi，删除旧主机名，输入新主机名，Esc后冒号 wq退出保存</span>
+brace　　　　　　　　　　　　　　　　　 <span class="c1"># reboot重启生效</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="域名的md5值">域名的md5值</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">echo</span> -n <span class="s2">&#34;demo.com&#34;</span> <span class="p">|</span> md5sum 
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="释放内存">释放内存</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">free -h <span class="c1">#查询内存</span>
+sync   <span class="c1">#落盘</span>
+<span class="nb">echo</span> <span class="m">3</span> &gt;/proc/sys/vm/drop_caches <span class="c1">#释放缓存</span>
+</code></pre></td></tr></table>
+</div>
+</div>]]></description>
 </item>
 </channel>
 </rss>

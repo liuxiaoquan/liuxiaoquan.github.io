@@ -10,7 +10,181 @@
     <pubDate>Thu, 05 Aug 2021 14:23:32 &#43;0800</pubDate>
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/docker%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7/</guid>
-    <description><![CDATA[升级背景 1 2 3 4 5 6 7 8 9 10 漏洞描述： Docker是一款开源的应用容器引擎。该产品支持在Linux系统上创建一个容器（轻量级虚拟机）并部署和]]></description>
+    <description><![CDATA[<h3 id="升级背景">升级背景</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">漏洞描述：
+Docker是一款开源的应用容器引擎。该产品支持在Linux系统上创建一个容器（轻量级虚拟机）并部署和运行应用程序，以及通过配置文件实现应用程序的自动化安装、部署和升级。 runc是一个可以用于创建和运行容器的CLI(command-line interface)工具。 Docker 18.09.2之前版本存在安全漏洞，运行容器时程序没有正确地处理文件描述符。攻击者可利用该漏洞通过以下情况覆盖主机runc二进制文件并以root权限执行任意命令：（1）使用攻击者控制的镜像创建新容器；（2）攻击者使用docker exec方式连接容器。
+漏洞类型：
+系统组件漏洞
+威胁等级：
+高危
+修复方案：
+请到官网升级Docker到18.09.2以上最新版本修复该漏洞，漏洞修复后需要服务重启。建议业务不繁忙时修复。
+下载更新：https://docs.docker.com/install/
+检测到服务器存在漏洞风险，建议立即对相关主机进行快照备份，避免遭受损失。
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="升级步骤">升级步骤</h3>
+<blockquote>
+<p>1、以下步骤为单个节点的升级，由于mongodb es redis等服务为集群，为保证数据及服务高可用，建议逐个节点升级，切勿同时升级。</p>
+<p>2、如果某个容器启动失败且无法重启时，可以通过重建容器恢复，init.sh脚本路径如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@localhost data<span class="o">]</span><span class="c1"># find /data/ -name init.sh</span>
+/data/mongo/init.sh
+/data/redis_sentinel/init.sh
+/data/redis_master/init.sh
+/data/elasticsearch/init.sh
+</code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 下载新版本并解压 解压会在当前目录生成一个docker的文件夹</span>
+<span class="nb">cd</span> /root
+wget https://download.docker.com/linux/static/stable/x86_64/docker-18.09.9.tgz
+tar zxvf docker-18.09.9.tgz
+
+<span class="c1"># 停止docker服务</span>
+systemctl stop docker
+<span class="c1"># 备份原二进制文件</span>
+mkdir /root/docker-bak-<span class="k">$(</span>date +%F<span class="k">)</span> <span class="o">&amp;&amp;</span> mv /usr/bin/docker* /root/docker-bak-<span class="k">$(</span>date +%F<span class="k">)</span>
+
+<span class="c1"># 替换新二进制文件</span>
+cp -a docker/* /usr/bin/
+
+<span class="c1"># 启动docker服务</span>
+systemctl start docker
+<span class="c1"># 检查docker版本</span>
+docker version
+<span class="c1"># 容器状态</span>
+dokcer ps
+docker ps -a
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="验证">验证</h3>
+<blockquote>
+<p>1、2步骤在单个节点升级完成时验证，步骤3在所有节点升级完成后验证</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 1、检查所有里约容器组件端口可用</span>
+netstat -lntp <span class="p">|</span>grep <span class="si">${</span><span class="nv">port</span><span class="si">}</span>
+
+
+<span class="c1"># 2、检查相关服务状态集群状态</span>
+<span class="c1"># es集群装填为green、节点数正常,使用实际账号、端口、密码等信息</span>
+curl -u rio:ee06167b10a177f60766d35baa81955d localhost:9200/_cluster/health?pretty
+<span class="c1"># mongodb rs状态,使用实际账号、端口、密码等信息</span>
+docker <span class="nb">exec</span> -it mongo mongo --username rio --password ee06167b10a177f60766d35baa81955d --authenticationDatabase admin 127.0.0.1:27017/admin
+rs.status<span class="o">()</span>
+<span class="c1"># redis 状态,使用实际账号、端口、密码等信息</span>
+docker <span class="nb">exec</span> -ti redis_master redis-cli -h 127.0.0.1 -p <span class="m">6379</span> -a ee06167b10a177f60766d35baa81955d info
+
+<span class="c1"># 3、控制台验证 登录、服务发布、站点发布等功能</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="回退步骤">回退步骤</h3>
+<blockquote>
+<p>如升级后异常容器状态异常切无法重建容器进行回退，回退验证后同上。</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /root/
+<span class="c1"># 停止docker服务</span>
+systemctl stop docker
+<span class="c1"># 删除二进制文件</span>
+<span class="k">for</span> i in <span class="k">$(</span>ls ./docker/<span class="k">)</span><span class="p">;</span> <span class="k">do</span> rm -f /usr/bin/<span class="nv">$i</span><span class="p">;</span> <span class="k">done</span>
+
+<span class="c1"># 还原原二进制文件</span>
+cp -a /root/docker-bak-<span class="k">$(</span>date +%F<span class="k">)</span>/docker*  /usr/bin/
+
+<span class="c1"># 启动docker服务</span>
+systemctl start docker
+<span class="c1"># 检查docker版本</span>
+docker version
+<span class="c1"># 容器状态</span>
+dokcer ps
+docker ps -a
+</code></pre></td></tr></table>
+</div>
+</div>]]></description>
 </item>
 <item>
     <title>Docker容器无法stop或kill的解决方法</title>
@@ -18,7 +192,39 @@
     <pubDate>Wed, 14 Jul 2021 11:05:31 &#43;0800</pubDate>
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/docker%E5%AE%B9%E5%99%A8%E6%97%A0%E6%B3%95stop%E6%88%96kill%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</guid>
-    <description><![CDATA[1 2 # 查看网络 docker network ls bridge、none、host这 3 个网络包含在 Docker 实现中。运行一个容器时，可以使用 the –net标志指定您希望在哪个网络上运]]></description>
+    <description><![CDATA[<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 查看网络</span>
+docker network ls
+</code></pre></td></tr></table>
+</div>
+</div><p>bridge、none、host这 3 个网络包含在 Docker 实现中。运行一个容器时，可以使用 the –net标志指定您希望在哪个网络上运行该容器。您仍然可以使用这 3 个网络。</p>
+<p>bridge 网络表示所有 Docker 安装中都存在的 docker0 网络。除非使用 docker run –net=选项另行指定，否则 Docker 守护进程默认情况下会将容器连接到此网络。在主机上使用 ifconfig命令，可以看到此网桥是主机的网络堆栈的一部分。
+none 网络在一个特定于容器的网络堆栈上添加了一个容器。该容器缺少网络接口。
+host 网络在主机网络堆栈上添加一个容器。您可以发现，容器中的网络配置与主机相同。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 查看网络信息</span>
+docker network inspect &lt;网络模式&gt;
+<span class="c1"># 删除容器</span>
+docker rm -f &lt;容器名&gt;
+<span class="c1"># 清理网络占用</span>
+docker network disconnect --force &lt;网络模式&gt; &lt;容器名&gt;
+</code></pre></td></tr></table>
+</div>
+</div>]]></description>
 </item>
 </channel>
 </rss>

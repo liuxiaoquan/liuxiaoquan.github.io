@@ -10,7 +10,126 @@
     <pubDate>Tue, 25 May 2021 11:03:03 &#43;0800</pubDate>
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/centos%E5%8D%87%E7%BA%A7sudo%E7%89%88%E6%9C%AC-%E8%A7%A3%E5%86%B3sudo%E6%9D%83%E9%99%90%E7%BB%95%E8%BF%87%E6%BC%8F%E6%B4%9E-%E4%BF%AE%E5%A4%8D%E5%A0%86%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E/</guid>
-    <description><![CDATA[漏洞介绍 关于 Sudo 堆缓冲区溢出漏洞(CVE-2021- 3156)的预警通知 有关情报显示，sudo 存在缓冲区溢出漏洞。攻击者在取得服 务器基础权限的]]></description>
+    <description><![CDATA[<h2 id="漏洞介绍">漏洞介绍</h2>
+<p>关于 Sudo 堆缓冲区溢出漏洞(CVE-2021- 3156)的预警通知</p>
+<p>有关情报显示，sudo 存在缓冲区溢出漏洞。攻击者在取得服 务器基础权限的情况下，可以利用 sudo 基于堆的缓冲区溢出漏 洞，获得 root 权限。在 sudo 解析命令行参数的方式中发现了基 于堆的缓冲区溢出。任何本地用户(普通用户和系统用户，sudo er 和非 sudoers)都可以利用此漏洞，而无需进行身份验证，攻 击者不需要知道用户的密码。</p>
+<p>漏洞编号:CVE-2021-3156。</p>
+<p>一、漏洞情况分析</p>
+<pre><code>Sudo 是一种程序，用于类 Unix 操作系统如 BSD，Mac OS X，以及 GNU/Linux 以允许用户透过安全的方式使用特殊的权限 运行程序。
+</code></pre>
+<p>二、 漏洞影响范围</p>
+<pre><code>影响版本:
+1.8.2 - 1.8.31p2
+1.9.0 - 1.9.5p1
+</code></pre>
+<h2 id="升级环境">升级环境</h2>
+<pre><code>系统：CentOS6/CentOS7
+sudo：1.8.23 查看本地sudo版本命令：sudo -V
+最新版本：sudo-1.9.5p2 查看官方最新版本文件：https://www.sudo.ws/dist/
+</code></pre>
+<h2 id="准备">准备</h2>
+<ul>
+<li>查看本地sudo版本，查看官方最新版本文件：https://www.sudo.ws/dist/</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo -V
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>若已经安装gcc,可以忽略此操作</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">yum -y install gcc  
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>若已经安装wget,可以忽略此操作</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">yum -y install wget   
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="安装">安装</h2>
+<ul>
+<li>切换到需要下载软件的目录</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /opt/jovtec/soft/
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>下载最新版本到服务器解压</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">wget https://www.sudo.ws/dist/sudo-1.9.5p2.tar.gz <span class="o">&amp;&amp;</span> tar zxf sudo-1.9.5p2.tar.gz
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>执行配置命令</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> sudo-1.9.5p2 <span class="o">&amp;&amp;</span> ./configure --prefix<span class="o">=</span>/usr --libexecdir<span class="o">=</span>/usr/lib --with-secure-path --with-all-insults --with-env-editor --docdir<span class="o">=</span>/usr/share/doc/sudo-1.9.5p2 --with-passprompt<span class="o">=</span><span class="s2">&#34;[sudo] password for %p: &#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>编译安装</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">make <span class="o">&amp;&amp;</span> make install <span class="o">&amp;&amp;</span> ln -sfv libsudo_util.so.0.0.0 /usr/lib/sudo/libsudo_util.so.0
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>检验</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo -V   
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">以非 root 用户登录系统，并使用命令 sudoedit -s /
+- 如果响应一个以 sudoedit: 开头的报错，那么表明存在漏洞。
+- 如果响应一个以 usage: 开头的报错，那么表明补丁已经生效。
+</code></pre></td></tr></table>
+</div>
+</div>]]></description>
 </item>
 </channel>
 </rss>

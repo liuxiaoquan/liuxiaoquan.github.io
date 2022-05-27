@@ -10,7 +10,127 @@
     <pubDate>Sun, 08 Aug 2021 01:22:41 &#43;0800</pubDate>
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/crontab%E7%9A%84%E5%BA%94%E7%94%A8/</guid>
-    <description><![CDATA[1 2 3 crontab -l crontab -r crontab -e 1 2 3 -e : 执行文字编辑器来设定时程表，内定的文字编辑器是 VI，如果你想用别的文字编辑器，则请先设定 VISUAL 环境变数来指定使用那个]]></description>
+    <description><![CDATA[<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">crontab -l 
+crontab -r 
+crontab -e 
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">-e : 执行文字编辑器来设定时程表，内定的文字编辑器是 VI，如果你想用别的文字编辑器，则请先设定 VISUAL 环境变数来指定使用那个文字编辑器(比如说 setenv VISUAL joe)
+-r : 删除目前的时程表
+-l : 列出目前的时程表
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="列子">列子</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="m">0</span> */2 * * * /sbin/service httpd restart  意思是每两个小时重启一次apache 
+
+<span class="m">50</span> <span class="m">7</span> * * * /sbin/service sshd start  意思是每天7：50开启ssh服务 
+
+<span class="m">50</span> <span class="m">22</span> * * * /sbin/service sshd stop  意思是每天22：50关闭ssh服务 
+
+<span class="m">0</span> <span class="m">0</span> 1,15 * * fsck /home  每月1号和15号检查/home 磁盘 
+
+<span class="m">1</span> * * * * /home/bruce/backup  每小时的第一分执行 /home/bruce/backup这个文件 
+
+<span class="m">00</span> <span class="m">03</span> * * 1-5 find /home <span class="s2">&#34;*.xxx&#34;</span> -mtime +4 -exec rm <span class="o">{}</span> <span class="se">\;</span>  每周一至周五3点钟，在目录/home中，查找文件名为*.xxx的文件，并删除4天前的文件。
+
+<span class="m">30</span> <span class="m">6</span> */10 * * ls  意思是每月的1、11、21、31日是的6：30执行一次ls命令
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="例子2">例子2</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">vim /root/restart_v2ray.sh
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="cp">#!/bin/bash
+</span><span class="cp"></span>
+v2ray restart
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">crontab -e
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#每5个小时重启一次</span>
+<span class="m">0</span> */5 * * *  . /etc/profile<span class="p">;</span>/bin/sh /root/restart_v2ray.sh &gt; /dev/null 2&gt;<span class="p">&amp;</span><span class="m">1</span>
+
+<span class="c1">#注意：当程序在你所指定的时间执行后，系统会发一封邮件给当前的用户，显示该程序执行的内容，若是你不希望收到这样的邮件，请在每一行空一格之后加上 &gt; /dev/null 2&gt;&amp;1 即可</span>
+<span class="c1">#注意一定要添加“ . /etc/profile; ，这句用于将环境变量include进当前脚本的执行环境！</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="例子3">例子3</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">*/3 * * * * <span class="k">if</span> <span class="o">[</span> <span class="k">$(</span>netstat -tnpl <span class="p">|</span>grep <span class="m">8683</span>  <span class="p">|</span> wc -l<span class="k">)</span> -ne <span class="m">1</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span> systemctl start test.service<span class="p">;</span><span class="k">fi</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="查看日志">查看日志</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">tailf /var/log/cron
+</code></pre></td></tr></table>
+</div>
+</div>]]></description>
 </item>
 </channel>
 </rss>

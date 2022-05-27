@@ -10,7 +10,170 @@
     <pubDate>Thu, 29 Apr 2021 00:59:20 &#43;0800</pubDate>
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/%E6%89%8B%E5%8A%A8%E5%8D%87%E7%BA%A7ssh/</guid>
-    <description><![CDATA[openssl、openssh下载地址 https://openbsd.hk/pub/OpenBSD/OpenSSH/portable/ （ssh） https://ftp.openssl.org/source/ (ssl) 配置yum源 1 2 mount /dev/sdd /mnt vim /etc/yum.repos.d/local.repo #编辑 1 2 3 4 5 [my] name=my baseurl=file:///mnt enabled=1 gpgcheck=0 1 yum list #检查配置是否成功 1 2 3 4 5]]></description>
+    <description><![CDATA[<h1 id="opensslopenssh下载地址">openssl、openssh下载地址</h1>
+<p><a href="https://openbsd.hk/pub/OpenBSD/OpenSSH/portable/">https://openbsd.hk/pub/OpenBSD/OpenSSH/portable/</a>  （ssh）
+<a href="https://ftp.openssl.org/source/">https://ftp.openssl.org/source/</a>                                         (ssl)</p>
+<h1 id="配置yum源">配置yum源</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">mount /dev/sdd /mnt
+vim /etc/yum.repos.d/local.repo     <span class="c1">#编辑</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>my<span class="o">]</span>
+<span class="nv">name</span><span class="o">=</span>my
+<span class="nv">baseurl</span><span class="o">=</span>file:///mnt
+<span class="nv">enabled</span><span class="o">=</span><span class="m">1</span>
+<span class="nv">gpgcheck</span><span class="o">=</span><span class="m">0</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">yum list  <span class="c1">#检查配置是否成功</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>centos7.7<span class="o">]</span>
+<span class="nv">baseurl</span> <span class="o">=</span> http://10.2.11.11:80/tstack/tstack-repos/repo/centos7.7/
+<span class="nv">enabled</span> <span class="o">=</span> <span class="m">1</span>
+<span class="nv">gpgcheck</span> <span class="o">=</span> <span class="m">0</span>
+<span class="nv">name</span> <span class="o">=</span> tstack YUM repo
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="安装相关软件包">安装相关软件包</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">yum install -y zlib* pam* krb5* openssl openssl-devel make perl-Test-Simple gcc-c++ libtool
+
+setenforce <span class="m">0</span>  <span class="c1">#关掉seliunx</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="安装ssl">安装ssl</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#备份</span>
+mv /usr/bin/openssl /usr/bin/openssl_bak
+mv /usr/include/openssl /usr/include/openssl_bak
+
+<span class="nb">cd</span> /tmp/openssh 					<span class="c1">#上传ssl包到/tmp/openssh下（自建建目录）</span>
+tar zxvf openssl-1.0.2s.tar.gz      <span class="c1">#解压</span>
+<span class="nb">cd</span> openssl-1.0.2s					<span class="c1">#切换目录</span>
+./config --prefix<span class="o">=</span>/usr --openssldir<span class="o">=</span>/etc/ssl --shared zlib  <span class="c1">#检查环境</span>
+make <span class="o">&amp;&amp;</span> make <span class="nb">test</span>  					
+<span class="nb">echo</span> <span class="nv">$?</span>  <span class="o">(</span>0正常 1不正常<span class="o">)</span>
+make install
+openssl version -a
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">-------------------------------------------
+问题：如果升级后发现头文件和库文件匹配不上【OpenSSL 1.1.1k  25 Mar 2021（Library OpenSSL 1.1.1h  25 Mar 2020）】
+解决：重新检查环境，并重新执行make &amp; make install
+./config --prefix=/usr/local/openssl --openssldir=/etc/ssl --shared zlib
+--------------------------------------------
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="升级ssh">升级ssh</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">cp -rp /etc/ssh /etc/ssh_<span class="k">$(</span>date +%Y%M%d%H<span class="k">)</span>
+
+<span class="nb">cd</span> /tmp/openssh
+
+tar zxvf openssh-8.1p1.tar.gz
+
+<span class="nb">cd</span> openssh-8.1p1
+
+./configure --prefix<span class="o">=</span>/usr --sysconfdir<span class="o">=</span>/etc/ssh --with-md5-passwords -with-kerberos5 --with-pam --with-zlib --with-ssl-dir<span class="o">=</span>/usr/
+
+make <span class="o">&amp;&amp;</span> make  install
+
+chmod <span class="m">600</span> /etc/ssh/ssh_host*_key
+
+sed -i <span class="s2">&#34;s/Type=</span><span class="si">${</span><span class="nv">SSH_START_TYPE</span><span class="si">}</span><span class="s2">/Type=simple/&#34;</span> /usr/lib/systemd/system/sshd.service
+
+systemctl daemon-reload
+
+systemctl restart sshd.service
+
+ssh -V
+</code></pre></td></tr></table>
+</div>
+</div>]]></description>
 </item>
 </channel>
 </rss>

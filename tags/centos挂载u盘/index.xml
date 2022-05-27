@@ -10,7 +10,125 @@
     <pubDate>Thu, 03 Jun 2021 16:47:07 &#43;0800</pubDate>
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/centos%E4%B8%AD%E6%8C%82%E8%BD%BDntfs%E4%B8%8Eexfat%E7%9A%84u%E7%9B%98/</guid>
-    <description><![CDATA[1、认识挂载： （1）Linux的宗旨是一切皆文件，从以上我们也看到。我们存储的所有文件都在sda3下存放着，sda3也就是我们的根。那我们要]]></description>
+    <description><![CDATA[<h1 id="1认识挂载">1、认识挂载：</h1>
+<p>（1）Linux的宗旨是一切皆文件，从以上我们也看到。我们存储的所有文件都在sda3下存放着，sda3也就是我们的根。那我们要在sda5中写入文件时，首先要sda5要与sda3先建立一个联系，这个联系就是一个目录。建立联系的过程我们叫做<strong>挂载</strong>。 （2）当我们访问sda3底下的这个目录的时候，实际上我们访问的才是sda5这个设备文件。这个目录相当于一个访问sda5的入口，可以理解为一个接口，有了这个接口才可以访问这个磁盘。</p>
+<h1 id="2磁盘的挂载">2、磁盘的挂载：</h1>
+<p>（1）挂载点目录:我们将磁盘切到根目录， <strong>media</strong> 和 <strong>mnt</strong> 这两个目录被叫做挂载点目录。除此之外，我们也可以自己创建一个目录作为一个挂载点目录，</p>
+<p></p>
+<p>（2）<strong>临时挂载</strong>：将指定的一个目录作为挂载点目录时，如果挂载点的目录有文件，那么文件会被隐藏。因此当我们需要挂载目录时，最好新建一个空文件夹来作为挂在点目录。（<strong>重启后失效</strong>）</p>
+<h1 id="挂载ntfs过程"><strong>挂载NTFS过程</strong></h1>
+<p>1.因为是虚拟机，所以先到系统的服务目录下寻找【VMware USB Arbitration Service】服务，并确保此服务已经启动。</p>
+<p>2.进入Centos 7环境，在mnt目录下创建一个子目录：udisk（用来将U盘挂载到此目录），所需命令为：<strong>mkdir -p /mnt/udisk</strong>。注意，此目录名称可以随意命名，按个人爱好创建。</p>
+<p>3.插入U盘</p>
+<p>4.运行命令：fdisk -l查看U盘是否已经加载到Centos中，方法为：通过检查没有插入U盘与插入U盘情况下，系统的输出是否一致，如果一致，说明系统没有加载到U盘，否则说明系统加载到U盘。系统加载到U盘后的输出如下图所示：</p>
+<p></p>
+<p>5.运行命令：其中sdb1就是上个步骤查询出的U盘名称。运行此命令时，一般会报错：<code>mount:unknown filesystem type ntfs-3g</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">mount -t ntfs-3g /dev/sdb1 /mnt/udisk
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="报错原因">报错原因</h2>
+<p>Linux 和 Mac OS X 本身不支持读写 NTFS 文件系统（windows系统），大多数人平时也不需要与 NTFS 做数据文件的交互，只是有时候 Windows 用户应急状态下需要使用大容量移动硬盘拷贝数据，必须实现 Linux 下挂载 NTFS，而 Tuxera 恰好为 Linux 和 Mac 用户提供了灰常简单的实现方法</p>
+<h2 id="介绍">介绍</h2>
+<ul>
+<li>我偷个大懒直接引用官方的原话</li>
+</ul>
+<p>NTFS-3G is a stable, full-featured, read-write NTFS driver for Linux, Android, Mac OS X, FreeBSD, NetBSD, OpenSolaris, QNX, Haiku, and other  operating systems. It provides safe handling of the Windows XP, Windows  Server 2003, Windows 2000, Windows Vista, Windows Server 2008, Windows  7, Windows 8 and Windows 10 NTFS file systems. A  <a href="http://www.tuxera.com/products/tuxera-ntfs-embedded/performance/" target="_blank" rel="noopener noreffer">high-performance</a>
+  alternative, called Tuxera NTFS is available for  <a href="http://www.tuxera.com/products/tuxera-ntfs-embedded/" target="_blank" rel="noopener noreffer">embedded devices</a>
+  and  <a href="http://www.tuxera.com/products/tuxera-ntfs-for-mac/" target="_blank" rel="noopener noreffer">Mac OS X</a>
+.</p>
+<p>The release notes and the software changes can be found on the  <a href="http://www.tuxera.com/community/release-history/" target="_blank" rel="noopener noreffer">Release History</a>
+  page. Subscribe  <a href="http://lists.sourceforge.net/mailman/listinfo/ntfs-3g-news" target="_blank" rel="noopener noreffer">here</a>
+  for new release notifications.</p>
+<h2 id="open-source-ntfs-3g">Open Source: NTFS-3G</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#Installation</span>
+tar zxvf /tmp/ntfs-3g_ntfsprogs-2016.2.22.tgz
+<span class="nb">cd</span> ntfs*
+<span class="c1">#yum -y install gcc gcc-c++ make</span>
+./configure
+make
+make install <span class="c1"># or &#39;sudo make install&#39; if you aren&#39;t root</span>
+
+<span class="c1">#Usage</span>
+fdisk -l
+mkdir -p /mnt/windows
+mount -t ntfs-3g /dev/sda1 /mnt/windows
+<span class="c1">#You can also make NTFS to be mounted during boot by adding the following line to the end of the /etc/fstab file:</span>
+vi /etc/fstab
+/dev/sda1 /mnt/windows ntfs-3g defaults <span class="m">0</span> <span class="m">0</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="卸载u盘请使用命令">卸载U盘，请使用命令：</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">umount /mnt/udisk
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="挂载exfat过程"><strong>挂载exFAT过程</strong></h1>
+<p>下载fuse-exfat模块：https://github.com/relan/exfat/archive/refs/heads/master.zip</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#编译前，请先检查系统，如果系统中没有scons和gcc，请通过yum安装 ，这个软件是fuse模块，编译需要fuse-devel包支持</span>
+yum install -y scons gcc autoconf automake pkg-config fuse-devel make
+
+unzip master.zip
+
+<span class="nb">cd</span> exfat-master
+
+autoreconf --install
+
+./configure
+
+make <span class="o">&amp;&amp;</span> make install 
+
+<span class="c1">##使用方法</span>
+mount.exfat /dev/spec /mnt/exfat
+</code></pre></td></tr></table>
+</div>
+</div>]]></description>
 </item>
 </channel>
 </rss>

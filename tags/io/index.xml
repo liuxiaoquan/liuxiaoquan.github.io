@@ -10,7 +10,128 @@
     <pubDate>Tue, 18 May 2021 14:15:06 &#43;0800</pubDate>
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/linux%E7%B3%BB%E7%BB%9Fio%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E4%B9%8Biotop%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D/</guid>
-    <description><![CDATA[Linux系统IO分析工具之iotop常用参数介绍 在一般运维工作中经常会遇到这么一个场景，服务器的IO负载很高（iostat中的util），]]></description>
+    <description><![CDATA[<h1 id="linux系统io分析工具之iotop常用参数介绍">Linux系统IO分析工具之iotop常用参数介绍</h1>
+<p>在一般运维工作中经常会遇到这么一个场景，服务器的IO负载很高（iostat中的util），但是无法快速的定位到IO负载的来源进程和来源文件导致无法进行相应的策略来解决问题。</p>
+<p>　　Windows操作系统可以通过鲁大师等硬盘检测工具来查看硬盘读写速度，那么linux下测试硬盘IO读写情况怎么看?iotop是linux系统下测试硬盘IO读写的工具，简单的说,iotop是一个用来监视磁盘I/O使用状况的 top 类工具，可监测到哪一个程序使用的磁盘IO的信息（requires 2.6.20 or later)</p>
+<p><strong>1&gt;.安装iotop</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span>root@node105 ~<span class="o">]</span><span class="c1"># yum -y install iotop</span>
+</code></pre></td></tr></table>
+</div>
+</div><p></p>
+<p><strong>2&gt;.查看iotop的帮助信息</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span>root@node105 ~<span class="o">]</span><span class="c1"># iotop -help</span>
+</code></pre></td></tr></table>
+</div>
+</div><p></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">各个参数说明：
+
+　　-o, 		--only只显示正在产生I/O的进程或线程。除了传参，可以在运行过程中按o生效。
+　　-b, 		--batch非交互模式，一般用来记录日志。
+　　-n NUM, 	--iter=NUM设置监测的次数，默认无限。在非交互模式下很有用。
+　　-d SEC, 	--delay=SEC设置每次监测的间隔，默认1秒，接受非整形数据例如1.1。
+　　-p PID, 	--pid=PID指定监测的进程/线程。
+　　-u USER, 	--user=USER指定监测某个用户产生的I/O。
+　　-P, 		--processes仅显示进程，默认iotop显示所有线程。
+　　-a, 		--accumulated显示累积的I/O，而不是带宽。
+　　-k, 		--kilobytes使用kB单位，而不是对人友好的单位。在非交互模式下，脚本编程有用。
+　　-t, 		--time 加上时间戳，非交互非模式。
+　　-q, 		--quiet 禁止头几行，非交互模式。有三种指定方式。
+　　-q 		只在第一次监测时显示列名
+　　-qq 		永远不显示列名。
+　　-qqq 		永远不显示I/O汇总。
+　　
+交互按键：
+　　和top命令类似，iotop也支持以下几个交互按键。
+　　left和right方向键：改变排序。　　
+　　r：反向排序。
+　　o：切换至选项--only。
+　　p：切换至--processes选项。
+　　a：切换至--accumulated选项。
+　　q：退出。
+　　i：改变线程的优先级。
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>3&gt;.</strong> <strong>只显示正在产生I/O的进程或线程。除了传参，可以在运行过程中按o生效。</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span>root@node105 ~<span class="o">]</span><span class="c1"># iotop  -o</span>
+</code></pre></td></tr></table>
+</div>
+</div><p></p>
+<p><strong>4&gt;.时间刷新间隔2秒，输出5次</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span>root@node105 ~<span class="o">]</span><span class="c1"># iotop  -d 2 -n 5</span>
+</code></pre></td></tr></table>
+</div>
+</div><p></p>
+<p><strong>5&gt;.非交互式，输出5次，间隔2秒，输出到屏幕，也可输出到日志文本，用于监控某时间段的io信息</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span>root@node105 ~<span class="o">]</span><span class="c1"># iotop -botq -n 5 -d 2 </span>
+</code></pre></td></tr></table>
+</div>
+</div><p></p>
+<p><strong>6&gt;.非交互式，输出pid为8382的进程信息</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span>root@kafka118 ~<span class="o">]</span><span class="c1"># iotop -botq -p 8382</span>
+</code></pre></td></tr></table>
+</div>
+</div><p></p>
+]]></description>
 </item>
 </channel>
 </rss>

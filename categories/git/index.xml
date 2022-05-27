@@ -10,7 +10,146 @@
     <pubDate>Tue, 11 May 2021 14:36:54 &#43;0800</pubDate>
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/github%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7%E6%95%B4%E7%90%86/</guid>
-    <description><![CDATA[GitHub搜索技巧整理 github作为全球最大的开源软件项目托管平台，相信很多程序员都在使用，不仅仅是因为它可以免费的作为我们公有或者私有]]></description>
+    <description><![CDATA[<h1 id="github搜索技巧整理">GitHub搜索技巧整理</h1>
+<p>github作为全球最大的开源软件项目托管平台，相信很多程序员都在使用，不仅仅是因为它可以免费的作为我们公有或者私有的代码仓库，更因为github上面有大量的开源学习项目或资源，秉着开源自由的理念，吸引了大量的个人或者企业开发者。</p>
+<p>那么面对如此海量的代码仓库，如何才能在众多的资源中搜索出更优秀，更符合自己需求的项目呢？</p>
+<p>比如我想搜索一个springboot项目，你是否就直接输入springboot关键字直接搜索，但是搜索出了118,085个结果，当然了，你还可以做一些简单的排序，比如通过stars、forks的数量。</p>
+<p></p>
+<p>搜索中如果你发现github网页加载很慢，或者图片打不开，请打开hosts文件(C:\Windows\System32\drivers\etc)，加上以下内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">192.30.253.113     github.com
+151.101.113.194    github.global.ssl.fastly.net
+151.101.184.133    assets-cdn.github.com
+151.101.184.133    raw.githubusercontent.com
+151.101.184.133    gist.githubusercontent.com
+151.101.184.133    cloud.githubusercontent.com
+151.101.184.133    camo.githubusercontent.com
+151.101.184.133    avatars0.githubusercontent.com
+151.101.184.133    avatars1.githubusercontent.com
+151.101.184.133    avatars2.githubusercontent.com
+151.101.184.133    avatars3.githubusercontent.com
+151.101.184.133    avatars4.githubusercontent.com
+151.101.184.133    avatars5.githubusercontent.com
+151.101.184.133    avatars6.githubusercontent.com
+151.101.184.133    avatars7.githubusercontent.com
+151.101.184.133    avatars8.githubusercontent.com
+</code></pre></td></tr></table>
+</div>
+</div><p>但这样搜索出来的结果真的精确吗？接下来，我们来演示一下几个我们常用的github搜索技巧，让搜索出来的结果更加精确、符合要求！</p>
+<p>首先我们来看一张思维导图：</p>
+<p></p>
+<p>上面的搜索技巧，我分为了2类，一类常用和更多，常用的部分应该是我们日常使用频率最高的，需要我们记住。</p>
+<h4 id="1in">1、in</h4>
+<p>关键字 in 是用来限定搜索的范围，可以指定是在名称、描述、readme文档中搜索关键字</p>
+<ul>
+<li>in:name：指定搜索范围是仓库名称</li>
+<li>in:description：指定搜索范围是摘要中</li>
+<li>in:readme：指定搜索范围是readme文档中</li>
+</ul>
+<p>比如，指定项目仓库名称springboot、mybatis、demo三个关键字，那么搜索如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">in:name springboot mybatis demo
+</code></pre></td></tr></table>
+</div>
+</div><p>结果如下：</p>
+<p></p>
+<p>这样搜索出来的项目就是一个简单的demo整合项目，而不是综合项目。 你还可以这样搜：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">in:description springboot mybatis 整合
+</code></pre></td></tr></table>
+</div>
+</div><p></p>
+<h4 id="2stars-forks">2、stars 、forks</h4>
+<p>通常我们判断一个项目好不好，可以通过项目的stars和fork数量来判断，当然了，这也不是绝对的，github中还隐藏这很多不为人所知的优秀项目，等着你挖掘哈。</p>
+<p>方式如下：</p>
+<ul>
+<li><strong>stars:&gt;</strong> ：筛选stars数量大于某个值的仓库</li>
+<li><strong>stars:start..end</strong> ：筛选stars数量在start和end区间的仓库</li>
+<li><strong>fork:&gt;</strong></li>
+<li><strong>fork:start..end</strong></li>
+</ul>
+<p>所以，通过stars 、forks关键字，我们可以通过stars 、forks数量来过滤一部分。比如，我要筛选搜索结果中，stars数量大于50的项目。那么如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">in:name springboot mybatis demo stars:&gt;50
+复制代码
+</code></pre></td></tr></table>
+</div>
+</div><p>筛选之后的结果只有2个符合要求：</p>
+<p></p>
+<h4 id="3language">3、language</h4>
+<p>这个简单，指定项目的编写语言，如java、python、php等。比如我们搜索<code>单点登录</code>，如果我们直接搜索<code>in:description 单点登录</code>，那么出现的结果会包含各种语言的实现项目，但是如果你加上了java语言的限定条件之后，搜索出来的结果就只有java的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">in:description 单点登录 language:java
+</code></pre></td></tr></table>
+</div>
+</div><p></p>
+<h4 id="4createdpushed">4、created、pushed</h4>
+<p>创建日期、更新日期。项目久不维护了，或者项目已经创建很久了，那么项目的技术有时候就已经过时了，比如以前Springboot的1.5版本的创建项目就不是很适合现在了，现在我们学习的话直接上手2.0版本以上的比较好，所以找新项目，还得跟紧技术的迭代速度。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">in:description 单点登录 language:java pushed:&gt;2019-12-01
+</code></pre></td></tr></table>
+</div>
+</div><p></p>
+<p>通常来说，stars数量多，维护频繁的项目都是比较优秀的开源项目。</p>
+<h4 id="其他">其他</h4>
+<p>还可以根据协议<code>license:</code>；或者项目作者<code>user:</code>；或者仓库的大小<code>size:&gt;=</code>；被关注人数<code>followers:</code>，只不过大家就用得比较少。</p>
+<h4 id="高级搜索">高级搜索</h4>
+<p>除了使用这种特定的限定词来筛选之外，其实github还给我们提供了一种筛选的搜索链接。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">https://github.com/search/advanced
+复制代码
+</code></pre></td></tr></table>
+</div>
+</div><p>其实就是界面化的搜索条件筛选框，想不起搜索关键词或者单词的时候可以收藏这个高级搜索界面哈。</p>
+<p></p>
+<p>下面是常用搜索总结</p>
+<p></p>
+]]></description>
 </item>
 <item>
     <title>Ping Github.io结果为127.0.0 的问题分析及解决办法</title>
@@ -18,7 +157,119 @@
     <pubDate>Thu, 06 May 2021 14:33:23 &#43;0800</pubDate>
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/ping-github.io%E7%BB%93%E6%9E%9C%E4%B8%BA127.0.0.1%E7%9A%84%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
-    <description><![CDATA[定位问题 使用window命令ping rowkey.cn查看网络是否通，ping到的结果是：127.0.0.1。 大家都知道TCP/IP 在设计之]]></description>
+    <description><![CDATA[<h3 id="定位问题">定位问题</h3>
+<p>使用window命令<code>ping rowkey.cn</code>查看网络是否通，ping到的结果是：<code>127.0.0.1</code>。</p>
+<p>大家都知道TCP/IP 在设计之初，被IP地址分为A类，B类，C类，D类及私有地址，而127.0.0.1就属于私有地址。众所周知，私有地址无论如何是不会映射到公网域名，如果ping某个域名返回的是私有地址，那么只有一种可能，要么DNS的解析出现问题，要么本地Host将域名映射不到某个私有地址。</p>
+<p>那么接下来让咱们先看看Host。在自己的系统中找到host文件，然后打开后Host内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># Host Database
+#
+# localhost is used to configure the loopback interface
+# when the system is booting.  Do not change this entry.
+
+127.0.0.1  eureka7001.com
+127.0.0.1  eureka7002.com
+127.0.0.1  eureka7003.com
+
+
+# Modified hosts end
+
+185.199.108.153 superhj1987.github.io
+
+
+127.0.0.1    activate.xxx.com
+127.0.0.1    practivate.xxx.com
+127.0.0.1    ereg.xxx.com
+127.0.0.1    wip3.xxx.com
+127.0.0.1    activate.wip3.xxx.com
+127.0.0.1    3dns-3.xxx.com
+127.0.0.1    3dns-2.xxx.com
+127.0.0.1    adobe-dns.xxx.com
+127.0.0.1    adobe-dns-2.adobe.com
+127.0.0.1    adobe-dns-3.adobe.com
+# Added by Docker Desktop
+# To allow the same kube context to work on the host and the container:
+127.0.0.1 kubernetes.docker.internal
+# End of section
+</code></pre></td></tr></table>
+</div>
+</div><p>从上面的Host内容看到，我并没有在Host中硬配置该域名的IP。那么就剩下另一个可能，也就是DNS出现了问题。那么我们使用nslookup 命令来看看该域名到底在哪个环节出现问题。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">landsnail@landsnail ~ % nslookup rowkey.cn           
+Server:        116.116.116.116
+Address:    116.116.116.116#53
+
+Non-authoritative answer:
+rowkey.cn    canonical <span class="nv">name</span> <span class="o">=</span> superhj1987.github.io
+Name:    superhj1987.github.io
+Address: 127.0.0.1
+</code></pre></td></tr></table>
+</div>
+</div><p>从上面的返回我们能够清晰的看到，DNS服务器为<code>116.116.116.116</code>，而域名<code>rowkey.cn</code>通过cname跳到了<code>superhj1987.github.io</code>这个子域名上，接着返回的地址为：127.0.0.1，也就是上面ping命令返回的解释。</p>
+<p>也就是<code>rowkey.cn</code>通过cname成功解析到子域名 <code>superhj1987.github.io</code>，而再解析域名<code>superhj1987.github.io</code> 的时候出现了该问题。</p>
+<p>直接<code>ping superhj1987.github.io</code>返回的结果也是：127.0.0.1。那么为何该域名没有被正确解析呢？这里可能存在两个原因，第一个就是该域名在域名服务器：<code>116.116.116.116</code>被错误解析，第二个就是该域名被某种技术污染了，怎么换DNS服务器都返回这个结果。</p>
+<p>接着排查问题。</p>
+<p>我们更换DNS服务器为<code>114.114.144.144</code>，接着再使用<code>nslookup</code>命令查看结果。试了几次返回的结果依旧是<code>127.0.0.1</code>，到此我们可以得出结论：<strong>github.io</strong>的解析被某种神秘的力量污染了，所以不管更换到哪个DNS服务器，返回的结果都是这个IP地址。</p>
+<h3 id="解决问题">解决问题</h3>
+<p>既然已经定位到问题，那么如何解决呢？其实答案很简单，就是在本地的Host中配置一条DNS解析，强制将<strong>github.io</strong>解析到正确的地址上即可，经过广大网友的友情帮助，我们得到如下配置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">185.199.110.153 superhj1987.github.io
+185.199.111.153 superhj1987.github.io
+185.199.108.153 superhj1987.github.io
+185.199.109.153 superhj1987.github.io
+</code></pre></td></tr></table>
+</div>
+</div>]]></description>
 </item>
 </channel>
 </rss>

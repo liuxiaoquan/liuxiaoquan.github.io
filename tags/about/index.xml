@@ -10,7 +10,25 @@
     <pubDate>Tue, 19 Jan 2021 15:21:33 &#43;0800</pubDate>
     <author>Ylimhs</author>
     <guid>https://freerun.xyz/abouts/</guid>
-    <description><![CDATA[信息 前言 写博的目的其实很简单,将现有的知识做一些梳理跟记录,方便自己随时回顾，并且方便碰到相同问题能第一时间找到解决方法 信息 最初 做IT行业不]]></description>
+    <description><![CDATA[<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>信息<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><h1 id="前言">前言</h1>
+<p>写博的目的其实很简单,将现有的知识做一些梳理跟记录,方便自己随时回顾，并且方便碰到相同问题能第一时间找到解决方法</div>
+        </div>
+    </div>
+<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>信息<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><h1 id="最初">最初</h1>
+<p>做IT行业不管是开发/运维/测试 都会碰见各种各样的问题，我也碰见过很多相同问题，可能随着时间推移，很多当初已经有解决方案的问题都逐一的忘掉了，所以才有这个博客的诞生</div>
+        </div>
+    </div>
+]]></description>
 </item>
 </channel>
 </rss>
