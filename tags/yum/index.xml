@@ -32,12 +32,16 @@ cat /etc/redhat-release <span class="c1">#查看系统版本</span>
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@Server ~<span class="o">]</span><span class="c1"># mkdir /media/cdrom 					#创建挂载点的目录</span>
-<span class="o">[</span>root@Server ~<span class="o">]</span><span class="c1">#  mount -o  loop /home/iso/CentOS-7-x86_64-DVD-1708.iso   /media/cdrom</span>
-<span class="o">[</span>root@Server ~<span class="o">]</span><span class="c1"># df -HT			#查看镜像是否挂载成功</span>
-备注： -o是参数，loop是把一个文件当成硬盘分区mount挂着到目录
+<pre class="chroma"><code class="language-shell" data-lang="shell">mkdir /media/cdrom 					<span class="c1">#创建挂载点的目录</span>
+
+<span class="c1">#备注： -o是参数，loop是把一个文件当成硬盘分区mount挂着到目录</span>
+mount -o  loop /home/iso/CentOS-7-x86_64-DVD-1708.iso   /media/cdrom
+
+df -HT			<span class="c1">#查看镜像是否挂载成功</span>
 </code></pre></td></tr></table>
 </div>
 </div><h1 id="4修改yum源的配置文件">4、修改yum源的配置文件</h1>
@@ -50,11 +54,11 @@ cat /etc/redhat-release <span class="c1">#查看系统版本</span>
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@Server ~<span class="o">]</span><span class="c1"># cd /etc/yum.repos.d/		</span>
-<span class="o">[</span>root@Server yum.repos.d<span class="o">]</span><span class="c1"># ls</span>
-<span class="o">[</span>root@Server yum.repos.d<span class="o">]</span><span class="c1"># mkdir bak/			</span>
-<span class="o">[</span>root@Server yum.repos.d<span class="o">]</span><span class="c1"># mv ./*.repo  ./bak/</span>
-<span class="o">[</span>root@Server yum.repos.d<span class="o">]</span><span class="c1"># vim  CentOS-local.repo 		#修改配置文件，内容如下</span>
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /etc/yum.repos.d/		
+ls
+mkdir bak/			
+mv ./*.repo  ./bak/
+vim  CentOS-local.repo 		<span class="c1">#修改配置文件，内容如下</span>
 </code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
@@ -82,8 +86,8 @@ cat /etc/redhat-release <span class="c1">#查看系统版本</span>
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@Server yum.repos.d<span class="o">]</span><span class="c1"># yum clean all </span>
-<span class="o">[</span>root@Server yum.repos.d<span class="o">]</span><span class="c1"># yum repolist all #查看yum本地源是否启用</span>
+<pre class="chroma"><code class="language-shell" data-lang="shell">yum clean all 
+yum repolist all <span class="c1">#查看yum本地源是否启用</span>
 </code></pre></td></tr></table>
 </div>
 </div>]]></description>
