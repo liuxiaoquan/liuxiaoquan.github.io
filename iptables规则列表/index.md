@@ -38,7 +38,7 @@ systemctl disable iptables.service #禁止开机启动
 
 ``vim /etc/sysconfig/iptables``
 
-```
+```ini
 
 # Firewall configuration written by system-config-firewall
 # Manual customization of this file is not recommended.
@@ -62,8 +62,8 @@ systemctl disable iptables.service #禁止开机启动
 COMMIT
 ```
 
-``执行这个命令，友好一点，返回结果第一列，外部IP的连接数，第二列为外部连接IP
-netstat -na|grep ESTABLISHED|awk '{print $5}'|awk -F: '{print $1}'|sort|uniq -c|sort -r``
+``执行这个命令，友好一点，返回结果第一列，外部IP的连接数，第二列为外部连接IP``
+``netstat -na|grep ESTABLISHED|awk '{print $5}'|awk -F: '{print $1}'|sort|uniq -c|sort -r``
 
 # 2、配置规则
 

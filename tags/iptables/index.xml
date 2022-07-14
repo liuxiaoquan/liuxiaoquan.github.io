@@ -90,30 +90,31 @@ systemctl disable iptables.service <span class="c1">#禁止开机启动</span>
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">
-# Firewall configuration written by system-config-firewall
-# Manual customization of this file is not recommended.
-*filter
-:INPUT ACCEPT [0:0]
-:FORWARD ACCEPT [0:0]
-:OUTPUT ACCEPT [0:0]
-#-A INPUT -p icmp -j ACCEPT ---注释这几行
-#-A INPUT -i lo -j ACCEPT---注释这几行
-#-A INPUT -p tcp --dport 22 -j ACCEPT---注释这几行
-#-A INPUT -j REJECT --reject-with icmp-host-prohibited---注释这几行
-#-A FORWARD -j REJECT --reject-with icmp-host-prohibited---注释这几行
--A INPUT -p tcp --dport 80 -m connlimit --connlimit-above 10 -j REJECT
--A INPUT -p tcp --dport 8080 -m connlimit --connlimit-above 10 -j REJECT
--A INPUT -p tcp --dport 28080 -m connlimit --connlimit-above 10 -j REJECT
--A INPUT -p tcp --dport 20080 -m connlimit --connlimit-above 10 -j REJECT
+<pre class="chroma"><code class="language-ini" data-lang="ini">
+<span class="c1"># Firewall configuration written by system-config-firewall</span>
+<span class="c1"># Manual customization of this file is not recommended.</span>
+<span class="na">*filter</span>
+<span class="na">:INPUT ACCEPT [0:0]</span>
+<span class="na">:FORWARD ACCEPT [0:0]</span>
+<span class="na">:OUTPUT ACCEPT [0:0]</span>
+<span class="c1">#-A INPUT -p icmp -j ACCEPT ---注释这几行</span>
+<span class="c1">#-A INPUT -i lo -j ACCEPT---注释这几行</span>
+<span class="c1">#-A INPUT -p tcp --dport 22 -j ACCEPT---注释这几行</span>
+<span class="c1">#-A INPUT -j REJECT --reject-with icmp-host-prohibited---注释这几行</span>
+<span class="c1">#-A FORWARD -j REJECT --reject-with icmp-host-prohibited---注释这几行</span>
+<span class="na">-A INPUT -p tcp --dport 80 -m connlimit --connlimit-above 10 -j REJECT</span>
+<span class="na">-A INPUT -p tcp --dport 8080 -m connlimit --connlimit-above 10 -j REJECT</span>
+<span class="na">-A INPUT -p tcp --dport 28080 -m connlimit --connlimit-above 10 -j REJECT</span>
+<span class="na">-A INPUT -p tcp --dport 20080 -m connlimit --connlimit-above 10 -j REJECT</span>
 
--A INPUT -i eth0 -p tcp -s 45.61.185.76 -j DROP
--A INPUT -i eth0 -p tcp -s 185.7.214.104 -j DROP
+<span class="na">-A INPUT -i eth0 -p tcp -s 45.61.185.76 -j DROP</span>
+<span class="na">-A INPUT -i eth0 -p tcp -s 185.7.214.104 -j DROP</span>
 
-COMMIT
+<span class="na">COMMIT</span>
 </code></pre></td></tr></table>
 </div>
-</div><p><code>执行这个命令，友好一点，返回结果第一列，外部IP的连接数，第二列为外部连接IP netstat -na|grep ESTABLISHED|awk '{print $5}'|awk -F: '{print $1}'|sort|uniq -c|sort -r</code></p>
+</div><p><code>执行这个命令，友好一点，返回结果第一列，外部IP的连接数，第二列为外部连接IP</code>
+<code>netstat -na|grep ESTABLISHED|awk '{print $5}'|awk -F: '{print $1}'|sort|uniq -c|sort -r</code></p>
 <h1 id="2配置规则">2、配置规则</h1>
 <h2 id="禁止访问9200端口">禁止访问9200端口</h2>
 <div class="highlight"><div class="chroma">
