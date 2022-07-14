@@ -34,6 +34,37 @@ systemctl disable iptables.service #禁止开机启动
 第一次创建规则要使用-F 清空，否者会出现很多奇怪的问题！
 {{< /admonition >}}
 
+## 永久插入规则
+
+``vim /etc/sysconfig/iptables``
+
+```
+
+# Firewall configuration written by system-config-firewall
+# Manual customization of this file is not recommended.
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+#-A INPUT -p icmp -j ACCEPT ---注释这几行
+#-A INPUT -i lo -j ACCEPT---注释这几行
+#-A INPUT -p tcp --dport 22 -j ACCEPT---注释这几行
+#-A INPUT -j REJECT --reject-with icmp-host-prohibited---注释这几行
+#-A FORWARD -j REJECT --reject-with icmp-host-prohibited---注释这几行
+-A INPUT -p tcp --dport 80 -m connlimit --connlimit-above 10 -j REJECT
+-A INPUT -p tcp --dport 8080 -m connlimit --connlimit-above 10 -j REJECT
+-A INPUT -p tcp --dport 28080 -m connlimit --connlimit-above 10 -j REJECT
+-A INPUT -p tcp --dport 20080 -m connlimit --connlimit-above 10 -j REJECT
+
+-A INPUT -i eth0 -p tcp -s 45.61.185.76 -j DROP
+-A INPUT -i eth0 -p tcp -s 185.7.214.104 -j DROP
+
+COMMIT
+```
+
+``执行这个命令，友好一点，返回结果第一列，外部IP的连接数，第二列为外部连接IP
+netstat -na|grep ESTABLISHED|awk '{print $5}'|awk -F: '{print $1}'|sort|uniq -c|sort -r``
+
 # 2、配置规则
 
 ## 禁止访问9200端口
@@ -193,7 +224,12 @@ iptables -A INPUT -p tcp --dport 80 -m limit --limit 25/minute --limit-burst 100
 
 --litmit-burst 100 指示当总连接数超过100时，启动 litmit/minute 限制
 
- 
+```shell
+#在80端口同一个ip并发量超过10就拒绝
+iptables -A INPUT -p tcp --dport 80 -m connlimit --connlimit-above 10 -j REJECT
+```
+
+
 
 ### **8.配置web流量均衡**
 
