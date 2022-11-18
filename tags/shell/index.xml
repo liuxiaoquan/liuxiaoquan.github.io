@@ -226,7 +226,18 @@ Monitor&gt;&gt;/tmp/tcpbridgeMonitor.log
 </code></pre></td></tr></table>
 </div>
 </div><p><code>注意：如果需要截取的日志太大，达到几个G的话，不能去vi打开文件: 根据之前的日志格式，[使用正则表达式](https://www.baidu.com/s?wd=使用正则表达式&amp;tn=44039180_cpr&amp;fenlei=mv6quAkxTZn0IZRqIHckPjm4nH00T1YkP1c1uHTLn1ndnH9-PH0z0ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6KdThsqpZwYTjCEQLGCpyw9Uz4Bmy-bIi4WUvYETgN-TLwGUv3EnHRLrHT3nHDd): 截图中日志的格式为：2019-06-13 10:15:27.878 所以正则表达式为：2019-06-13 09:[0-9][0-9]:[0-9][0-9].[0-9][0-9][0-9]</code></p>
-<h1 id="mysql全量and库备份与数据还原">mysql全量and库备份与数据还原</h1>
+<ul>
+<li>*<em>如果截取的时间段是22/Feb/2019:15:57:00，那么可以使用在 / 前使用转移符  *</em></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sed -n  <span class="s1">&#39;/22\/Feb\/2019:15:57:00/,/22\/Feb\/2019:15:57:59/&#39;</span>p  /home/wwwlogs/access.log &gt;/root/access0925_0928.log
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="mysql全量and库备份与数据还原">mysql全量and库备份与数据还原</h1>
 <h2 id="全量备份">全量备份</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">

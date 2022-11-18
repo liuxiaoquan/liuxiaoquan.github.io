@@ -26,7 +26,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/freerun.xyz\/shell%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4%E5%88%86%E4%BA%AB\/"
-        },"image": ["https:\/\/freerun.xyz\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "常见命令, shell","wordcount":  1309 ,
+        },"image": ["https:\/\/freerun.xyz\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "常见命令, shell","wordcount":  1361 ,
         "url": "https:\/\/freerun.xyz\/shell%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4%E5%88%86%E4%BA%AB\/","datePublished": "2021-04-26T15:40:13+08:00","dateModified": "2021-04-26T15:40:13+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -102,7 +102,7 @@
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Shell常见命令分享</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/liuxiaoquan/free-programming-books-zh_CN" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Ylimhs</a>
 </span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%BF%90%E7%BB%B4/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>运维</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-04-26">2021-04-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1309 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-04-26">2021-04-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1361 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;<span id="/shell%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4%E5%88%86%E4%BA%AB/" class="leancloud_visitors" data-flag-title="Shell常见命令分享">
                         <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
@@ -382,7 +382,18 @@ Monitor&gt;&gt;/tmp/tcpbridgeMonitor.log
 </code></pre></td></tr></table>
 </div>
 </div><p><code>注意：如果需要截取的日志太大，达到几个G的话，不能去vi打开文件: 根据之前的日志格式，[使用正则表达式](https://www.baidu.com/s?wd=使用正则表达式&amp;tn=44039180_cpr&amp;fenlei=mv6quAkxTZn0IZRqIHckPjm4nH00T1YkP1c1uHTLn1ndnH9-PH0z0ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6KdThsqpZwYTjCEQLGCpyw9Uz4Bmy-bIi4WUvYETgN-TLwGUv3EnHRLrHT3nHDd): 截图中日志的格式为：2019-06-13 10:15:27.878 所以正则表达式为：2019-06-13 09:[0-9][0-9]:[0-9][0-9].[0-9][0-9][0-9]</code></p>
-<h1 id="mysql全量and库备份与数据还原">mysql全量and库备份与数据还原</h1>
+<ul>
+<li>*<em>如果截取的时间段是22/Feb/2019:15:57:00，那么可以使用在 / 前使用转移符  *</em></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sed -n  <span class="s1">&#39;/22\/Feb\/2019:15:57:00/,/22\/Feb\/2019:15:57:59/&#39;</span>p  /home/wwwlogs/access.log &gt;/root/access0925_0928.log
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="mysql全量and库备份与数据还原">mysql全量and库备份与数据还原</h1>
 <h2 id="全量备份">全量备份</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">

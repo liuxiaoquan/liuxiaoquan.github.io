@@ -142,6 +142,12 @@ sed -n ‘/2010-11-17 09:[0-9][0-9]:[0-9][0-9]/,/2010-11-17 16:[0-9][0-9]:[0-9][
 `注意：如果需要截取的日志太大，达到几个G的话，不能去vi打开文件:
 根据之前的日志格式，[使用正则表达式](https://www.baidu.com/s?wd=使用正则表达式&tn=44039180_cpr&fenlei=mv6quAkxTZn0IZRqIHckPjm4nH00T1YkP1c1uHTLn1ndnH9-PH0z0ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6KdThsqpZwYTjCEQLGCpyw9Uz4Bmy-bIi4WUvYETgN-TLwGUv3EnHRLrHT3nHDd): 截图中日志的格式为：2019-06-13 10:15:27.878 所以正则表达式为：2019-06-13 09:[0-9][0-9]:[0-9][0-9].[0-9][0-9][0-9]`
 
+- **如果截取的时间段是22/Feb/2019:15:57:00，那么可以使用在 / 前使用转移符  \** 
+
+```shell
+sed -n  '/22\/Feb\/2019:15:57:00/,/22\/Feb\/2019:15:57:59/'p  /home/wwwlogs/access.log >/root/access0925_0928.log
+```
+
 # mysql全量and库备份与数据还原
 
 ## 全量备份
