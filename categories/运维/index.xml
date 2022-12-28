@@ -4,7 +4,85 @@
         <link>https://freerun.xyz/categories/%E8%BF%90%E7%BB%B4/</link>
         <description>运维 - 分类 - 在阅读中遇见自己</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
-            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Mon, 30 May 2022 11:45:21 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/categories/%E8%BF%90%E7%BB%B4/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Wed, 28 Dec 2022 23:12:53 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/categories/%E8%BF%90%E7%BB%B4/" rel="self" type="application/rss+xml" /><item>
+    <title>免密登陆</title>
+    <link>https://freerun.xyz/%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/</link>
+    <pubDate>Wed, 28 Dec 2022 23:12:53 &#43;0800</pubDate>
+    <author>Ylimhs</author>
+    <guid>https://freerun.xyz/%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/</guid>
+    <description><![CDATA[<p><code>ssh-keygen</code>一路回车,主要是用来免密通信的</p>
+<p><code>ssh-copy-id </code>172.16.24.220 需要输入对应主节的root密码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@chm log<span class="o">]</span><span class="c1"># ssh-keygen </span>
+Generating public/private rsa key pair.
+Enter file in which to save the key <span class="o">(</span>/root/.ssh/id_rsa<span class="o">)</span>: 
+Enter passphrase <span class="o">(</span>empty <span class="k">for</span> no passphrase<span class="o">)</span>: 
+Enter same passphrase again: 
+Your identification has been saved in /root/.ssh/id_rsa.
+Your public key has been saved in /root/.ssh/id_rsa.pub.
+The key fingerprint is:
+7f:69:87:cf:28:fe:8b:19:55:a7:d0:c9:aa:6d:05:0c root@chm
+The key<span class="s1">&#39;s randomart image is:
+</span><span class="s1">+--[ RSA 2048]----+
+</span><span class="s1">|          E      |
+</span><span class="s1">|           o o . |
+</span><span class="s1">|            + = .|
+</span><span class="s1">|             = o |
+</span><span class="s1">|        S   o o  |
+</span><span class="s1">|         . + +   |
+</span><span class="s1">|          + B .  |
+</span><span class="s1">|          .B =   |
+</span><span class="s1">|         .+o+.o  |
+</span><span class="s1">+-----------------+
+</span><span class="s1">[root@chm log]# 
+</span><span class="s1">[root@chm log]# ssh-copy-id 172.16.24.220
+</span><span class="s1">/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+</span><span class="s1">/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+</span><span class="s1">root@172.16.24.220&#39;</span>s password: 
+ 
+Number of key<span class="o">(</span>s<span class="o">)</span> added: <span class="m">1</span>
+ 
+Now try logging into the machine, with:   <span class="s2">&#34;ssh &#39;172.16.24.220&#39;&#34;</span>
+and check to make sure that only the key<span class="o">(</span>s<span class="o">)</span> you wanted were added.
+</code></pre></td></tr></table>
+</div>
+</div>]]></description>
+</item>
+<item>
     <title>Centos 7挂载本地yum源</title>
     <link>https://freerun.xyz/centos-7%E6%8C%82%E8%BD%BD%E6%9C%AC%E5%9C%B0yum%E6%BA%90/</link>
     <pubDate>Mon, 30 May 2022 11:45:21 &#43;0800</pubDate>
@@ -2363,133 +2441,6 @@ make <span class="o">&amp;&amp;</span> make install
 
 <span class="c1">##使用方法</span>
 mount.exfat /dev/spec /mnt/exfat
-</code></pre></td></tr></table>
-</div>
-</div>]]></description>
-</item>
-<item>
-    <title>CentOS升级sudo版本 解决Sudo权限绕过漏洞 修复堆缓冲区溢出漏洞(CVE-2021-3156)</title>
-    <link>https://freerun.xyz/centos%E5%8D%87%E7%BA%A7sudo%E7%89%88%E6%9C%AC-%E8%A7%A3%E5%86%B3sudo%E6%9D%83%E9%99%90%E7%BB%95%E8%BF%87%E6%BC%8F%E6%B4%9E-%E4%BF%AE%E5%A4%8D%E5%A0%86%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E/</link>
-    <pubDate>Tue, 25 May 2021 11:03:03 &#43;0800</pubDate>
-    <author>Ylimhs</author>
-    <guid>https://freerun.xyz/centos%E5%8D%87%E7%BA%A7sudo%E7%89%88%E6%9C%AC-%E8%A7%A3%E5%86%B3sudo%E6%9D%83%E9%99%90%E7%BB%95%E8%BF%87%E6%BC%8F%E6%B4%9E-%E4%BF%AE%E5%A4%8D%E5%A0%86%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E/</guid>
-    <description><![CDATA[<h2 id="漏洞介绍">漏洞介绍</h2>
-<p>关于 Sudo 堆缓冲区溢出漏洞(CVE-2021- 3156)的预警通知</p>
-<p>有关情报显示，sudo 存在缓冲区溢出漏洞。攻击者在取得服 务器基础权限的情况下，可以利用 sudo 基于堆的缓冲区溢出漏 洞，获得 root 权限。在 sudo 解析命令行参数的方式中发现了基 于堆的缓冲区溢出。任何本地用户(普通用户和系统用户，sudo er 和非 sudoers)都可以利用此漏洞，而无需进行身份验证，攻 击者不需要知道用户的密码。</p>
-<p>漏洞编号:CVE-2021-3156。</p>
-<p>一、漏洞情况分析</p>
-<pre><code>Sudo 是一种程序，用于类 Unix 操作系统如 BSD，Mac OS X，以及 GNU/Linux 以允许用户透过安全的方式使用特殊的权限 运行程序。
-</code></pre>
-<p>二、 漏洞影响范围</p>
-<pre><code>影响版本:
-1.8.2 - 1.8.31p2
-1.9.0 - 1.9.5p1
-</code></pre>
-<h2 id="升级环境">升级环境</h2>
-<pre><code>系统：CentOS6/CentOS7
-sudo：1.8.23 查看本地sudo版本命令：sudo -V
-最新版本：sudo-1.9.5p2 查看官方最新版本文件：https://www.sudo.ws/dist/
-</code></pre>
-<h2 id="准备">准备</h2>
-<ul>
-<li>查看本地sudo版本，查看官方最新版本文件：https://www.sudo.ws/dist/</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">sudo -V
-</code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>若已经安装gcc,可以忽略此操作</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">yum -y install gcc  
-</code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>若已经安装wget,可以忽略此操作</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">yum -y install wget   
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="安装">安装</h2>
-<ul>
-<li>切换到需要下载软件的目录</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /opt/jovtec/soft/
-</code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>下载最新版本到服务器解压</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">wget https://www.sudo.ws/dist/sudo-1.9.5p2.tar.gz <span class="o">&amp;&amp;</span> tar zxf sudo-1.9.5p2.tar.gz
-</code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>执行配置命令</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> sudo-1.9.5p2 <span class="o">&amp;&amp;</span> ./configure --prefix<span class="o">=</span>/usr --libexecdir<span class="o">=</span>/usr/lib --with-secure-path --with-all-insults --with-env-editor --docdir<span class="o">=</span>/usr/share/doc/sudo-1.9.5p2 --with-passprompt<span class="o">=</span><span class="s2">&#34;[sudo] password for %p: &#34;</span>
-</code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>编译安装</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">make <span class="o">&amp;&amp;</span> make install <span class="o">&amp;&amp;</span> ln -sfv libsudo_util.so.0.0.0 /usr/lib/sudo/libsudo_util.so.0
-</code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>检验</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">sudo -V   
-</code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">以非 root 用户登录系统，并使用命令 sudoedit -s /
-- 如果响应一个以 sudoedit: 开头的报错，那么表明存在漏洞。
-- 如果响应一个以 usage: 开头的报错，那么表明补丁已经生效。
 </code></pre></td></tr></table>
 </div>
 </div>]]></description>

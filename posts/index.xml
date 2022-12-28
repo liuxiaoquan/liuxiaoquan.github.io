@@ -4,7 +4,85 @@
         <link>https://freerun.xyz/posts/</link>
         <description>所有文章 | 在阅读中遇见自己</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
-            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Mon, 30 May 2022 11:45:21 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Wed, 28 Dec 2022 23:12:53 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>免密登陆</title>
+    <link>https://freerun.xyz/%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/</link>
+    <pubDate>Wed, 28 Dec 2022 23:12:53 &#43;0800</pubDate>
+    <author>Ylimhs</author>
+    <guid>https://freerun.xyz/%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/</guid>
+    <description><![CDATA[<p><code>ssh-keygen</code>一路回车,主要是用来免密通信的</p>
+<p><code>ssh-copy-id </code>172.16.24.220 需要输入对应主节的root密码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@chm log<span class="o">]</span><span class="c1"># ssh-keygen </span>
+Generating public/private rsa key pair.
+Enter file in which to save the key <span class="o">(</span>/root/.ssh/id_rsa<span class="o">)</span>: 
+Enter passphrase <span class="o">(</span>empty <span class="k">for</span> no passphrase<span class="o">)</span>: 
+Enter same passphrase again: 
+Your identification has been saved in /root/.ssh/id_rsa.
+Your public key has been saved in /root/.ssh/id_rsa.pub.
+The key fingerprint is:
+7f:69:87:cf:28:fe:8b:19:55:a7:d0:c9:aa:6d:05:0c root@chm
+The key<span class="s1">&#39;s randomart image is:
+</span><span class="s1">+--[ RSA 2048]----+
+</span><span class="s1">|          E      |
+</span><span class="s1">|           o o . |
+</span><span class="s1">|            + = .|
+</span><span class="s1">|             = o |
+</span><span class="s1">|        S   o o  |
+</span><span class="s1">|         . + +   |
+</span><span class="s1">|          + B .  |
+</span><span class="s1">|          .B =   |
+</span><span class="s1">|         .+o+.o  |
+</span><span class="s1">+-----------------+
+</span><span class="s1">[root@chm log]# 
+</span><span class="s1">[root@chm log]# ssh-copy-id 172.16.24.220
+</span><span class="s1">/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+</span><span class="s1">/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+</span><span class="s1">root@172.16.24.220&#39;</span>s password: 
+ 
+Number of key<span class="o">(</span>s<span class="o">)</span> added: <span class="m">1</span>
+ 
+Now try logging into the machine, with:   <span class="s2">&#34;ssh &#39;172.16.24.220&#39;&#34;</span>
+and check to make sure that only the key<span class="o">(</span>s<span class="o">)</span> you wanted were added.
+</code></pre></td></tr></table>
+</div>
+</div>]]></description>
+</item>
+<item>
     <title>Centos 7挂载本地yum源</title>
     <link>https://freerun.xyz/centos-7%E6%8C%82%E8%BD%BD%E6%9C%AC%E5%9C%B0yum%E6%BA%90/</link>
     <pubDate>Mon, 30 May 2022 11:45:21 &#43;0800</pubDate>
@@ -5086,763 +5164,6 @@ MS Name/IP address 			Stratum Poll Reach LastRx Last <span class="nv">sample</sp
 <p>lsof |grep delete | grep -v grep | awk &lsquo;{print $2}&rsquo; | xargs kill -9</p>
 <p>期间可能会等一段时间，等杀完后，重新 df -h 查看，磁盘空间多出来了87G</p>
 <p></p>
-]]></description>
-</item>
-<item>
-    <title>普罗米修斯Prometheus</title>
-    <link>https://freerun.xyz/prometheus-%E7%9B%91%E6%8E%A7%E9%83%A8%E7%BD%B2-last/</link>
-    <pubDate>Wed, 20 Oct 2021 11:40:40 &#43;0800</pubDate>
-    <author>Ylimhs</author>
-    <guid>https://freerun.xyz/prometheus-%E7%9B%91%E6%8E%A7%E9%83%A8%E7%BD%B2-last/</guid>
-    <description><![CDATA[<h2 id="1prometheus-主服务的下载与部署">1、prometheus 主服务的下载与部署</h2>
-<h3 id="11创建安装目录和下载部署包并解压--下载x86安装包packageprometheus-2271linux-amd64targz">1.1创建安装目录和下载部署包并解压  <a href="/package/prometheus-2.27.1.linux-amd64.tar.gz" rel="">下载x86安装包</a>
-</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">mkdir -p /data/monitor/prometheus
-<span class="c1">#下载prometheus包，pakage文件夹中有下载好的包</span>
-<span class="c1">#wget https://github.com/prometheus/prometheus/releases/download/v2.27.1/prometheus-2.27.1.linux-amd64.tar.gz</span>
-
-<span class="c1">#解压prometheus包，并且解压后/data/monitor/prometheus里去除prometheus-2.27.1.linux-amd64文件目录</span>
-tar -zxvf prometheus-2.27.1.linux-amd64.tar.gz -C /data/monitor/prometheus --strip-components <span class="m">1</span>
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="12配置prometheus启动文件">1.2配置Prometheus启动文件</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">cat &gt; /etc/systemd/system/prometheus.service <span class="s">&lt;&lt; EOF
-</span><span class="s">[Unit]
-</span><span class="s">Description=prometheus Service
-</span><span class="s">After=network.target
-</span><span class="s">After=network-online.target
-</span><span class="s">Wants=network-online.target
-</span><span class="s">[Service]
-</span><span class="s">Type=simple
-</span><span class="s">WorkingDirectory=/data/monitor/prometheus
-</span><span class="s">ExecStart=/data/monitor/prometheus/prometheus --config.file=prometheus.yml --web.enable-lifecycle --web.external-url=https://freerun.xyz/prometheus
-</span><span class="s">ExecStop=/usr/bin/curl -X POST http://localhost:9090/prometheus/-/quit
-</span><span class="s">Restart=on-failure
-</span><span class="s">RestartSec=5
-</span><span class="s">LimitNOFILE=65536
-</span><span class="s">[Install]
-</span><span class="s">WantedBy=multi-user.target
-</span><span class="s">EOF</span>
-</code></pre></td></tr></table>
-</div>
-</div><p><strong>注：可以把启动文件直接放到/etc/systemd/system/目录下</strong>    <a href="/%e5%90%af%e5%8a%a8%e6%96%87%e4%bb%b6/prometheus.service" rel="">下载prometheus启动文件</a>
-</p>
-<p></p>
-<h3 id="13-设置prometheus开机自启动">1.3 设置Prometheus开机自启动</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">systemctl daemon-reload
-systemctl <span class="nb">enable</span> prometheus
-systemctl start prometheus
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="14-测试验证prometheus是否启动成功访问-ip9090prometheus">1.4 测试，验证Prometheus是否启动成功：访问 IP:9090/prometheus/</h3>
-<p></p>
-<h2 id="2部署-exporter采集节点信息">2、部署 exporter采集节点信息</h2>
-<h3 id="21创建安装目录和下载部署包并解压--下载x86安装包packagenode_exporter-112linux-amd64targz-使用-uname--a查询架构下载arm安装包packagenode_exporter-112linux-arm64targz">2.1创建安装目录和下载部署包并解压  <a href="/package/node_exporter-1.1.2.linux-amd64.tar.gz" rel="">下载x86安装包</a>
- 使用 uname -a查询架构，<a href="/package/node_exporter-1.1.2.linux-arm64.tar.gz" rel="">下载arm安装包</a>
-</h3>
-<p><strong>(其他版本下载地址：https://github.com/prometheus/node_exporter/releases)</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">mkdir -p /data/monitor/node_exporter
-<span class="c1">#wget https://github.com/prometheus/node_exporter/releases/download/v1.1.2/node_exporter-1.1.2.linux-amd64.tar.gz</span>
-tar -zxvf node_exporter-1.1.2.linux-amd64.tar.gz -C /data/monitor/node_exporter --strip-components <span class="m">1</span>
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="22配置node_exporter-服务">2.2配置node_exporter 服务</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">cat &gt; /etc/systemd/system/node_exporter.service <span class="s">&lt;&lt;EOF
-</span><span class="s">[Unit]
-</span><span class="s">Description=node-exporter Service
-</span><span class="s">After=network.target
-</span><span class="s">After=network-online.target
-</span><span class="s">Wants=network-online.target
-</span><span class="s">[Service]
-</span><span class="s">Type=simple
-</span><span class="s">WorkingDirectory=/data/monitor/node_exporter
-</span><span class="s">ExecStart=/data/monitor/node_exporter/node_exporter --web.listen-address=0.0.0.0:9100
-</span><span class="s">Restart=on-failure
-</span><span class="s">RestartSec=5
-</span><span class="s">LimitNOFILE=65536
-</span><span class="s">[Install]
-</span><span class="s">WantedBy=multi-user.target
-</span><span class="s">EOF</span>
-</code></pre></td></tr></table>
-</div>
-</div><p><strong>注：可以把启动文件直接放到/etc/systemd/system/目录下</strong>     <a href="/%e5%90%af%e5%8a%a8%e6%96%87%e4%bb%b6/node-exporter.service" rel="">下载node-exporter启动文件</a>
-</p>
-<p></p>
-<h3 id="23-设置node_exporter开机自启动">2.3 设置node_exporter开机自启动</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">systemctl daemon-reload
-systemctl <span class="nb">enable</span> node-exporter
-systemctl start node-exporter
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="24-测试验证node_exporter是否启动成功访问-ip9100">2.4 测试，验证node_exporter是否启动成功：访问 IP:9100</h3>
-<p></p>
-<h3 id="25-把-node_exporter-这个采集程序接配置到prometheusyml">2.5 把 node_exporter 这个采集程序接⼊配置到prometheus.yml</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># my global config</span><span class="w">
-</span><span class="w"></span><span class="nt">global</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w">     </span><span class="l">15s</span><span class="w"> </span><span class="c"># Set the scrape interval to every 15 seconds. Default is every 1 minute.</span><span class="w">
-</span><span class="w">  </span><span class="nt">evaluation_interval</span><span class="p">:</span><span class="w"> </span><span class="l">15s</span><span class="w"> </span><span class="c"># Evaluate rules every 15 seconds. The default is every 1 minute.</span><span class="w">
-</span><span class="w">  </span><span class="c"># scrape_timeout is set to the global default (10s).</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c"># Alertmanager configuration</span><span class="w">
-</span><span class="w"></span><span class="nt">alerting</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">alertmanagers</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="nt">static_configs</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="nt">targets</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="c"># - alertmanager:9093</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c"># Load rules once and periodically evaluate them according to the global &#39;evaluation_interval&#39;.</span><span class="w">
-</span><span class="w"></span><span class="nt">rule_files</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="c"># - &#34;first_rules.yml&#34;</span><span class="w">
-</span><span class="w">  </span><span class="c"># - &#34;second_rules.yml&#34;</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c"># A scrape configuration containing exactly one endpoint to scrape:</span><span class="w">
-</span><span class="w"></span><span class="c"># Here it&#39;s Prometheus itself.</span><span class="w">
-</span><span class="w"></span><span class="nt">scrape_configs</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="c"># The job name is added as a label `job=&lt;job_name&gt;` to any timeseries scraped from this config.</span><span class="w">
-</span><span class="w">  </span>- <span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;prometheus&#39;</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="c"># metrics_path defaults to &#39;/metrics&#39;</span><span class="w">
-</span><span class="w">    </span><span class="c"># scheme defaults to &#39;http&#39;.</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="nt">static_configs</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;localhost:9090&#39;</span><span class="p">]</span><span class="w">
-</span><span class="w">    
-</span><span class="w">  </span>- <span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;node-exporter&#39;</span><span class="w">
-</span><span class="w">    
-</span><span class="w">    </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w"> </span><span class="l">5s</span><span class="w">
-</span><span class="w">    </span><span class="nt">static_configs</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;localhost:9100&#39;</span><span class="p">,</span><span class="s1">&#39;10.9.0.1:9100&#39;</span><span class="p">]</span><span class="w">
-</span><span class="w">      </span><span class="nt">labels</span><span class="p">:</span><span class="w"> 
-</span><span class="w">        </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;web&#39;</span><span class="w">
-</span><span class="w">        </span><span class="nt">annotation</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;节点信息采集&#39;</span><span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><p><strong>导⼊node_exporter 后，重新载⼊配置 :</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">curl -X POST http://localhost:9090/prometheus/-/reload
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="3安装grafana展示">3、安装grafana展示</h2>
-<h3 id="31-创建安装目录与下载部署包--下载x86安装包packagegrafana-757linux-amd64targz">3.1 创建安装目录与下载部署包  <a href="/package/grafana-7.5.7.linux-amd64.tar.gz" rel="">下载x86安装包</a>
-</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">mkdir -p /data/monitor/grafana
-<span class="c1">#wget https://dl.grafana.com/oss/release/grafana-7.5.7.linux-amd64.tar.gz</span>
-tar -zxvf grafana-7.5.7.linux-amd64.tar.gz -C /data/monitor/grafana --strip-components <span class="m">1</span>
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="32-配置grafana-服务--下载grafana启动文件启动文件grafanaservice">3.2 配置grafana 服务  <a href="/%e5%90%af%e5%8a%a8%e6%96%87%e4%bb%b6/grafana.service" rel="">下载grafana启动文件</a>
-</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">cat &gt; /etc/systemd/system/grafana.service <span class="s">&lt;&lt;EOF
-</span><span class="s">[Unit]
-</span><span class="s">Description=grafana Service
-</span><span class="s">After=network.target
-</span><span class="s">After=network-online.target
-</span><span class="s">Wants=network-online.target
-</span><span class="s">[Service]
-</span><span class="s">Type=simple
-</span><span class="s">WorkingDirectory=/data/monitor/grafana
-</span><span class="s">ExecStart=/data/monitor/grafana/bin/grafana-server web
-</span><span class="s">Restart=on-failure
-</span><span class="s">RestartSec=5
-</span><span class="s">LimitNOFILE=65536
-</span><span class="s">[Install]
-</span><span class="s">WantedBy=multi-user.target
-</span><span class="s">EOF</span>
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="33-设置grafana-开机自启动">3.3 设置grafana 开机自启动</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">systemctl daemon-reload
-systemctl <span class="nb">enable</span> grafanasy
-stemctl start grafana
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="34-测试访问ip3000默认登录账户和密码都是admin进后界面如下">3.4 测试，访问：ip:3000（默认登录账户和密码都是admin，进⼊后界面如下）</h3>
-<p></p>
-<h2 id="4监控配置">4、监控配置</h2>
-<h3 id="41-查看prometheus管理后台是否有采集到服务器的信息">4.1 查看Prometheus管理后台是否有采集到服务器的信息</h3>
-<p></p>
-<h3 id="42-配置grafana管理后台">4.2 配置grafana管理后台</h3>
-<p></p>
-<p></p>
-<h3 id="43-导监控模板保存基础监控大盘官网下载地址httpsgrafanacomgrafanadashboards8919-注释与官网下载的基础监控大盘一样选择一个下载就行大盘配置基础监控大盘json">4.3 导⼊监控模板，保存。<a href="https://grafana.com/grafana/dashboards/8919" target="_blank" rel="noopener noreffer">基础监控大盘官网下载地址</a>
- 注释：<a href="/%e5%a4%a7%e7%9b%98%e9%85%8d%e7%bd%ae/%e5%9f%ba%e7%a1%80%e7%9b%91%e6%8e%a7%e5%a4%a7%e7%9b%98.json" rel="">与官网下载的基础监控大盘一样，选择一个下载就行</a>
-</h3>
-<p></p>
-<p></p>
-<h3 id="44查看服务器的基础监控">4.4查看服务器的基础监控</h3>
-<p></p>
-<h2 id="5监控里约网关接调用情况">5、监控里约网关接⼝调用情况</h2>
-<h3 id="1添加-es-数据源">1.添加 ES 数据源</h3>
-<p></p>
-<p></p>
-<h3 id="2导-json-模板rio-sg-access日志大盘-1617280890686json下载日志大盘大盘配置rio-sg-access日志大盘-1617280890686json">2.导⼊ json 模板（Rio-SG-Access日志大盘-1617280890686.json）<a href="/%e5%a4%a7%e7%9b%98%e9%85%8d%e7%bd%ae/Rio-SG-Access%e6%97%a5%e5%bf%97%e5%a4%a7%e7%9b%98-1617280890686.json" rel="">下载日志大盘</a>
-</h3>
-<p></p>
-<p></p>
-<h2 id="6部署部-mysqld_exporter采集节点信息"><strong>6</strong>、部署部 mysqld_exporter采集节点信息</h2>
-<h3 id="61在数据库服务器上执行以下操作在">6.1在数据库服务器上执行以下操作在</h3>
-<h4 id="611官网下载包httpsprometheusiodownloadmysqld_exporter----注释与官网下载的安装包一样选一个下载就行packagemysqld_exporter-0130linux-amd64targz"><strong>6.1.1</strong><a href="https://prometheus.io/download/#mysqld_exporter" target="_blank" rel="noopener noreffer">官网下载包</a>
-    注释：<a href="/package/mysqld_exporter-0.13.0.linux-amd64.tar.gz" rel="">与官网下载的安装包一样，选一个下载就行</a>
-</h4>
-<p></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">mkdir -p /data/monitor/mysqld_exporter
-tar -zxvf mysqld_exporter-0.13.0.linux-amd64.tar.gz -C /data/monitor/mysqld_exporter/ --strip-components <span class="m">1</span>
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="612配置mycnf"><strong>6.1.2</strong>配置.my.cnf</h4>
-<p>.my.cnf默认放置在启动用户的家目录，启动时无需指定；也可以随意放置在任意目录，在启动时通过 <code>--config.my-cnf={conf_dir}/.my.cnf</code>指定配置文件。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#正常这里没有.my.cnf文件，需要创建.my.cnf文件</span>
-vim /data/monitor/mysqld_exporter/.my.cnf
-</code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[client]
-host=localhost
-user=root
-port=3306
-password=root # 数据库密码
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="613启动">6.1.3启动</h4>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /data/monitor/mysqld_exporter/
-<span class="c1">#创建start.sh脚本</span>
-vim start.sh
-</code></pre></td></tr></table>
-</div>
-</div><p><strong>start.sh脚本内容如下：</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="cp">#!/bin/bash
-</span><span class="cp"></span>nohup ./mysqld_exporter --config.my-cnf<span class="o">=</span>/data/monitor/mysqld_exporter/.my.cnf <span class="p">&amp;</span>
-</code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">chmod <span class="m">744</span> start.sh
-</code></pre></td></tr></table>
-</div>
-</div><p><strong>注册服务</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#创建启动文件</span>
-vim /etc/systemd/system/mysqld_exporter.service
-</code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>Unit<span class="o">]</span>
-<span class="nv">Description</span><span class="o">=</span>mysqld_exporter service
-<span class="nv">After</span><span class="o">=</span>network.target
-<span class="o">[</span>Service<span class="o">]</span>
-<span class="nv">Type</span><span class="o">=</span>forking
-<span class="nv">WorkingDirectory</span><span class="o">=</span>/data/monitor/mysqld_exporter
-<span class="nv">ExecStart</span><span class="o">=</span>/data/monitor/mysqld_exporter/start.sh
-<span class="o">[</span>Install<span class="o">]</span>
-<span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
-</code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#设置开机自启</span>
-systemctl daemon-reload
-systemctl <span class="nb">enable</span> mysqld_exporter
-stemctl start mysqld_exporter
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="614-启动后的访问端是-启-9104访问访-http数据库服务器-数-ip9104metrics">6.1.4 启动后的访问端⼝是 启 9104：访问访 http://数据库服务器 数 ip:9104/metrics</h4>
-<p></p>
-<h3 id="62-把-mysql_exporter-这个采集程序接配置到-这-prometheusyml-参照下图参考文件prometheusyml">6.2 把 mysql_exporter 这个采集程序接⼊配置到 这 prometheus.yml 参照下图<a href="/prometheus.yml" rel="">参考文件</a>
-</h3>
-<p></p>
-<p><strong>导⼊node_exporter 后，重新载⼊配置 :</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">curl -X POST http://localhost:9090/prometheus/-/reload
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="63配置配-grafana管理后台这一步可以省略">6.3配置配 grafana管理后台(这一步可以省略)</h3>
-<p></p>
-<h4 id="631-上传上-mysql监控模板--下载更多面板链接httpsgrafanacomgrafanadashboardssearchmysql">6.3.1 上传上 mysql监控模板  <a href="https://grafana.com/grafana/dashboards?search=mysql" target="_blank" rel="noopener noreffer">下载更多面板链接</a>
-</h4>
-<p></p>
-<p><strong>注：<a href="/%e5%a4%a7%e7%9b%98%e9%85%8d%e7%bd%ae/mysql.json" rel="">下载文mysql大盘</a>
-</strong></p>
-<p></p>
-<p></p>
-<h2 id="7-设置邮件告警">7、 设置邮件告警</h2>
-<p><strong>1、 修改修 grafana 告警配置文件 告 SMTP 邮箱配置修改邮箱相关的配置，例如下面。重启 grafan 系统。 vim /data/monitor/grafana/conf/defaults.ini</strong></p>
-<p></p>
-<h3 id="2配置通知邮箱-配-在-grafana">2、配置通知邮箱 配 在 grafana</h3>
-<p></p>
-<p></p>
-<p></p>
-<p><strong>关键字： Template variables are not supported in alert queries</strong></p>
-<p><strong>分析： 分 由于Prometheus 告警不支持变量，而模板面板使用了⼤量变量，导致不可使用告警。 解决办法：单独配置个告警的视图，用正则匹配出所有的主机 或者每台主机单独⼀个查询 语句</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-xml" data-lang="xml">(1 - (node_memory_MemAvailable_bytes{instance=&#34;101.133.173.223:9100&#34;} / (node_memory_MemTotal_bytes{instance=&#34;101.133.173.223:9100&#34;})))*100
-</code></pre></td></tr></table>
-</div>
-</div><p></p>
-<p></p>
-<h2 id="8设置其他告警演示设置企业微信群告警">8、设置其他告警，演示设置企业微信群告警</h2>
-<p><strong>注： PrometheusAlert全家桶是开源的运维告警中心消息转发系统,支持主流的监控系统Prometheus,Zabbix,日志系统Graylog和数据可视化系统Grafana发出的预警消息,支持钉钉,微信,华为云短信,腾讯云短信,腾讯云电话,阿里云短信,阿里云电话等</strong></p>
-<p><a href="https://gitee.com/feiyu563/PrometheusAlert" target="_blank" rel="noopener noreffer">gitee项目地址</a>
-  <a href="/package/linux.zip" rel="">下载包</a>
-</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#如果下载不下来，package文件夹中有liunx.zip包</span>
-wget https://github.com/feiyu563/PrometheusAlert/releases/download/v4.4.0/linux.zip
-
-mkdir -p /data/monitor/linux_PrometheusAlert
-
-<span class="c1">#确保解压后文件在/data/monitor/linux_PrometheusAlert夹中</span>
-mv linux.zip /data/monitor/linux_PrometheusAlert/ <span class="o">&amp;&amp;</span> <span class="nb">cd</span> /data/monitor/linux_PrometheusAlert/ <span class="o">&amp;&amp;</span> unzip linux.zip <span class="o">&amp;&amp;</span> <span class="nb">cd</span> linux/ <span class="o">&amp;&amp;</span> mv * ../ <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ../ <span class="o">&amp;&amp;</span> rm -rf linux/
-
-<span class="c1">#运行PrometheusAlert</span>
-<span class="c1"># ./PrometheusAlert (#后台运行请执行 nohup ./PrometheusAlert &amp;)</span>
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="81启动">8.1启动</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">chmod <span class="m">777</span> PrometheusAlert
-
-<span class="nb">cd</span> /data/monitor/linux_PrometheusAlert
-<span class="c1">#创建start.sh脚本</span>
-vim start.sh
-</code></pre></td></tr></table>
-</div>
-</div><p><strong>start.sh脚本内容如下：</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="cp">#!/bin/bash
-</span><span class="cp"></span>nohup /data/monitor/linux_PrometheusAlert/PrometheusAlert <span class="p">&amp;</span>
-</code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">chmod <span class="m">744</span> start.sh
-</code></pre></td></tr></table>
-</div>
-</div><p><strong>注册服务</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#创建启动文件</span>
-vim /etc/systemd/system/PrometheusAlert.service
-</code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>Unit<span class="o">]</span>
-<span class="nv">Description</span><span class="o">=</span>mysqld_exporter service
-<span class="nv">After</span><span class="o">=</span>network.target
-<span class="o">[</span>Service<span class="o">]</span>
-<span class="nv">Type</span><span class="o">=</span>forking
-<span class="nv">WorkingDirectory</span><span class="o">=</span>/data/monitor/linux_PrometheusAlert/
-<span class="nv">ExecStart</span><span class="o">=</span>/data/monitor/linux_PrometheusAlert/start.sh
-<span class="o">[</span>Install<span class="o">]</span>
-<span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
-</code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#设置开机自启</span>
-systemctl daemon-reload
-systemctl <span class="nb">enable</span> PrometheusAlert
-systemctl start PrometheusAlert
-
-<span class="c1">#启动后可使用浏览器打开以下地址查看：http://127.0.0.1:8080</span>
-<span class="c1">#默认登录帐号和密码在conf/app.conf中有配置</span>
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="82-企业微信告警配置">8.2 企业微信告警配置</h3>
-<p>打开企业微信,进入企业微信群中,选择群设置&ndash;&gt;群机器人&ndash;&gt;添加，可参下图：</p>
-<p></p>
-<p></p>
-<p><strong>复制图中的Webhook地址，并填入PrometheusAlert配置文件app.conf中对应配置项即可。</strong></p>
-<p></p>
-<p><strong>企业微信机器人目前支持的markdown语法是如下的子集：</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-markdown" data-lang="markdown">标题 （支持1至6级标题，注意#与文字中间要有空格）
-<span class="gh"># 标题一
-</span><span class="gh"></span><span class="gu">## 标题二
-</span><span class="gu">### 标题三
-</span><span class="gu">#### 标题四
-</span><span class="gu">##### 标题五
-</span><span class="gu">###### 标题六
-</span><span class="gu"></span>
-加粗
-<span class="gs">**bold**</span>
-
-链接
-[<span class="nt">这是一个链接</span>](<span class="na">http://work.weixin.qq.com/api/doc</span>)
-
-行内代码段（暂不支持跨行）
-<span class="sb">`code`</span>
-
-引用
-<span class="k">&gt; </span><span class="ge">引用文字
-</span><span class="ge"></span>
-字体颜色(只支持3种内置颜色)
-<span class="p">&lt;</span><span class="nt">font</span> <span class="na">color</span><span class="o">=</span><span class="s">&#34;info&#34;</span><span class="p">&gt;</span>绿色<span class="p">&lt;/</span><span class="nt">font</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">font</span> <span class="na">color</span><span class="o">=</span><span class="s">&#34;comment&#34;</span><span class="p">&gt;</span>灰色<span class="p">&lt;/</span><span class="nt">font</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">font</span> <span class="na">color</span><span class="o">=</span><span class="s">&#34;warning&#34;</span><span class="p">&gt;</span>橙红色<span class="p">&lt;/</span><span class="nt">font</span><span class="p">&gt;</span>
-</code></pre></td></tr></table>
-</div>
-</div><p></p>
-<p><strong>测试发送机器人</strong></p>
-<p></p>
-<p></p>
-<h4 id="grafana内置固定消息模版接入配置">grafana（内置固定消息模版）接入配置</h4>
-<p><strong>首先使用管理员或者具有告警配置权限的帐号登录进Grafana管理页面，登录后进入notification channels配置。</strong></p>
-<p></p>
-<p></p>
-<p><strong>注意这里的url地址填写上自己部署所在的url</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">/grafana/dingding  处理Grafana告警消息转发到钉钉接口，可选参数(ddurl)
-/grafana/weixin    处理Grafana告警消息转发到微信接口，可选参数(wxurl)
-/grafana/feishu    处理Grafana告警消息转发到飞书接口，可选参数(fsurl)
-/grafana/txdx      处理Grafana告警消息转发到腾讯云短信接口，可选参数(phone)
-/grafana/txdh      处理Grafana告警消息转发到腾讯云电话接口，可选参数(phone)
-/grafana/hwdx      处理Grafana告警消息转发到华为云短信接口，可选参数(phone)
-/grafana/bddx      处理Grafana告警消息转发到百度云短信接口，可选参数(phone)
-/grafana/alydx     处理Grafana告警消息转发到阿里云短信接口，可选参数(phone)
-/grafana/rlydh     处理Grafana告警消息转发到容联云电话接口，可选参数(phone)
-/grafana/email     处理Grafana告警消息转发到email接口，可选参数(email)
-/grafana/tg        处理Grafana告警消息转发到telegram接口
-/grafana/workwechat处理Grafana告警消息转发到企业微信应用接口
-</code></pre></td></tr></table>
-</div>
-</div><p></p>
-<p><strong>效果</strong></p>
-<p></p>
-<h2 id="9参考文档">9.参考文档</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#Prometheus Alert
-https://gitee.com/feiyu563/PrometheusAlert#/feiyu563/PrometheusAlert/blob/master/doc/readme/grafana.md
-
-#grafana创建告警
-https://grafana.com/docs/grafana/latest/alerting/old-alerting/create-alerts/
-</code></pre></td></tr></table>
-</div>
-</div><p>注释：大盘json文件  <a href="/%e5%a4%a7%e7%9b%98%e9%85%8d%e7%bd%ae/%e6%94%bf%e5%8a%a1%e5%be%ae%e4%bf%a1%e5%a4%a7%e7%9b%98.json" rel="">下载</a>
-</p>
-<p><strong>Prometheus常用查询函数 产考连接:https://www.cnblogs.com/xjzyy/p/15346954.html</strong></p>
 ]]></description>
 </item>
 </channel>

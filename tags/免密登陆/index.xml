@@ -1,0 +1,86 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>免密登陆 - 标签 - 在阅读中遇见自己</title>
+        <link>https://freerun.xyz/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/</link>
+        <description>免密登陆 - 标签 - 在阅读中遇见自己</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Wed, 28 Dec 2022 23:12:53 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/" rel="self" type="application/rss+xml" /><item>
+    <title>免密登陆</title>
+    <link>https://freerun.xyz/%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/</link>
+    <pubDate>Wed, 28 Dec 2022 23:12:53 &#43;0800</pubDate>
+    <author>Ylimhs</author>
+    <guid>https://freerun.xyz/%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/</guid>
+    <description><![CDATA[<p><code>ssh-keygen</code>一路回车,主要是用来免密通信的</p>
+<p><code>ssh-copy-id </code>172.16.24.220 需要输入对应主节的root密码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@chm log<span class="o">]</span><span class="c1"># ssh-keygen </span>
+Generating public/private rsa key pair.
+Enter file in which to save the key <span class="o">(</span>/root/.ssh/id_rsa<span class="o">)</span>: 
+Enter passphrase <span class="o">(</span>empty <span class="k">for</span> no passphrase<span class="o">)</span>: 
+Enter same passphrase again: 
+Your identification has been saved in /root/.ssh/id_rsa.
+Your public key has been saved in /root/.ssh/id_rsa.pub.
+The key fingerprint is:
+7f:69:87:cf:28:fe:8b:19:55:a7:d0:c9:aa:6d:05:0c root@chm
+The key<span class="s1">&#39;s randomart image is:
+</span><span class="s1">+--[ RSA 2048]----+
+</span><span class="s1">|          E      |
+</span><span class="s1">|           o o . |
+</span><span class="s1">|            + = .|
+</span><span class="s1">|             = o |
+</span><span class="s1">|        S   o o  |
+</span><span class="s1">|         . + +   |
+</span><span class="s1">|          + B .  |
+</span><span class="s1">|          .B =   |
+</span><span class="s1">|         .+o+.o  |
+</span><span class="s1">+-----------------+
+</span><span class="s1">[root@chm log]# 
+</span><span class="s1">[root@chm log]# ssh-copy-id 172.16.24.220
+</span><span class="s1">/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+</span><span class="s1">/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+</span><span class="s1">root@172.16.24.220&#39;</span>s password: 
+ 
+Number of key<span class="o">(</span>s<span class="o">)</span> added: <span class="m">1</span>
+ 
+Now try logging into the machine, with:   <span class="s2">&#34;ssh &#39;172.16.24.220&#39;&#34;</span>
+and check to make sure that only the key<span class="o">(</span>s<span class="o">)</span> you wanted were added.
+</code></pre></td></tr></table>
+</div>
+</div>]]></description>
+</item>
+</channel>
+</rss>
