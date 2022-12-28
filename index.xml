@@ -4,9 +4,74 @@
         <link>https://freerun.xyz/</link>
         <description>这是我的全新 博客 网站</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
-            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Wed, 28 Dec 2022 23:12:53 &#43;0800</lastBuildDate>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Wed, 28 Dec 2022 23:54:53 &#43;0800</lastBuildDate>
             <atom:link href="https://freerun.xyz/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>VMware 扩展Ubuntu虚拟机的磁盘空间</title>
+    <link>https://freerun.xyz/vmware-%E6%89%A9%E5%B1%95ubuntu%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4/</link>
+    <pubDate>Wed, 28 Dec 2022 23:54:53 &#43;0800</pubDate>
+    <author>Ylimhs</author>
+    <guid>https://freerun.xyz/vmware-%E6%89%A9%E5%B1%95ubuntu%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4/</guid>
+    <description><![CDATA[<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>虚拟机软件版本</td>
+<td>VMware® Workstation 15 Player</td>
+<td></td>
+</tr>
+<tr>
+<td>Ubuntu镜像版本</td>
+<td>Ubuntu 20.04.1 LTS</td>
+<td></td>
+</tr>
+<tr>
+<td>具体操作简介</td>
+<td>将虚拟机磁盘空间由30GB扩展到40GB，并进行磁盘分区</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="1-准备工作">1. 准备工作</h2>
+<p>使用 <code>df -h</code> 指令查看一下磁盘空间的使用情况</p>
+<p></p>
+<p>可以看到，现在挂载的磁盘空间为29G，用了17G，还剩11G。
+下面开始扩展磁盘空间。</p>
+<h2 id="2-编辑虚拟机设置">2. 编辑虚拟机设置</h2>
+<p>打开虚拟机，找到待扩展的虚拟机，点击<code>“编辑虚拟机设置”</code>选项。</p>
+<p></p>
+<p>在虚拟机设置窗口的<code>“硬件”</code>界面，选择<code>“硬盘”</code>选项，点击<code>“扩展”</code>。在弹出来的窗口中，输入你想要扩展到的磁盘空间。我想扩展到40GB，所以就填写了40。</p>
+<p></p>
+<h2 id="3-将ubuntuhttpssocsdnnetsosearchqubuntuspm1001210130017020系统重新分区">3. 将<a href="https://so.csdn.net/so/search?q=Ubuntu&amp;spm=1001.2101.3001.7020" target="_blank" rel="noopener noreffer">Ubuntu</a>
+系统重新分区</h2>
+<p>为了能够更方便地重新分区，可以下载一个分区管理软件<code>GParted</code>
+在虚拟机中打开终端，输入<code>sudo apt-get install gparted</code>指令，安装<code>GParted</code>软件。</p>
+<p>安装完成后，就可以对磁盘进行分区了。
+点击该软件，进行磁盘分区。</p>
+<p></p>
+<p>打开软件后，可以看到目前虚拟机的磁盘情况。</p>
+<p></p>
+<p>可以看到，现在我的虚拟机有一块29.5GB的磁盘<code>/dev/sda5</code>以及一块10GB未分配的磁盘，而且<code>/dev/sda5</code>被挂载到了根目录下。
+现在就可以为<code>/dev/sda5</code>扩展空间了。右键单击<code>/dev/sda2</code>的分区，选择<code>Resize/Move</code>选项</p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p>可以看到，磁盘空间已经变为了39GB</p>
+]]></description>
+</item>
+<item>
     <title>免密登陆</title>
     <link>https://freerun.xyz/%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/</link>
     <pubDate>Wed, 28 Dec 2022 23:12:53 &#43;0800</pubDate>
@@ -5143,30 +5208,6 @@ MS Name/IP address 			Stratum Poll Reach LastRx Last <span class="nv">sample</sp
 </code></pre></td></tr></table>
 </div>
 </div>]]></description>
-</item>
-<item>
-    <title>Linux系统下提示磁盘空间满,但实际占用却很小</title>
-    <link>https://freerun.xyz/linux%E7%B3%BB%E7%BB%9F%E4%B8%8B%E6%8F%90%E7%A4%BA%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E6%BB%A1%E4%BD%86%E5%AE%9E%E9%99%85%E5%8D%A0%E7%94%A8%E5%8D%B4%E5%BE%88%E5%B0%8F/</link>
-    <pubDate>Wed, 16 Mar 2022 20:14:51 &#43;0800</pubDate>
-    <author>Ylimhs</author>
-    <guid>https://freerun.xyz/linux%E7%B3%BB%E7%BB%9F%E4%B8%8B%E6%8F%90%E7%A4%BA%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E6%BB%A1%E4%BD%86%E5%AE%9E%E9%99%85%E5%8D%A0%E7%94%A8%E5%8D%B4%E5%BE%88%E5%B0%8F/</guid>
-    <description><![CDATA[<p>因为公司放在测试服务器上的服务比较多，磁盘经常性会满。以前满过几次，因为时间比较赶，每次只是草率的删掉一点log或者临时文件，到今天早上又发生一起事故，依然是磁盘空间满，看了一下好像没什么东西可以删了，才静下心来慢慢研究解决。</p>
-<p>系统：Ubuntu14.04 x64
-磁盘名称：/data
-磁盘空间：200G</p>
-<h4 id="错误描述">错误描述：</h4>
-<pre><code>今早发现磁盘空间满，服务数据写不进数据库中，使用du -h --max-depth=1命令查看大文件，
-发现文件只占100G，然而使用df -h 命令查看时，磁盘用了200G占用了百分之一百。其中100G的空间莫名其妙就没有了
-</code></pre>
-<h4 id="解决方法">解决方法：</h4>
-<pre><code>用lsof检查后才发现原因是，有文件被删除，而进程还活着，因而造成还占用空间的现象。可以通过命令 lsof |grep deleted 来进行查看
-</code></pre>
-<p></p>
-<p>把这些进程删掉就可以了，批量杀死进程命令</p>
-<p>lsof |grep delete | grep -v grep | awk &lsquo;{print $2}&rsquo; | xargs kill -9</p>
-<p>期间可能会等一段时间，等杀完后，重新 df -h 查看，磁盘空间多出来了87G</p>
-<p></p>
-]]></description>
 </item>
 </channel>
 </rss>

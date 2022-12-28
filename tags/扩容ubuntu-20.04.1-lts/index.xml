@@ -1,0 +1,73 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>扩容Ubuntu 20.04.1 LTS - 标签 - 在阅读中遇见自己</title>
+        <link>https://freerun.xyz/tags/%E6%89%A9%E5%AE%B9ubuntu-20.04.1-lts/</link>
+        <description>扩容Ubuntu 20.04.1 LTS - 标签 - 在阅读中遇见自己</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Wed, 28 Dec 2022 23:54:53 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/tags/%E6%89%A9%E5%AE%B9ubuntu-20.04.1-lts/" rel="self" type="application/rss+xml" /><item>
+    <title>VMware 扩展Ubuntu虚拟机的磁盘空间</title>
+    <link>https://freerun.xyz/vmware-%E6%89%A9%E5%B1%95ubuntu%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4/</link>
+    <pubDate>Wed, 28 Dec 2022 23:54:53 &#43;0800</pubDate>
+    <author>Ylimhs</author>
+    <guid>https://freerun.xyz/vmware-%E6%89%A9%E5%B1%95ubuntu%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4/</guid>
+    <description><![CDATA[<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>虚拟机软件版本</td>
+<td>VMware® Workstation 15 Player</td>
+<td></td>
+</tr>
+<tr>
+<td>Ubuntu镜像版本</td>
+<td>Ubuntu 20.04.1 LTS</td>
+<td></td>
+</tr>
+<tr>
+<td>具体操作简介</td>
+<td>将虚拟机磁盘空间由30GB扩展到40GB，并进行磁盘分区</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="1-准备工作">1. 准备工作</h2>
+<p>使用 <code>df -h</code> 指令查看一下磁盘空间的使用情况</p>
+<p></p>
+<p>可以看到，现在挂载的磁盘空间为29G，用了17G，还剩11G。
+下面开始扩展磁盘空间。</p>
+<h2 id="2-编辑虚拟机设置">2. 编辑虚拟机设置</h2>
+<p>打开虚拟机，找到待扩展的虚拟机，点击<code>“编辑虚拟机设置”</code>选项。</p>
+<p></p>
+<p>在虚拟机设置窗口的<code>“硬件”</code>界面，选择<code>“硬盘”</code>选项，点击<code>“扩展”</code>。在弹出来的窗口中，输入你想要扩展到的磁盘空间。我想扩展到40GB，所以就填写了40。</p>
+<p></p>
+<h2 id="3-将ubuntuhttpssocsdnnetsosearchqubuntuspm1001210130017020系统重新分区">3. 将<a href="https://so.csdn.net/so/search?q=Ubuntu&amp;spm=1001.2101.3001.7020" target="_blank" rel="noopener noreffer">Ubuntu</a>
+系统重新分区</h2>
+<p>为了能够更方便地重新分区，可以下载一个分区管理软件<code>GParted</code>
+在虚拟机中打开终端，输入<code>sudo apt-get install gparted</code>指令，安装<code>GParted</code>软件。</p>
+<p>安装完成后，就可以对磁盘进行分区了。
+点击该软件，进行磁盘分区。</p>
+<p></p>
+<p>打开软件后，可以看到目前虚拟机的磁盘情况。</p>
+<p></p>
+<p>可以看到，现在我的虚拟机有一块29.5GB的磁盘<code>/dev/sda5</code>以及一块10GB未分配的磁盘，而且<code>/dev/sda5</code>被挂载到了根目录下。
+现在就可以为<code>/dev/sda5</code>扩展空间了。右键单击<code>/dev/sda2</code>的分区，选择<code>Resize/Move</code>选项</p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p>可以看到，磁盘空间已经变为了39GB</p>
+]]></description>
+</item>
+</channel>
+</rss>
