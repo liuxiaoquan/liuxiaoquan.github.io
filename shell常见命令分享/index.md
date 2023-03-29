@@ -21,11 +21,17 @@ ifconfig eth0 192.168.60.128 #修改ip
 
 ```shell
 free -m #查看内存
+free -h 
 ```
 
 ![img](/img/1.png)
 
 `主要看第一行Mem 总共 15710 M , 使用了 823 M , 剩余空闲 7895 M 。这个shared 223M 也不知道用在哪里。`
+
+```shell
+#清除缓存
+sudo sync && sudo echo 3 > /proc/sys/vm/drop_caches
+```
 
 ## Linux之间互传文件：
 

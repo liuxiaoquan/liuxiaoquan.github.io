@@ -48,14 +48,26 @@ ping 10.0.0.1 -l <span class="m">65500</span> <span class="c1">#window</span>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-shell" data-lang="shell">free -m <span class="c1">#查看内存</span>
+free -h 
 </code></pre></td></tr></table>
 </div>
 </div><p></p>
 <p><code>主要看第一行Mem 总共 15710 M , 使用了 823 M , 剩余空闲 7895 M 。这个shared 223M 也不知道用在哪里。</code></p>
-<h2 id="linux之间互传文件">Linux之间互传文件：</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#清除缓存</span>
+sudo sync <span class="o">&amp;&amp;</span> sudo <span class="nb">echo</span> <span class="m">3</span> &gt; /proc/sys/vm/drop_caches
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="linux之间互传文件">Linux之间互传文件：</h2>
 <h3 id="本机-远程服务器">本机-&gt;远程服务器</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
