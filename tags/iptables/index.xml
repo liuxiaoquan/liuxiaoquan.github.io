@@ -1,15 +1,207 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>iptables - 标签 - 在阅读中遇见自己</title>
-        <link>https://freerun.xyz/tags/iptables/</link>
+        <link>https://freerun.site/tags/iptables/</link>
         <description>iptables - 标签 - 在阅读中遇见自己</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
-            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Wed, 19 May 2021 15:21:33 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/tags/iptables/" rel="self" type="application/rss+xml" /><item>
-    <title>Centos 7下配置iptables</title>
-    <link>https://freerun.xyz/iptables%E8%A7%84%E5%88%99%E5%88%97%E8%A1%A8/</link>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Thu, 09 May 2024 15:04:42 &#43;0800</lastBuildDate><atom:link href="https://freerun.site/tags/iptables/" rel="self" type="application/rss+xml" /><item>
+    <title>Iptables实战</title>
+    <link>https://freerun.site/iptables%E5%AE%9E%E6%88%98/</link>
+    <pubDate>Thu, 09 May 2024 15:04:42 &#43;0800</pubDate>
+    <author>Ylimhs</author>
+    <guid>https://freerun.site/iptables%E5%AE%9E%E6%88%98/</guid>
+    <description><![CDATA[<p>注意:配置拒接策略时请配置好SSH连接端口，否则一旦配置失误，将无法再远程连接！！！！！</p>
+<p>安装iptables服务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">yum install iptables iptables-services -y
+</code></pre></td></tr></table>
+</div>
+</div><p>启动iptables服务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">service iptables start
+</code></pre></td></tr></table>
+</div>
+</div><p>设置iptables开机自启动</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">systemctl <span class="nb">enable</span> iptables
+</code></pre></td></tr></table>
+</div>
+</div><p>清除iptables所有规则</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">iptables -F
+</code></pre></td></tr></table>
+</div>
+</div><p>添加规则，放开需要放开的端口(这里放开了tcp80端口)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">iptables -A INPUT -p tcp --dport <span class="m">80</span> -j ACCEPT
+</code></pre></td></tr></table>
+</div>
+</div><p>添加规则，允许特定主机访问（这里允许1.1.1.1访问）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">iptables -A INPUT -s 1.1.1.1 -j ACCEPT
+</code></pre></td></tr></table>
+</div>
+</div><p>添加规则，允许特定网段访问（这里允许1.1.1.0/24访问）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">iptables -A INPUT -s 1.1.1.0/24 -j ACCEPT
+</code></pre></td></tr></table>
+</div>
+</div><p>添加规则，拒绝特定网段访问（这里拒绝1.1.1.0/24访问）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">iptables -A INPUT -s 1.1.1.0/24 -j DROP
+</code></pre></td></tr></table>
+</div>
+</div><p>添加规则，允许特定主机访问特定端口（这里允许1.1.1.1访问tcp22端口）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">iptables -A INPUT -s 1.1.1.1 -p tcp --dport <span class="m">22</span> -j ACCEPT
+</code></pre></td></tr></table>
+</div>
+</div><p>查看规则及规则号</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">iptables -nL --line-number
+</code></pre></td></tr></table>
+</div>
+</div><p>删除规则5</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">iptables -D INPUT <span class="m">5</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>插入规则，插入到规则1之前</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">iptables -I INPUT <span class="m">1</span> -p tcp --dport <span class="m">8080</span> -j ACCEPT
+</code></pre></td></tr></table>
+</div>
+</div><p>添加完规则后保存</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">service iptables save
+<span class="c1">#如果没有service可以用以下命令</span>
+sudo iptables-save &gt; /etc/sysconfig/iptables
+</code></pre></td></tr></table>
+</div>
+</div><p>重启iptables服务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">service iptables restart
+<span class="c1">#或者：systemctl restart iptabels</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>#案例：允许192.2.0.2 和 198.3.22.1的访问，其他ip禁止访问
+第一步：放开所有 IP 地址的 SSH 连接，一定要先执行这个，不然远程连接会断开</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">sudo iptables -A INPUT -p tcp --dport <span class="m">22</span> -j ACCEPT 
+</code></pre></td></tr></table>
+</div>
+</div><p>第二步：允许192.2.0.2 和 198.3.22.1的访问</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">iptables -A INPUT -s 192.2.0.2 -j ACCEPT
+iptables -A INPUT -s 198.3.22.1 -j ACCEPT
+</code></pre></td></tr></table>
+</div>
+</div><p>第三步：禁止外部访问本机</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">#禁止INPUT链处理进入本地主机的数据包</span>
+sudo iptables -P INPUT DROP  
+<span class="c1">#禁止本地转发数据包出去，这个可以不用设在</span>
+<span class="c1">#sudo iptables -P FORWARD DROP  </span>
+
+<span class="c1">#放通本地访问外部数据，这个默认开启也不用设置</span>
+<span class="c1">#sudo iptables -P OUTPUT ACCEPT</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>第四步：保存</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">sudo iptables-save &gt; /etc/sysconfig/iptables
+</code></pre></td></tr></table>
+</div>
+</div>]]></description>
+</item>
+<item>
+    <title>Iptables Centos 7</title>
+    <link>https://freerun.site/iptables%E8%A7%84%E5%88%99%E5%88%97%E8%A1%A8/</link>
     <pubDate>Wed, 19 May 2021 15:21:33 &#43;0800</pubDate>
     <author>Ylimhs</author>
-    <guid>https://freerun.xyz/iptables%E8%A7%84%E5%88%99%E5%88%97%E8%A1%A8/</guid>
+    <guid>https://freerun.site/iptables%E8%A7%84%E5%88%99%E5%88%97%E8%A1%A8/</guid>
     <description><![CDATA[<h1 id="1安装iptables">1、安装iptables</h1>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">

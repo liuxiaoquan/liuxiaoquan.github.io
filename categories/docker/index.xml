@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>docker - 分类 - 在阅读中遇见自己</title>
-        <link>https://freerun.xyz/categories/docker/</link>
+        <link>https://freerun.site/categories/docker/</link>
         <description>docker - 分类 - 在阅读中遇见自己</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
-            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Fri, 15 Apr 2022 12:44:39 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/categories/docker/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Fri, 15 Apr 2022 12:44:39 &#43;0800</lastBuildDate><atom:link href="https://freerun.site/categories/docker/" rel="self" type="application/rss+xml" /><item>
     <title>Docker Compose的一些常用命令</title>
-    <link>https://freerun.xyz/docker-compose%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</link>
+    <link>https://freerun.site/docker-compose%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</link>
     <pubDate>Fri, 15 Apr 2022 12:44:39 &#43;0800</pubDate>
     <author>Ylimhs</author>
-    <guid>https://freerun.xyz/docker-compose%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid>
+    <guid>https://freerun.site/docker-compose%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid>
     <description><![CDATA[<h1 id="docker-compose的一些常用命令">Docker-Compose的一些常用命令</h1>
 <h2 id="一docker-compose简介">一、Docker-Compose简介</h2>
 <h3 id="1docker-compose简介">1、Docker-Compose简介</h3>
@@ -877,10 +877,10 @@ docker-compose version
 </item>
 <item>
     <title>Docker版本升级</title>
-    <link>https://freerun.xyz/docker%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7/</link>
+    <link>https://freerun.site/docker%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7/</link>
     <pubDate>Thu, 05 Aug 2021 14:23:32 &#43;0800</pubDate>
     <author>Ylimhs</author>
-    <guid>https://freerun.xyz/docker%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7/</guid>
+    <guid>https://freerun.site/docker%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7/</guid>
     <description><![CDATA[<h3 id="升级背景">升级背景</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1059,10 +1059,10 @@ docker ps -a
 </item>
 <item>
     <title>Docker容器无法stop或kill的解决方法</title>
-    <link>https://freerun.xyz/docker%E5%AE%B9%E5%99%A8%E6%97%A0%E6%B3%95stop%E6%88%96kill%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</link>
+    <link>https://freerun.site/docker%E5%AE%B9%E5%99%A8%E6%97%A0%E6%B3%95stop%E6%88%96kill%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</link>
     <pubDate>Wed, 14 Jul 2021 11:05:31 &#43;0800</pubDate>
     <author>Ylimhs</author>
-    <guid>https://freerun.xyz/docker%E5%AE%B9%E5%99%A8%E6%97%A0%E6%B3%95stop%E6%88%96kill%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</guid>
+    <guid>https://freerun.site/docker%E5%AE%B9%E5%99%A8%E6%97%A0%E6%B3%95stop%E6%88%96kill%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</guid>
     <description><![CDATA[<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1

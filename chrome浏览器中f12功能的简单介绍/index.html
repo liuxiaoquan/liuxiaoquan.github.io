@@ -7,17 +7,17 @@
         <title>Chrome浏览器中F12功能的简单介绍 - 在阅读中遇见自己</title><meta name="Description" content="这是我的全新 博客 网站"><meta property="og:title" content="Chrome浏览器中F12功能的简单介绍" />
 <meta property="og:description" content="由于F12是前端开发人员的利器，所以我自己也在不断摸索中，查看一些博客和资料后，自己总结了一下来帮助自己理解和记忆 首先介绍Chrome开发者" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://freerun.xyz/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" /><meta property="og:image" content="https://freerun.xyz/favicon.jpg"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://freerun.site/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" /><meta property="og:image" content="https://freerun.site/favicon.jpg"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-05-27T14:24:40&#43;08:00" />
 <meta property="article:modified_time" content="2021-05-27T14:24:40&#43;08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://freerun.xyz/favicon.jpg"/>
+<meta name="twitter:image" content="https://freerun.site/favicon.jpg"/>
 
 <meta name="twitter:title" content="Chrome浏览器中F12功能的简单介绍"/>
 <meta name="twitter:description" content="由于F12是前端开发人员的利器，所以我自己也在不断摸索中，查看一些博客和资料后，自己总结了一下来帮助自己理解和记忆 首先介绍Chrome开发者"/>
 <meta name="application-name" content="我的网站">
-<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/favicon.jpg"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://freerun.xyz/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" /><link rel="prev" href="https://freerun.xyz/centos%E5%8D%87%E7%BA%A7sudo%E7%89%88%E6%9C%AC-%E8%A7%A3%E5%86%B3sudo%E6%9D%83%E9%99%90%E7%BB%95%E8%BF%87%E6%BC%8F%E6%B4%9E-%E4%BF%AE%E5%A4%8D%E5%A0%86%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E/" /><link rel="next" href="https://freerun.xyz/centos%E4%B8%AD%E6%8C%82%E8%BD%BDntfs%E4%B8%8Eexfat%E7%9A%84u%E7%9B%98/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/favicon.jpg"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://freerun.site/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" /><link rel="prev" href="https://freerun.site/centos%E5%8D%87%E7%BA%A7sudo%E7%89%88%E6%9C%AC-%E8%A7%A3%E5%86%B3sudo%E6%9D%83%E9%99%90%E7%BB%95%E8%BF%87%E6%BC%8F%E6%B4%9E-%E4%BF%AE%E5%A4%8D%E5%A0%86%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E/" /><link rel="next" href="https://freerun.site/centos%E4%B8%AD%E6%8C%82%E8%BD%BDntfs%E4%B8%8Eexfat%E7%9A%84u%E7%9B%98/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -25,9 +25,9 @@
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/freerun.xyz\/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D\/"
-        },"image": ["https:\/\/freerun.xyz\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Chrome","wordcount":  1990 ,
-        "url": "https:\/\/freerun.xyz\/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D\/","datePublished": "2021-05-27T14:24:40+08:00","dateModified": "2021-05-27T14:24:40+08:00","publisher": {
+            "@id": "https:\/\/freerun.site\/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D\/"
+        },"image": ["https:\/\/freerun.site\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Chrome","wordcount":  1990 ,
+        "url": "https:\/\/freerun.site\/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D\/","datePublished": "2021-05-27T14:24:40+08:00","dateModified": "2021-05-27T14:24:40+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -384,7 +384,7 @@
                             <a class="link-to-markdown" href="/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://freerun.xyz/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" data-title="Chrome浏览器中F12功能的简单介绍" data-hashtags="Chrome"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://freerun.xyz/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" data-title="Chrome浏览器中F12功能的简单介绍"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://freerun.xyz/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" data-title="Chrome浏览器中F12功能的简单介绍"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@6.20.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://freerun.xyz/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" data-title="Chrome浏览器中F12功能的简单介绍"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://freerun.site/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" data-title="Chrome浏览器中F12功能的简单介绍" data-hashtags="Chrome"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://freerun.site/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" data-title="Chrome浏览器中F12功能的简单介绍"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://freerun.site/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" data-title="Chrome浏览器中F12功能的简单介绍"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@6.20.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://freerun.site/chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%ADf12%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/" data-title="Chrome浏览器中F12功能的简单介绍"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -404,7 +404,7 @@
             </noscript></div></article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.82.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2020 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuxiaoquan/free-programming-books-zh_CN" target="_blank">Ylimhs</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2020 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuxiaoquan/free-programming-books-zh_CN" target="_blank">Ylimhs</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

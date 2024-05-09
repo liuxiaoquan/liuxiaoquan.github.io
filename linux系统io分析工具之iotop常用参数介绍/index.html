@@ -7,17 +7,17 @@
         <title>Linux系统IO分析工具之iotop常用参数介绍 - 在阅读中遇见自己</title><meta name="Description" content="这是我的全新 博客 网站"><meta property="og:title" content="Linux系统IO分析工具之iotop常用参数介绍" />
 <meta property="og:description" content="Linux系统IO分析工具之iotop常用参数介绍 在一般运维工作中经常会遇到这么一个场景，服务器的IO负载很高（iostat中的util），" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://freerun.xyz/linux%E7%B3%BB%E7%BB%9Fio%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E4%B9%8Biotop%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D/" /><meta property="og:image" content="https://freerun.xyz/favicon.jpg"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://freerun.site/linux%E7%B3%BB%E7%BB%9Fio%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E4%B9%8Biotop%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D/" /><meta property="og:image" content="https://freerun.site/favicon.jpg"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-05-18T14:15:06&#43;08:00" />
 <meta property="article:modified_time" content="2021-05-18T14:15:06&#43;08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://freerun.xyz/favicon.jpg"/>
+<meta name="twitter:image" content="https://freerun.site/favicon.jpg"/>
 
 <meta name="twitter:title" content="Linux系统IO分析工具之iotop常用参数介绍"/>
 <meta name="twitter:description" content="Linux系统IO分析工具之iotop常用参数介绍 在一般运维工作中经常会遇到这么一个场景，服务器的IO负载很高（iostat中的util），"/>
 <meta name="application-name" content="我的网站">
-<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/favicon.jpg"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://freerun.xyz/linux%E7%B3%BB%E7%BB%9Fio%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E4%B9%8Biotop%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D/" /><link rel="prev" href="https://freerun.xyz/github%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7%E6%95%B4%E7%90%86/" /><link rel="next" href="https://freerun.xyz/iptables%E8%A7%84%E5%88%99%E5%88%97%E8%A1%A8/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/favicon.jpg"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://freerun.site/linux%E7%B3%BB%E7%BB%9Fio%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E4%B9%8Biotop%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D/" /><link rel="prev" href="https://freerun.site/github%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7%E6%95%B4%E7%90%86/" /><link rel="next" href="https://freerun.site/iptables%E8%A7%84%E5%88%99%E5%88%97%E8%A1%A8/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -25,9 +25,9 @@
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/freerun.xyz\/linux%E7%B3%BB%E7%BB%9Fio%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E4%B9%8Biotop%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D\/"
-        },"image": ["https:\/\/freerun.xyz\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "linux, io","wordcount":  989 ,
-        "url": "https:\/\/freerun.xyz\/linux%E7%B3%BB%E7%BB%9Fio%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E4%B9%8Biotop%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D\/","datePublished": "2021-05-18T14:15:06+08:00","dateModified": "2021-05-18T14:15:06+08:00","publisher": {
+            "@id": "https:\/\/freerun.site\/linux%E7%B3%BB%E7%BB%9Fio%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E4%B9%8Biotop%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D\/"
+        },"image": ["https:\/\/freerun.site\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "linux, io","wordcount":  989 ,
+        "url": "https:\/\/freerun.site\/linux%E7%B3%BB%E7%BB%9Fio%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E4%B9%8Biotop%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D\/","datePublished": "2021-05-18T14:15:06+08:00","dateModified": "2021-05-18T14:15:06+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -290,7 +290,7 @@
                             <a class="link-to-markdown" href="/linux%E7%B3%BB%E7%BB%9Fio%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E4%B9%8Biotop%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://freerun.xyz/linux%E7%B3%BB%E7%BB%9Fio%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E4%B9%8Biotop%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D/" data-title="Linux系统IO分析工具之iotop常用参数介绍" data-hashtags="linux,io"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://freerun.xyz/linux%E7%B3%BB%E7%BB%9Fio%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E4%B9%8Biotop%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D/" data-title="Linux系统IO分析工具之iotop常用参数介绍"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://freerun.xyz/linux%E7%B3%BB%E7%BB%9Fio%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E4%B9%8Biotop%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D/" data-title="Linux系统IO分析工具之iotop常用参数介绍"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@6.20.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://freerun.xyz/linux%E7%B3%BB%E7%BB%9Fio%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E4%B9%8Biotop%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D/" data-title="Linux系统IO分析工具之iotop常用参数介绍"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://freerun.site/linux%E7%B3%BB%E7%BB%9Fio%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E4%B9%8Biotop%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D/" data-title="Linux系统IO分析工具之iotop常用参数介绍" data-hashtags="linux,io"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://freerun.site/linux%E7%B3%BB%E7%BB%9Fio%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E4%B9%8Biotop%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D/" data-title="Linux系统IO分析工具之iotop常用参数介绍"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://freerun.site/linux%E7%B3%BB%E7%BB%9Fio%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E4%B9%8Biotop%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D/" data-title="Linux系统IO分析工具之iotop常用参数介绍"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@6.20.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://freerun.site/linux%E7%B3%BB%E7%BB%9Fio%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E4%B9%8Biotop%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D/" data-title="Linux系统IO分析工具之iotop常用参数介绍"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -303,14 +303,14 @@
     </div>
 
     <div class="post-nav"><a href="/github%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7%E6%95%B4%E7%90%86/" class="prev" rel="prev" title="GitHub搜索技巧整理"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>GitHub搜索技巧整理</a>
-            <a href="/iptables%E8%A7%84%E5%88%99%E5%88%97%E8%A1%A8/" class="next" rel="next" title="Centos 7下配置iptables">Centos 7下配置iptables<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+            <a href="/iptables%E8%A7%84%E5%88%99%E5%88%97%E8%A1%A8/" class="next" rel="next" title="Iptables Centos 7">Iptables Centos 7<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 <div id="comments"><div id="valine" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.82.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2020 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuxiaoquan/free-programming-books-zh_CN" target="_blank">Ylimhs</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2020 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuxiaoquan/free-programming-books-zh_CN" target="_blank">Ylimhs</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

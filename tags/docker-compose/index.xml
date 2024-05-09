@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>docker-compose - 标签 - 在阅读中遇见自己</title>
-        <link>https://freerun.xyz/tags/docker-compose/</link>
+        <link>https://freerun.site/tags/docker-compose/</link>
         <description>docker-compose - 标签 - 在阅读中遇见自己</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
-            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Fri, 15 Apr 2022 12:44:39 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/tags/docker-compose/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Fri, 15 Apr 2022 12:44:39 &#43;0800</lastBuildDate><atom:link href="https://freerun.site/tags/docker-compose/" rel="self" type="application/rss+xml" /><item>
     <title>Docker Compose的一些常用命令</title>
-    <link>https://freerun.xyz/docker-compose%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</link>
+    <link>https://freerun.site/docker-compose%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</link>
     <pubDate>Fri, 15 Apr 2022 12:44:39 &#43;0800</pubDate>
     <author>Ylimhs</author>
-    <guid>https://freerun.xyz/docker-compose%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid>
+    <guid>https://freerun.site/docker-compose%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid>
     <description><![CDATA[<h1 id="docker-compose的一些常用命令">Docker-Compose的一些常用命令</h1>
 <h2 id="一docker-compose简介">一、Docker-Compose简介</h2>
 <h3 id="1docker-compose简介">1、Docker-Compose简介</h3>

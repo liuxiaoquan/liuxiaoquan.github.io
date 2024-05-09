@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>yum - 标签 - 在阅读中遇见自己</title>
-        <link>https://freerun.xyz/tags/yum/</link>
+        <link>https://freerun.site/tags/yum/</link>
         <description>yum - 标签 - 在阅读中遇见自己</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
-            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Mon, 30 May 2022 11:45:21 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/tags/yum/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Mon, 30 May 2022 11:45:21 &#43;0800</lastBuildDate><atom:link href="https://freerun.site/tags/yum/" rel="self" type="application/rss+xml" /><item>
     <title>Centos 7挂载本地yum源</title>
-    <link>https://freerun.xyz/centos-7%E6%8C%82%E8%BD%BD%E6%9C%AC%E5%9C%B0yum%E6%BA%90/</link>
+    <link>https://freerun.site/centos-7%E6%8C%82%E8%BD%BD%E6%9C%AC%E5%9C%B0yum%E6%BA%90/</link>
     <pubDate>Mon, 30 May 2022 11:45:21 &#43;0800</pubDate>
     <author>Ylimhs</author>
-    <guid>https://freerun.xyz/centos-7%E6%8C%82%E8%BD%BD%E6%9C%AC%E5%9C%B0yum%E6%BA%90/</guid>
+    <guid>https://freerun.site/centos-7%E6%8C%82%E8%BD%BD%E6%9C%AC%E5%9C%B0yum%E6%BA%90/</guid>
     <description><![CDATA[<h1 id="1检查yum源">1、检查yum源</h1>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">

@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>git - 分类 - 在阅读中遇见自己</title>
-        <link>https://freerun.xyz/categories/git/</link>
+        <link>https://freerun.site/categories/git/</link>
         <description>git - 分类 - 在阅读中遇见自己</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
-            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Tue, 11 May 2021 14:36:54 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/categories/git/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Tue, 11 May 2021 14:36:54 &#43;0800</lastBuildDate><atom:link href="https://freerun.site/categories/git/" rel="self" type="application/rss+xml" /><item>
     <title>GitHub搜索技巧整理</title>
-    <link>https://freerun.xyz/github%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7%E6%95%B4%E7%90%86/</link>
+    <link>https://freerun.site/github%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7%E6%95%B4%E7%90%86/</link>
     <pubDate>Tue, 11 May 2021 14:36:54 &#43;0800</pubDate>
     <author>Ylimhs</author>
-    <guid>https://freerun.xyz/github%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7%E6%95%B4%E7%90%86/</guid>
+    <guid>https://freerun.site/github%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7%E6%95%B4%E7%90%86/</guid>
     <description><![CDATA[<h1 id="github搜索技巧整理">GitHub搜索技巧整理</h1>
 <p>github作为全球最大的开源软件项目托管平台，相信很多程序员都在使用，不仅仅是因为它可以免费的作为我们公有或者私有的代码仓库，更因为github上面有大量的开源学习项目或资源，秉着开源自由的理念，吸引了大量的个人或者企业开发者。</p>
 <p>那么面对如此海量的代码仓库，如何才能在众多的资源中搜索出更优秀，更符合自己需求的项目呢？</p>
@@ -153,10 +153,10 @@
 </item>
 <item>
     <title>Ping Github.io结果为127.0.0 的问题分析及解决办法</title>
-    <link>https://freerun.xyz/ping-github.io%E7%BB%93%E6%9E%9C%E4%B8%BA127.0.0.1%E7%9A%84%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
+    <link>https://freerun.site/ping-github.io%E7%BB%93%E6%9E%9C%E4%B8%BA127.0.0.1%E7%9A%84%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
     <pubDate>Thu, 06 May 2021 14:33:23 &#43;0800</pubDate>
     <author>Ylimhs</author>
-    <guid>https://freerun.xyz/ping-github.io%E7%BB%93%E6%9E%9C%E4%B8%BA127.0.0.1%E7%9A%84%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
+    <guid>https://freerun.site/ping-github.io%E7%BB%93%E6%9E%9C%E4%B8%BA127.0.0.1%E7%9A%84%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
     <description><![CDATA[<h3 id="定位问题">定位问题</h3>
 <p>使用window命令<code>ping rowkey.cn</code>查看网络是否通，ping到的结果是：<code>127.0.0.1</code>。</p>
 <p>大家都知道TCP/IP 在设计之初，被IP地址分为A类，B类，C类，D类及私有地址，而127.0.0.1就属于私有地址。众所周知，私有地址无论如何是不会映射到公网域名，如果ping某个域名返回的是私有地址，那么只有一种可能，要么DNS的解析出现问题，要么本地Host将域名映射不到某个私有地址。</p>

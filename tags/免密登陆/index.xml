@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>免密登陆 - 标签 - 在阅读中遇见自己</title>
-        <link>https://freerun.xyz/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/</link>
+        <link>https://freerun.site/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/</link>
         <description>免密登陆 - 标签 - 在阅读中遇见自己</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
-            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Wed, 28 Dec 2022 23:12:53 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Wed, 28 Dec 2022 23:12:53 &#43;0800</lastBuildDate><atom:link href="https://freerun.site/tags/%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/" rel="self" type="application/rss+xml" /><item>
     <title>免密登陆</title>
-    <link>https://freerun.xyz/%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/</link>
+    <link>https://freerun.site/%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/</link>
     <pubDate>Wed, 28 Dec 2022 23:12:53 &#43;0800</pubDate>
     <author>Ylimhs</author>
-    <guid>https://freerun.xyz/%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/</guid>
+    <guid>https://freerun.site/%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/</guid>
     <description><![CDATA[<p><code>ssh-keygen</code>一路回车,主要是用来免密通信的</p>
 <p><code>ssh-copy-id </code>172.16.24.220 需要输入对应主节的root密码</p>
 <div class="highlight"><div class="chroma">

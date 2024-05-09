@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>liunx - 标签 - 在阅读中遇见自己</title>
-        <link>https://freerun.xyz/tags/liunx/</link>
+        <link>https://freerun.site/tags/liunx/</link>
         <description>liunx - 标签 - 在阅读中遇见自己</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
-            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Wed, 16 Mar 2022 20:14:51 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/tags/liunx/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Wed, 16 Mar 2022 20:14:51 &#43;0800</lastBuildDate><atom:link href="https://freerun.site/tags/liunx/" rel="self" type="application/rss+xml" /><item>
     <title>Linux系统下提示磁盘空间满,但实际占用却很小</title>
-    <link>https://freerun.xyz/linux%E7%B3%BB%E7%BB%9F%E4%B8%8B%E6%8F%90%E7%A4%BA%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E6%BB%A1%E4%BD%86%E5%AE%9E%E9%99%85%E5%8D%A0%E7%94%A8%E5%8D%B4%E5%BE%88%E5%B0%8F/</link>
+    <link>https://freerun.site/linux%E7%B3%BB%E7%BB%9F%E4%B8%8B%E6%8F%90%E7%A4%BA%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E6%BB%A1%E4%BD%86%E5%AE%9E%E9%99%85%E5%8D%A0%E7%94%A8%E5%8D%B4%E5%BE%88%E5%B0%8F/</link>
     <pubDate>Wed, 16 Mar 2022 20:14:51 &#43;0800</pubDate>
     <author>Ylimhs</author>
-    <guid>https://freerun.xyz/linux%E7%B3%BB%E7%BB%9F%E4%B8%8B%E6%8F%90%E7%A4%BA%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E6%BB%A1%E4%BD%86%E5%AE%9E%E9%99%85%E5%8D%A0%E7%94%A8%E5%8D%B4%E5%BE%88%E5%B0%8F/</guid>
+    <guid>https://freerun.site/linux%E7%B3%BB%E7%BB%9F%E4%B8%8B%E6%8F%90%E7%A4%BA%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E6%BB%A1%E4%BD%86%E5%AE%9E%E9%99%85%E5%8D%A0%E7%94%A8%E5%8D%B4%E5%BE%88%E5%B0%8F/</guid>
     <description><![CDATA[<p>因为公司放在测试服务器上的服务比较多，磁盘经常性会满。以前满过几次，因为时间比较赶，每次只是草率的删掉一点log或者临时文件，到今天早上又发生一起事故，依然是磁盘空间满，看了一下好像没什么东西可以删了，才静下心来慢慢研究解决。</p>
 <p>系统：Ubuntu14.04 x64
 磁盘名称：/data

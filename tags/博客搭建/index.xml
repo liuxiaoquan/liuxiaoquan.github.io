@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>博客搭建 - 标签 - 在阅读中遇见自己</title>
-        <link>https://freerun.xyz/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</link>
+        <link>https://freerun.site/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</link>
         <description>博客搭建 - 标签 - 在阅读中遇见自己</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
-            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Mon, 16 May 2022 15:03:29 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Mon, 16 May 2022 15:03:29 &#43;0800</lastBuildDate><atom:link href="https://freerun.site/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="self" type="application/rss+xml" /><item>
     <title>LoveIt主题美化与博客功能增强 第一章</title>
-    <link>https://freerun.xyz/loveit%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96%E4%B8%8E%E5%8D%9A%E5%AE%A2%E5%8A%9F%E8%83%BD%E5%A2%9E%E5%BC%BA-%E7%AC%AC%E4%B8%80%E7%AB%A0/</link>
+    <link>https://freerun.site/loveit%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96%E4%B8%8E%E5%8D%9A%E5%AE%A2%E5%8A%9F%E8%83%BD%E5%A2%9E%E5%BC%BA-%E7%AC%AC%E4%B8%80%E7%AB%A0/</link>
     <pubDate>Mon, 16 May 2022 15:03:29 &#43;0800</pubDate>
     <author>Ylimhs</author>
-    <guid>https://freerun.xyz/loveit%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96%E4%B8%8E%E5%8D%9A%E5%AE%A2%E5%8A%9F%E8%83%BD%E5%A2%9E%E5%BC%BA-%E7%AC%AC%E4%B8%80%E7%AB%A0/</guid>
+    <guid>https://freerun.site/loveit%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96%E4%B8%8E%E5%8D%9A%E5%AE%A2%E5%8A%9F%E8%83%BD%E5%A2%9E%E5%BC%BA-%E7%AC%AC%E4%B8%80%E7%AB%A0/</guid>
     <description><![CDATA[<h1 id="loveit主题美化与博客功能增强-第一章">LoveIt主题美化与博客功能增强 第一章</h1>
 <h2 id="前言">前言</h2>
 <p>本博客使用的是Hugo的LoveIt主题，本文也是基于该主题而写的，不过Hugo的美化步骤应该大同小异，版本如下：</p>
@@ -76,7 +76,7 @@ LoveIt: v0.2.10
 <pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;script type=&#34;text/javascript&#34; src=&#34;https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js&#34;&gt;&lt;/script&gt;
 
 {{- /* 自定义的js文件 */ -}}
-&lt;script type=&#34;text/javascript&#34; src=&#34;https://freerun.xyz/js/custom.js&#34;&gt;&lt;/script&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;https://freerun.site/js/custom.js&#34;&gt;&lt;/script&gt;
 </code></pre></td></tr></table>
 </div>
 </div><p>如果有其他的JavaScript文件要引入，加在一样的地方就行，但是要放在自定义的<code>custom.js</code>之前。这是我的<a href="https://cdn.jsdelivr.net/gh/lewky/lewky.github.io@master/js/custom.js" target="_blank" rel="noopener noreffer">custom.js文件</a>
@@ -1495,10 +1495,10 @@ border-animation=&#34;shadow&#34;
 </item>
 <item>
     <title>LoveIt主题配置与使用</title>
-    <link>https://freerun.xyz/loveit%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/</link>
+    <link>https://freerun.site/loveit%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/</link>
     <pubDate>Thu, 12 May 2022 21:48:15 &#43;0800</pubDate>
     <author>Ylimhs</author>
-    <guid>https://freerun.xyz/loveit%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/</guid>
+    <guid>https://freerun.site/loveit%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/</guid>
     <description><![CDATA[<h1 id="hugo-loveit主题配置与使用">Hugo LoveIt主题配置与使用</h1>
 <h2 id="1-安装主题">1. 安装主题</h2>
 <p>把这个主题克隆到 <code>themes</code> 目录:</p>
@@ -3441,10 +3441,10 @@ border-animation=&#34;shadow&#34;
 </item>
 <item>
     <title>如何给不同theme的Hugo添加评论系统gitalk</title>
-    <link>https://freerun.xyz/%E5%A6%82%E4%BD%95%E7%BB%99%E4%B8%8D%E5%90%8Ctheme%E7%9A%84hugo%E6%B7%BB%E5%8A%A0%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9Fgitalk/</link>
+    <link>https://freerun.site/%E5%A6%82%E4%BD%95%E7%BB%99%E4%B8%8D%E5%90%8Ctheme%E7%9A%84hugo%E6%B7%BB%E5%8A%A0%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9Fgitalk/</link>
     <pubDate>Thu, 29 Apr 2021 15:45:54 &#43;0800</pubDate>
     <author>Ylimhs</author>
-    <guid>https://freerun.xyz/%E5%A6%82%E4%BD%95%E7%BB%99%E4%B8%8D%E5%90%8Ctheme%E7%9A%84hugo%E6%B7%BB%E5%8A%A0%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9Fgitalk/</guid>
+    <guid>https://freerun.site/%E5%A6%82%E4%BD%95%E7%BB%99%E4%B8%8D%E5%90%8Ctheme%E7%9A%84hugo%E6%B7%BB%E5%8A%A0%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9Fgitalk/</guid>
     <description><![CDATA[<p><a href="https://gitalk.github.io/" target="_blank" rel="noopener noreffer">gitalk 官方demo环境</a>
            <a href="https://github.com/gitalk/gitalk" target="_blank" rel="noopener noreffer">gitalk github地址</a>
 </p>
@@ -3763,10 +3763,10 @@ gitalk.render(&#39;gitalk-container&#39;)
 </item>
 <item>
     <title>hugo搭建</title>
-    <link>https://freerun.xyz/hugo/</link>
+    <link>https://freerun.site/hugo/</link>
     <pubDate>Mon, 26 Apr 2021 00:27:10 &#43;0800</pubDate>
     <author>Ylimhs</author>
-    <guid>https://freerun.xyz/hugo/</guid>
+    <guid>https://freerun.site/hugo/</guid>
     <description><![CDATA[<h1 id="brew">brew</h1>
 <p><a href="https://brew.sh/" target="_blank" rel="noopener noreffer">文档</a>
 </p>

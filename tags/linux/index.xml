@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>linux - 标签 - 在阅读中遇见自己</title>
-        <link>https://freerun.xyz/tags/linux/</link>
+        <link>https://freerun.site/tags/linux/</link>
         <description>linux - 标签 - 在阅读中遇见自己</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
-            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Sat, 18 Sep 2021 15:19:40 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/tags/linux/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Sat, 18 Sep 2021 15:19:40 &#43;0800</lastBuildDate><atom:link href="https://freerun.site/tags/linux/" rel="self" type="application/rss+xml" /><item>
     <title>Linux扩容home目录</title>
-    <link>https://freerun.xyz/linux%E6%89%A9%E5%AE%B9home%E7%9B%AE%E5%BD%95/</link>
+    <link>https://freerun.site/linux%E6%89%A9%E5%AE%B9home%E7%9B%AE%E5%BD%95/</link>
     <pubDate>Sat, 18 Sep 2021 15:19:40 &#43;0800</pubDate>
     <author>Ylimhs</author>
-    <guid>https://freerun.xyz/linux%E6%89%A9%E5%AE%B9home%E7%9B%AE%E5%BD%95/</guid>
+    <guid>https://freerun.site/linux%E6%89%A9%E5%AE%B9home%E7%9B%AE%E5%BD%95/</guid>
     <description><![CDATA[<p>机器装了一块新硬盘, 先使用sudo fdisk -l看看新添加的硬盘叫什么, 我的叫sdb接下来按照这篇文章操作即可, 该文章新挂载的硬盘叫sdb1, 注意替换成自己的硬盘名</p>
 <p>注释：先使用<code>sudo fdisk -l</code>看看新添加的硬盘叫什么,我的叫sdb1</p>
 <div class="highlight"><div class="chroma">
@@ -288,10 +288,10 @@ UUID=8da46012-ab9c-434f-a855-2484112fd1a7 /home ext4 nodev,nosuid 0 2</p>
 </item>
 <item>
     <title>Top命令详解</title>
-    <link>https://freerun.xyz/top%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</link>
+    <link>https://freerun.site/top%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</link>
     <pubDate>Wed, 09 Jun 2021 11:17:50 &#43;0800</pubDate>
     <author>Ylimhs</author>
-    <guid>https://freerun.xyz/top%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</guid>
+    <guid>https://freerun.site/top%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</guid>
     <description><![CDATA[<p>top命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的任务管理器。</p>
 <p>下面详细介绍它的使用方法。top是一个动态显示过程,即可以通过用户按键来不断刷新当前状态.如果在前台执行该命令,它将独占前台,直到用户终止该程序为止.比较准确的说,top命令提供了实时的对系统处理器的状态监视.它将显示系统中CPU最“敏感”的任务列表.该命令可以按CPU使用.内存使用和执行时间对任务进行排序；而且该命令的很多特性都可以通过交互式命令或者在个人定制文件中进行设定.</p>
 <h2 id="1命令格式"><strong>1．命令格式：</strong></h2>
@@ -789,10 +789,10 @@ W 将当前设置写入~/.toprc文件中
 </item>
 <item>
     <title>Linux系统IO分析工具之iotop常用参数介绍</title>
-    <link>https://freerun.xyz/linux%E7%B3%BB%E7%BB%9Fio%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E4%B9%8Biotop%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D/</link>
+    <link>https://freerun.site/linux%E7%B3%BB%E7%BB%9Fio%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E4%B9%8Biotop%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D/</link>
     <pubDate>Tue, 18 May 2021 14:15:06 &#43;0800</pubDate>
     <author>Ylimhs</author>
-    <guid>https://freerun.xyz/linux%E7%B3%BB%E7%BB%9Fio%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E4%B9%8Biotop%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D/</guid>
+    <guid>https://freerun.site/linux%E7%B3%BB%E7%BB%9Fio%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E4%B9%8Biotop%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D/</guid>
     <description><![CDATA[<h1 id="linux系统io分析工具之iotop常用参数介绍">Linux系统IO分析工具之iotop常用参数介绍</h1>
 <p>在一般运维工作中经常会遇到这么一个场景，服务器的IO负载很高（iostat中的util），但是无法快速的定位到IO负载的来源进程和来源文件导致无法进行相应的策略来解决问题。</p>
 <p>　　Windows操作系统可以通过鲁大师等硬盘检测工具来查看硬盘读写速度，那么linux下测试硬盘IO读写情况怎么看?iotop是linux系统下测试硬盘IO读写的工具，简单的说,iotop是一个用来监视磁盘I/O使用状况的 top 类工具，可监测到哪一个程序使用的磁盘IO的信息（requires 2.6.20 or later)</p>
@@ -918,10 +918,10 @@ W 将当前设置写入~/.toprc文件中
 </item>
 <item>
     <title>Nslookup命令详解</title>
-    <link>https://freerun.xyz/nslookup%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</link>
+    <link>https://freerun.site/nslookup%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</link>
     <pubDate>Thu, 06 May 2021 12:01:27 &#43;0800</pubDate>
     <author>Ylimhs</author>
-    <guid>https://freerun.xyz/nslookup%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</guid>
+    <guid>https://freerun.site/nslookup%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</guid>
     <description><![CDATA[<p><code>nslookup命令用于**查询DNS的记录，查看域名解析是否正常，在网络故障的时候用来诊断网络问题。** nslookup的用法相对来说还是蛮简单的，主要是下面的几个用法。</code></p>
 <h2 id="1直接查询"><strong>1、直接查询</strong></h2>
 <p><code>这个可能大家用到最多，查询一个域名的A记录。</code></p>

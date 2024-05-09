@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>扩容Ubuntu 20.04.1 LTS - 标签 - 在阅读中遇见自己</title>
-        <link>https://freerun.xyz/tags/%E6%89%A9%E5%AE%B9ubuntu-20.04.1-lts/</link>
+        <link>https://freerun.site/tags/%E6%89%A9%E5%AE%B9ubuntu-20.04.1-lts/</link>
         <description>扩容Ubuntu 20.04.1 LTS - 标签 - 在阅读中遇见自己</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
-            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Wed, 28 Dec 2022 23:54:53 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/tags/%E6%89%A9%E5%AE%B9ubuntu-20.04.1-lts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Wed, 28 Dec 2022 23:54:53 &#43;0800</lastBuildDate><atom:link href="https://freerun.site/tags/%E6%89%A9%E5%AE%B9ubuntu-20.04.1-lts/" rel="self" type="application/rss+xml" /><item>
     <title>VMware 扩展Ubuntu虚拟机的磁盘空间</title>
-    <link>https://freerun.xyz/vmware-%E6%89%A9%E5%B1%95ubuntu%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4/</link>
+    <link>https://freerun.site/vmware-%E6%89%A9%E5%B1%95ubuntu%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4/</link>
     <pubDate>Wed, 28 Dec 2022 23:54:53 &#43;0800</pubDate>
     <author>Ylimhs</author>
-    <guid>https://freerun.xyz/vmware-%E6%89%A9%E5%B1%95ubuntu%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4/</guid>
+    <guid>https://freerun.site/vmware-%E6%89%A9%E5%B1%95ubuntu%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4/</guid>
     <description><![CDATA[<table>
 <thead>
 <tr>

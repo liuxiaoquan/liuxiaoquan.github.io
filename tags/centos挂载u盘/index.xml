@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>centos挂载U盘 - 标签 - 在阅读中遇见自己</title>
-        <link>https://freerun.xyz/tags/centos%E6%8C%82%E8%BD%BDu%E7%9B%98/</link>
+        <link>https://freerun.site/tags/centos%E6%8C%82%E8%BD%BDu%E7%9B%98/</link>
         <description>centos挂载U盘 - 标签 - 在阅读中遇见自己</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
-            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Thu, 03 Jun 2021 16:47:07 &#43;0800</lastBuildDate><atom:link href="https://freerun.xyz/tags/centos%E6%8C%82%E8%BD%BDu%E7%9B%98/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Thu, 03 Jun 2021 16:47:07 &#43;0800</lastBuildDate><atom:link href="https://freerun.site/tags/centos%E6%8C%82%E8%BD%BDu%E7%9B%98/" rel="self" type="application/rss+xml" /><item>
     <title>Centos中挂载NTFS与exFAT的U盘</title>
-    <link>https://freerun.xyz/centos%E4%B8%AD%E6%8C%82%E8%BD%BDntfs%E4%B8%8Eexfat%E7%9A%84u%E7%9B%98/</link>
+    <link>https://freerun.site/centos%E4%B8%AD%E6%8C%82%E8%BD%BDntfs%E4%B8%8Eexfat%E7%9A%84u%E7%9B%98/</link>
     <pubDate>Thu, 03 Jun 2021 16:47:07 &#43;0800</pubDate>
     <author>Ylimhs</author>
-    <guid>https://freerun.xyz/centos%E4%B8%AD%E6%8C%82%E8%BD%BDntfs%E4%B8%8Eexfat%E7%9A%84u%E7%9B%98/</guid>
+    <guid>https://freerun.site/centos%E4%B8%AD%E6%8C%82%E8%BD%BDntfs%E4%B8%8Eexfat%E7%9A%84u%E7%9B%98/</guid>
     <description><![CDATA[<h1 id="1认识挂载">1、认识挂载：</h1>
 <p>（1）Linux的宗旨是一切皆文件，从以上我们也看到。我们存储的所有文件都在sda3下存放着，sda3也就是我们的根。那我们要在sda5中写入文件时，首先要sda5要与sda3先建立一个联系，这个联系就是一个目录。建立联系的过程我们叫做<strong>挂载</strong>。 （2）当我们访问sda3底下的这个目录的时候，实际上我们访问的才是sda5这个设备文件。这个目录相当于一个访问sda5的入口，可以理解为一个接口，有了这个接口才可以访问这个磁盘。</p>
 <h1 id="2磁盘的挂载">2、磁盘的挂载：</h1>
