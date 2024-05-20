@@ -24,7 +24,9 @@ mount -a
 
 **只有lvm(逻辑卷才能扩容)，下图意思是：有9块物理硬盘，其中有6块硬盘组成一个卷组，然后这个卷组了20g给逻辑卷用：物理卷（PV）、卷组（VG）和逻辑卷（LV）**
 
-<img src="/img/分区.jpg" style="zoom:50%;" />
+<img src="/img/245612.png" style="zoom:50%;" />
+
+![](/img/245612.png)
 
 ### pvcreate 创建物理卷
 
