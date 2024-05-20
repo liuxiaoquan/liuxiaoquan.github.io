@@ -43,7 +43,6 @@ mount -a
 </div><h2 id="2新磁盘创建卷组与逻辑卷并且挂载home目录">2、新磁盘创建卷组与逻辑卷并且挂载/home目录</h2>
 <p><strong>只有lvm(逻辑卷才能扩容)，下图意思是：有9块物理硬盘，其中有6块硬盘组成一个卷组，然后这个卷组了20g给逻辑卷用：物理卷（PV）、卷组（VG）和逻辑卷（LV）</strong></p>
 <p></p>
-<p></p>
 <h3 id="pvcreate-创建物理卷">pvcreate 创建物理卷</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
