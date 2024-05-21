@@ -8,6 +8,10 @@
 
 **b站引用视频** [24块盘做RAID0有多快？这是我见过的最疯狂的RAID0设置！](https://www.bilibili.com/video/BV1zT411h7Pc/?spm_id_from=333.337.search-card.all.click&vd_source=dfc9151afc27edbf042d631b174f89b5 "磁盘阵列")
 
+**知乎引用博文**  [Windows10系统无需阵列卡组建RAID0、RAID1、RAID5方法](https://zhuanlan.zhihu.com/p/669932103 "windows10磁盘阵列) 
+
+
+
 ------
 
 
