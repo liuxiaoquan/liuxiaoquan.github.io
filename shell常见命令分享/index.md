@@ -235,14 +235,31 @@ brace　　　　　　　　　　　　　　　　　 # reboot重启生效
 echo -n "demo.com" | md5sum 
 ```
 
-
-
 ## 释放内存
 
 ```shell
 free -h #查询内存
 sync   #落盘
 echo 3 >/proc/sys/vm/drop_caches #释放缓存
+```
+
+## 大文件上传到linux服务器解决方法
+``背景：有些堡垒上传文件到服务器有限制文件上传大小的限制，比如说只能上传10G，解决方法入下。``
+
+1、首先第一步骤，压缩多个压缩文件，如下图
+
+![image-20210721145922404](/image/34343432.png)
+
+2、上传到服务
+
+3、然后执行：unrar e  big_pag.part1.rar
+
+[unrar的rpm安装包，使用rpm -ivh 安装](/package/unrar-5.4.0-1.el7.x86_64.rpm)
+
+```shell
+# md5sum unrar-5.4.0-1.el7.x86_64.rpm 
+5bf3243649e36d199a24e722d5037561  unrar-5.4.0-1.el7.x86_64.rpm
+
 ```
 
 

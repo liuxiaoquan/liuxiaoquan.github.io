@@ -2,19 +2,19 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://freerun.site/categories/</loc><lastmod>2024-05-21T21:45:19&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://freerun.site/posts/</loc><lastmod>2024-05-21T21:45:19&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://freerun.site/tags/raid/</loc><lastmod>2024-05-21T21:45:19&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://freerun.site/tags/</loc><lastmod>2024-05-21T21:45:19&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://freerun.site/windows11%E4%B8%AD%E7%BB%84%E5%BB%BAraid-10/</loc><lastmod>2024-05-21T21:45:19&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://freerun.site/</loc><lastmod>2024-05-21T21:45:19&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://freerun.site/categories/%E7%A1%AC%E4%BB%B6/</loc><lastmod>2024-05-21T21:45:19&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://freerun.site/tags/linux/</loc><lastmod>2024-05-20T16:48:38&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://freerun.site/liunx%E7%B3%BB%E7%BB%9F%E5%88%86%E5%8C%BA%E4%B8%8E%E6%89%A9%E5%AE%B9/</loc><lastmod>2024-05-20T16:48:38&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://freerun.site/tags/lvmpvvg/</loc><lastmod>2024-05-20T16:48:38&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://freerun.site/categories/%E8%BF%90%E7%BB%B4/</loc><lastmod>2024-05-20T16:48:38&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://freerun.site/tags/iptables/</loc><lastmod>2024-05-09T15:04:42&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
-            <loc>https://freerun.site/iptables%E5%AE%9E%E6%88%98/</loc><lastmod>2024-05-09T15:04:42&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
+            <loc>https://freerun.site/categories/</loc><lastmod>2024-05-21T21:45:19&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://freerun.site/posts/</loc><lastmod>2024-05-21T21:45:19&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://freerun.site/tags/raid/</loc><lastmod>2024-05-21T21:45:19&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://freerun.site/tags/</loc><lastmod>2024-05-21T21:45:19&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://freerun.site/windows11%E4%B8%AD%E7%BB%84%E5%BB%BAraid-10/</loc><lastmod>2024-05-21T21:45:19&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://freerun.site/</loc><lastmod>2024-05-21T21:45:19&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://freerun.site/categories/%E7%A1%AC%E4%BB%B6/</loc><lastmod>2024-05-21T21:45:19&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://freerun.site/tags/linux/</loc><lastmod>2024-05-20T16:48:38&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://freerun.site/liunx%E7%B3%BB%E7%BB%9F%E5%88%86%E5%8C%BA%E4%B8%8E%E6%89%A9%E5%AE%B9/</loc><lastmod>2024-05-20T16:48:38&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://freerun.site/tags/lvmpvvg/</loc><lastmod>2024-05-20T16:48:38&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://freerun.site/categories/%E8%BF%90%E7%BB%B4/</loc><lastmod>2024-05-20T16:48:38&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://freerun.site/tags/iptables/</loc><lastmod>2024-05-09T15:04:42&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://freerun.site/iptables%E5%AE%9E%E6%88%98/</loc><lastmod>2024-05-09T15:04:42&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://freerun.site/%E4%B9%B0%E6%88%BF%E5%8E%BB%E5%94%AE%E6%A5%BC%E9%83%A8%E6%80%8E%E4%B9%88%E9%97%AE/</loc><lastmod>2023-02-15T13:05:56&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://freerun.site/tags/%E8%B4%AD%E6%88%BF/</loc><lastmod>2023-02-15T13:05:56&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://freerun.site/categories/%E8%B4%AD%E6%88%BF/</loc><lastmod>2023-02-15T13:05:56&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
