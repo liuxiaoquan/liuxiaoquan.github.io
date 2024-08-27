@@ -4,9 +4,139 @@
         <link>https://freerun.site/</link>
         <description>这是我的全新 博客 网站</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>823715972@qq.com (Ylimhs)</managingEditor>
-            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Tue, 21 May 2024 21:45:19 &#43;0800</lastBuildDate>
+            <webMaster>823715972@qq.com (Ylimhs)</webMaster><lastBuildDate>Tue, 27 Aug 2024 14:53:33 &#43;0800</lastBuildDate>
             <atom:link href="https://freerun.site/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>kibana-6.8.4 arm环境下编辑安装</title>
+    <link>https://freerun.site/kibana/</link>
+    <pubDate>Tue, 27 Aug 2024 14:53:33 &#43;0800</pubDate>
+    <author>Ylimhs</author>
+    <guid>https://freerun.site/kibana/</guid>
+    <description><![CDATA[<ul>
+<li>环境：centos7    aarch64架构</li>
+</ul>
+<h2 id="安装依赖">安装依赖</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">yum install net-tools passwd  java java-devel vim wget -y
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="解决方法如下">解决方法如下</h2>
+<p>wget的链接需要魔法才能下载，在这提供一个下载好的部署包</p>
+<p><a href="/package/node-v10.15.2-linux-arm64.tar.gz" rel="">node-v10.15.2-linux-arm64.tar.gz</a>
+</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#下载kibana安装包</span>
+wget https://artifacts.elastic.co/downloads/kibana/kibana-6.8.4-linux-x86_64.tar.gz
+
+<span class="c1">#解压</span>
+tar -xf kibana-6.8.4-linux-x86_64.tar.gz
+ 
+<span class="c1">#查看node</span>
+<span class="o">[</span>root@b156873121b1 node<span class="o">]</span><span class="c1"># cd /opt/kibana-6.8.4-linux-x86_64/node</span>
+<span class="o">[</span>root@b156873121b1 node<span class="o">]</span><span class="c1"># file ./bin/node</span>
+./bin/node: ELF 64-bit LSB executable, x86-64, version <span class="m">1</span> <span class="o">(</span>GNU/Linux<span class="o">)</span>, dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, <span class="k">for</span> GNU/Linux 2.6.18, BuildID<span class="o">[</span>sha1<span class="o">]=</span>f135ef59856912584f7b9668f5ff750135716af3, with debug_info, not stripped
+
+<span class="c1">#删除node</span>
+<span class="o">[</span>root@b156873121b1 kibana-6.8.4-linux-x86_64<span class="o">]</span><span class="c1"># rm -rf node</span>
+
+<span class="c1">#下载arm架构的node</span>
+<span class="o">[</span>root@b156873121b1 kibana-6.8.4-linux-x86_64<span class="o">]</span>$ wget https://nodejs.org/dist/v10.15.2/node-v10.15.2-linux-arm64.tar.gz
+<span class="o">[</span>root@b156873121b1 kibana-6.8.4-linux-x86_64<span class="o">]</span>$ tar -xf node-v10.15.2-linux-arm64.tar.gz 
+<span class="o">[</span>root@b156873121b1 kibana-6.8.4-linux-x86_64<span class="o">]</span>$ mv node-v10.15.2-linux-arm64 node
+
+-----------------------------------------------------------------------
+<span class="c1">#修改kibana配置文件,vim config/kibana.yml</span>
+
+server.port: <span class="m">5601</span>
+server.host: <span class="s2">&#34;0.0.0.0&#34;</span>
+<span class="c1"># 这里要配置kibana的基础路径</span>
+server.basePath: <span class="s2">&#34;/kibana&#34;</span>
+elasticsearch.hosts: <span class="o">[</span><span class="s2">&#34;http://10.21.232.131:9200&#34;</span><span class="o">]</span>
+kibana.index: <span class="s2">&#34;.kibana&#34;</span>
+elasticsearch.username: <span class="s2">&#34;user&#34;</span>
+elasticsearch.password: <span class="s2">&#34;passworod&#34;</span>
+i18n.locale: <span class="s2">&#34;zh-CN&#34;</span>
+-----------------------------------------------------------------------
+
+<span class="c1">#创建账号</span>
+<span class="c1">#kibana默认禁止root启动，需要创建账号</span>
+useradd <span class="nb">test</span>
+passwd <span class="nb">test</span>
+usermod -G test:test
+chown -R test:test /opt/kibana-6.8.4-linux-x86_64
+
+<span class="o">[</span>root@b156873121b1 kibana-6.8.4-linux-x86_64<span class="o">]</span><span class="c1"># su test</span>
+<span class="o">[</span>test@b156873121b1 kibana-6.8.4-linux-x86_64<span class="o">]</span>$ 
+<span class="o">[</span>test@b156873121b1 kibana-6.8.4-linux-x86_64<span class="o">]</span>$ nohub ./bin/kibana <span class="p">&amp;</span>
+<span class="o">[</span>root@b156873121b1 /<span class="o">]</span><span class="c1"># netstat -nltp</span>
+Active Internet connections <span class="o">(</span>only servers<span class="o">)</span>
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
+tcp        <span class="m">0</span>      <span class="m">0</span> 0.0.0.0:5601            0.0.0.0:*               LISTEN      398/./bin/../node/b 
+tcp        <span class="m">0</span>      <span class="m">0</span> 127.0.0.1:9200          0.0.0.0:*               LISTEN      155/java            
+tcp        <span class="m">0</span>      <span class="m">0</span> 127.0.0.1:9300          0.0.0.0:*               LISTEN      155/java  
+
+</code></pre></td></tr></table>
+</div>
+</div>]]></description>
+</item>
+<item>
     <title>Windows11中组建RAID 10</title>
     <link>https://freerun.site/windows11%E4%B8%AD%E7%BB%84%E5%BB%BAraid-10/</link>
     <pubDate>Tue, 21 May 2024 21:45:19 &#43;0800</pubDate>
@@ -2615,29 +2745,6 @@ border-animation=&#34;shadow&#34;
 <li><a href="https://www.jianshu.com/p/d0c8c3de8233" target="_blank" rel="noopener noreffer">使用fuse.js进行搜索</a>
 </li>
 </ul>]]></description>
-</item>
-<item>
-    <title>免费图标</title>
-    <link>https://freerun.site/%E5%85%8D%E8%B4%B9%E5%9B%BE%E6%A0%87/</link>
-    <pubDate>Mon, 16 May 2022 14:29:09 &#43;0800</pubDate>
-    <author>Ylimhs</author>
-    <guid>https://freerun.site/%E5%85%8D%E8%B4%B9%E5%9B%BE%E6%A0%87/</guid>
-    <description><![CDATA[<h1 id="介绍">介绍</h1>
-<p>免费图标类列表名称及其 CSS 内容值代码</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">&#39;fa fa-cloud&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
-</code></pre></td></tr></table>
-</div>
-</div><h1 id="参考wiki">参考wiki</h1>
-<p><a href="https://www.angularjswiki.com/fontawesome/arrows/" target="_blank" rel="noopener noreffer">angularjswiki</a>
-</p>
-<p><a href="https://fontawesome.com/v4/icon/cloud" target="_blank" rel="noopener noreffer">fontawesome</a>
-</p>
-]]></description>
 </item>
 </channel>
 </rss>
